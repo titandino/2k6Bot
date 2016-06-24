@@ -5690,6 +5690,159 @@ public class Client extends RSApplet {
 		}
 		return i != 1;
 	}
+	
+	public int findPathDistance(int objectRotation, int objectSizeY, int objectType, int startY, int objectSizeX, int targetSurrounding, int endY, int startX, boolean flag, int endX) {
+		byte byte0 = 104;
+		byte byte1 = 104;
+		for (int l2 = 0; l2 < byte0; l2++) {
+			for (int i3 = 0; i3 < byte1; i3++) {
+				anIntArrayArray901[l2][i3] = 0;
+				anIntArrayArray825[l2][i3] = 0x5f5e0ff;
+			}
+
+		}
+
+		int j3 = startX;
+		int k3 = startY;
+		anIntArrayArray901[startX][startY] = 99;
+		anIntArrayArray825[startX][startY] = 0;
+		int l3 = 0;
+		int currentStepCount = 0;
+		bigX[l3] = startX;
+		bigY[l3++] = startY;
+		boolean foundDestination = false;
+		int j4 = bigX.length;
+		int ai[][] = aClass11Array1230[plane].anIntArrayArray294;
+		while (currentStepCount != l3) {
+			j3 = bigX[currentStepCount];
+			k3 = bigY[currentStepCount];
+			currentStepCount = (currentStepCount + 1) % j4;
+			if (j3 == endX && k3 == endY) {
+				foundDestination = true;
+				break;
+			}
+			if (objectType != 0) {
+				if ((objectType < 5 || objectType == 10) && aClass11Array1230[plane].method219(endX, j3, k3, objectRotation, objectType - 1, endY)) {
+					foundDestination = true;
+					break;
+				}
+				if (objectType < 10 && aClass11Array1230[plane].method220(endX, endY, k3, objectType - 1, objectRotation, j3)) {
+					foundDestination = true;
+					break;
+				}
+			}
+			if (objectSizeX != 0 && objectSizeY != 0 && aClass11Array1230[plane].method221(endY, endX, j3, objectSizeY, targetSurrounding, objectSizeX, k3)) {
+				foundDestination = true;
+				break;
+			}
+			int l4 = anIntArrayArray825[j3][k3] + 1;
+			if (j3 > 0 && anIntArrayArray901[j3 - 1][k3] == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0) {
+				bigX[l3] = j3 - 1;
+				bigY[l3] = k3;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3 - 1][k3] = 2;
+				anIntArrayArray825[j3 - 1][k3] = l4;
+			}
+			if (j3 < byte0 - 1 && anIntArrayArray901[j3 + 1][k3] == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0) {
+				bigX[l3] = j3 + 1;
+				bigY[l3] = k3;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3 + 1][k3] = 8;
+				anIntArrayArray825[j3 + 1][k3] = l4;
+			}
+			if (k3 > 0 && anIntArrayArray901[j3][k3 - 1] == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
+				bigX[l3] = j3;
+				bigY[l3] = k3 - 1;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3][k3 - 1] = 1;
+				anIntArrayArray825[j3][k3 - 1] = l4;
+			}
+			if (k3 < byte1 - 1 && anIntArrayArray901[j3][k3 + 1] == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
+				bigX[l3] = j3;
+				bigY[l3] = k3 + 1;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3][k3 + 1] = 4;
+				anIntArrayArray825[j3][k3 + 1] = l4;
+			}
+			if (j3 > 0 && k3 > 0 && anIntArrayArray901[j3 - 1][k3 - 1] == 0 && (ai[j3 - 1][k3 - 1] & 0x128010e) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
+				bigX[l3] = j3 - 1;
+				bigY[l3] = k3 - 1;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3 - 1][k3 - 1] = 3;
+				anIntArrayArray825[j3 - 1][k3 - 1] = l4;
+			}
+			if (j3 < byte0 - 1 && k3 > 0 && anIntArrayArray901[j3 + 1][k3 - 1] == 0 && (ai[j3 + 1][k3 - 1] & 0x1280183) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
+				bigX[l3] = j3 + 1;
+				bigY[l3] = k3 - 1;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3 + 1][k3 - 1] = 9;
+				anIntArrayArray825[j3 + 1][k3 - 1] = l4;
+			}
+			if (j3 > 0 && k3 < byte1 - 1 && anIntArrayArray901[j3 - 1][k3 + 1] == 0 && (ai[j3 - 1][k3 + 1] & 0x1280138) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
+				bigX[l3] = j3 - 1;
+				bigY[l3] = k3 + 1;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3 - 1][k3 + 1] = 6;
+				anIntArrayArray825[j3 - 1][k3 + 1] = l4;
+			}
+			if (j3 < byte0 - 1 && k3 < byte1 - 1 && anIntArrayArray901[j3 + 1][k3 + 1] == 0 && (ai[j3 + 1][k3 + 1] & 0x12801e0) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
+				bigX[l3] = j3 + 1;
+				bigY[l3] = k3 + 1;
+				l3 = (l3 + 1) % j4;
+				anIntArrayArray901[j3 + 1][k3 + 1] = 12;
+				anIntArrayArray825[j3 + 1][k3 + 1] = l4;
+			}
+		}
+		anInt1264 = 0;
+		if (!foundDestination) {
+			if (flag) {
+				int i5 = 100;
+				for (int k5 = 1; k5 < 2; k5++) {
+					for (int i6 = endX - k5; i6 <= endX + k5; i6++) {
+						for (int l6 = endY - k5; l6 <= endY + k5; l6++)
+							if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
+								i5 = anIntArrayArray825[i6][l6];
+								j3 = i6;
+								k3 = l6;
+								anInt1264 = 1;
+								foundDestination = true;
+							}
+
+					}
+
+					if (foundDestination)
+						break;
+				}
+
+			}
+			if (!foundDestination)
+				return -1;
+		}
+		currentStepCount = 0;
+		bigX[currentStepCount] = j3;
+		bigY[currentStepCount++] = k3;
+		int l5;
+		for (int j5 = l5 = anIntArrayArray901[j3][k3]; j3 != startX || k3 != startY; j5 = anIntArrayArray901[j3][k3]) {
+			if (j5 != l5) {
+				l5 = j5;
+				bigX[currentStepCount] = j3;
+				bigY[currentStepCount++] = k3;
+			}
+			if ((j5 & 2) != 0)
+				j3++;
+			else if ((j5 & 8) != 0)
+				j3--;
+			if ((j5 & 1) != 0)
+				k3++;
+			else if ((j5 & 4) != 0)
+				k3--;
+		}
+		if (currentStepCount > 0) {
+			return currentStepCount;
+		} else {
+			return 0;
+		}
+	}
 
 	private void method86(Stream stream) {
 		for (int j = 0; j < anInt893; j++) {
