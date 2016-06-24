@@ -64,8 +64,9 @@ public class VarrockOaks extends Script {
 		g2d.setFont(new Font("System", 1, 20));
 		g2d.drawString("Trent's Deforester", 15, 20);
 		g2d.setFont(new Font("System", 1, 16));
-		g2d.drawString("Oaks p/h: " + Bot.getFormattedLootPerHour(logsCut, 0, startTime), 15, 45);
-		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.WOODCUTTING, startXp, startTime), 15, 65);
+		g2d.drawString("Oaks p/h: " + Bot.getFormattedLootPerHour(logsCut, 0, startTime), 15, 40);
+		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.WOODCUTTING, startXp, startTime), 15, 60);
+		g2d.drawString("Time: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 80);
 		g2d.setFont(new Font("System", 1, 10));
 		g2d.drawString("Stage: " + stage, 15, 95);
 		g.drawImage(bufferedImage, 0, 0, null);

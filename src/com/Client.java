@@ -5846,10 +5846,10 @@ public class Client extends RSApplet {
 			numberSteps += Utils.distance(last, curr);
 			last = new Tile(walkingQueueX[i], walkingQueueY[i]);
 		}
-		if (numberSteps > 0) {
+		if (numberSteps >= 0) {
 			return numberSteps;
 		} else {
-			return 0;
+			return -1;
 		}
 	}
 
