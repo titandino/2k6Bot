@@ -406,6 +406,18 @@ public class Bot {
 		}
 	}
 	
+	public static void findAndPickupItems(int distance, String... items) throws InterruptedException {
+		for (int i = 0;i < items.length;i++) {
+			while (Bot.findGroundItem(items[i], distance) != null) {
+				if (Bot.getInventory().freeSlots() <= 0)
+					break;
+				Tile drop = Bot.findGroundItem(items[i], distance);
+				Bot.pickupDrop(drop.getZ(), drop.getX(), drop.getY());
+				Thread.sleep(1000);
+			}
+		}
+	}
+	
 	public static void findAndPickupItems(int... items) throws InterruptedException {
 		for (int i = 0;i < items.length;i++) {
 			while (Bot.findGroundItem(items[i]) != null) {
