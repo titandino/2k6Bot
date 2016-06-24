@@ -2794,6 +2794,13 @@ public class Client extends RSApplet {
 			}
 
 	}
+	
+	void mouseWheelDragged(int i, int j) {
+		if (!mouseWheelDown)
+			return;
+		this.anInt1186 += i * 3;
+		this.anInt1187 += (j << 1);
+	}
 
 	private void resetImageProducers() {
 		if (aRSImageProducer_1107 != null)
