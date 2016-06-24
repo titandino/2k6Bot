@@ -39,16 +39,28 @@ public class Combat extends Script {
 	public void run() {
 		super.run();
 		try {
+			
+			if (Bot.getInventory().freeSlots() == 0) {
+				Bot.clickClosestWorldObject("bank booth");
+				stage = "Banking";
+				Thread.sleep(3000);
+					for (int i = 0; i <= 27; i++) {
+						Bot.depositItem(Bot.getInventory().getItem(i));
+						if (Bot.getInventory().freeSlots() == 28);
+							break;
+					}
+			}
+			
 			if (Bot.getInventory().contains(526, 1))
 				Bot.clickItem(526);
-			//if (args.length > 1)
-			//	Bot.findAndPickupItems(args);
-			Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes");
-			if (!Bot.myPlayerInCombat()) {
+			Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
+			
+			if (!Bot.myPlayerInCombat() && Bot.getInventory().freeSlots() > 0) {
 				stage = "Attacking shit";
 				Bot.attackNPC(args[1].replace("_", " "));
 				Thread.sleep(3000);
 			}
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
