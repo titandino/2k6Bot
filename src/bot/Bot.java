@@ -417,11 +417,13 @@ public class Bot {
 	public static int getXp(int idx) {
 		return clientt.currentExp[idx];
 	}
-
-	public static void bankAllItems() throws Exception {
-		for (int i = 0; i < RSInterface.interfaceCache[3214].items.length; i++) {
-			depositItem(RSInterface.interfaceCache[3214].items[i] - 1, i);
-		}
+	
+	public static void depositItem(int id) {
+		depositItem(id, getInventory().getSlotByItem(id));
+	}
+	
+	public static void depositAllBySlot(int slot) {
+		depositItem(getInventory().getItem(slot), slot);
 	}
 	
 	public static void findAndPickupItems(String... items) throws InterruptedException {
@@ -460,7 +462,7 @@ public class Bot {
 		}
 	}
 
-	public static void depositItem(int paramInt1, int paramInt2) throws Exception {
+	public static void depositItem(int paramInt1, int paramInt2) {
 		clientt.stream.createFrame(129);
 		clientt.stream.method432(paramInt2);
 		clientt.stream.writeWord(5064);
@@ -468,7 +470,7 @@ public class Bot {
 		clientt.writeStream();
 	}
 
-	public static void widthdrawItem10(int paramInt1, int paramInt2) throws Exception {
+	public static void widthdrawItem10(int paramInt1, int paramInt2) {
 		clientt.stream.createFrame(43);
 		clientt.stream.method431(5382);
 		clientt.stream.method432(paramInt1);

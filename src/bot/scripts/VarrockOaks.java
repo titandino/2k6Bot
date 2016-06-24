@@ -34,8 +34,8 @@ public class VarrockOaks extends Script {
 				if (Bot.getInventory().freeSlots() <= 0) {
 					stage = "Banking";
 					Bot.clickClosestWorldObject("bank booth");
-					Thread.sleep(1200);
-					Bot.bankAllItems();
+					Thread.sleep(3000);
+					Bot.depositAllBySlot(1);
 				} else {
 					if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
 						stage = "Getting level 15";

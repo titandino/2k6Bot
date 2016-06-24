@@ -30,7 +30,7 @@ public class PureEss extends Script {
 				stage = "Banking";
 				Bot.getClosestWorldObject(2213);
 				Thread.sleep(2000);
-				Bot.bankAllItems();
+				Bot.depositAllBySlot(1);
 				Thread.sleep(500);
 				
 			
