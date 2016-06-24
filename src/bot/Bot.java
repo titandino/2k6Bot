@@ -269,11 +269,7 @@ public class Bot {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
 				if (obj != null && (obj.uid >> 14 & 0x7fff) != id)
 					continue;
-<<<<<<< HEAD
-				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x, y);
-=======
 				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
->>>>>>> 5eb888f8a6162916991dd8e72816cf98992ecfee
 			}
 		}
 		return objects;
@@ -286,18 +282,12 @@ public class Bot {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
 				if (obj != null && (ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id)))
 					continue;
-<<<<<<< HEAD
-				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x, y);
-=======
 				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
->>>>>>> 5eb888f8a6162916991dd8e72816cf98992ecfee
 			}
 		}
 		return objects;
 	}
-	
-<<<<<<< HEAD
-=======
+
 	public static void itemOnObject(int itemId, int objectId, int x, int y) {
 		clientt.stream.createFrame(192);
 		clientt.stream.writeWord(3214);
@@ -318,7 +308,6 @@ public class Bot {
 		clientt.writeStream();
 	}
 	
->>>>>>> 5eb888f8a6162916991dd8e72816cf98992ecfee
 	public static boolean myPlayerInCombat() {
 		return inCombat(Client.myPlayer);
 	}
