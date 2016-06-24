@@ -236,6 +236,19 @@ public class Bot {
 		return (Client.myPlayer.currentHealth/Client.myPlayer.maxHealth)*100;
 	}
 	
+	public static void clickClosestWorldObject(int name) {
+		clickWorldObject(getClosestWorldObject(name));
+	}
+	
+	public static void clickClosestWorldObject(String name) {
+		clickWorldObject(getClosestWorldObject(name));
+	}
+	
+	public static void clickWorldObject(WorldObject object) {
+		if (object != null)
+			Bot.clickObject(object.getId(), object.getX(), object.getY());
+	}
+	
 	public static WorldObject getClosestWorldObject(String id) {
 		Map<Integer, WorldObject> distanceMap = new TreeMap<Integer, WorldObject>();
 		ArrayList<WorldObject> objects = getObjectsNearby(id);

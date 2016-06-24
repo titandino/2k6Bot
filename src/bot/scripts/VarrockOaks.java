@@ -9,14 +9,13 @@ import java.awt.image.BufferedImage;
 import com.Client;
 
 import bot.Bot;
-import bot.utils.WorldObject;
 
 public class VarrockOaks extends Script {
-	
+
 	long startTime;
 	int startXp;
 	int logsCut;
-	
+
 	String stage = "Starting";
 
 	@Override
@@ -26,7 +25,7 @@ public class VarrockOaks extends Script {
 		startXp = Bot.getXp(Bot.WOODCUTTING);
 		return true;
 	}
-	
+
 	@Override
 	public void run() {
 		super.run();
@@ -34,29 +33,18 @@ public class VarrockOaks extends Script {
 			if (Client.myPlayer.anim == -1) {
 				if (Bot.getInventory().freeSlots() <= 0) {
 					stage = "Banking";
-					WorldObject object = Bot.getClosestWorldObject("bank booth");
-					if (object != null) {
-						Bot.clickObject(object.getId(), object.getX(), object.getY());
-						Thread.sleep(1200);
-						Bot.bankAllItems();
-					}
+					Bot.clickClosestWorldObject("bank booth");
+					Thread.sleep(1200);
+					Bot.bankAllItems();
 				}
 				if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
-					//stage = "Getting level 15";
-					WorldObject object = Bot.getClosestWorldObject("tree");
-					if (object != null) {
-						stage = "Cutting "+object;
-						Bot.clickObject(object.getId(), object.getX(), object.getY());
-						Thread.sleep(3000);
-					}
+					stage = "Getting level 15";
+					Bot.clickClosestWorldObject("tree");
+					Thread.sleep(3000);
 				} else {
-					//stage = "chainsaw.exe";
-					WorldObject object = Bot.getClosestWorldObject("oak");
-					if (object != null) {
-						stage = "Cutting "+object;
-						Bot.clickObject(object.getId(), object.getX(), object.getY());
-						Thread.sleep(3000);
-					}
+					stage = "chainsaw.exe";
+					Bot.clickClosestWorldObject("oak");
+					Thread.sleep(3000);
 				}
 			}
 		} catch (Exception e) {
