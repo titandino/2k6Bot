@@ -14,9 +14,12 @@ import javax.sound.sampled.*;
 import com.sign.signlink;
 
 import bot.Bot;
+import bot.utils.Tile;
+import bot.utils.Utils;
 
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.zip.CRC32;
 
 public class Client extends RSApplet {
@@ -405,7 +408,7 @@ public class Client extends RSApplet {
 			worldController.initToNull();
 			System.gc();
 			for (int i = 0; i < 4; i++)
-				aClass11Array1230[i].method210();
+				currentCollisionMap[i].method210();
 
 			for (int l = 0; l < 4; l++) {
 				for (int k1 = 0; k1 < 104; k1++) {
@@ -425,7 +428,7 @@ public class Client extends RSApplet {
 					int k5 = (anIntArray1234[i3] & 0xff) * 64 - baseY;
 					byte abyte0[] = aByteArrayArray1183[i3];
 					if (abyte0 != null)
-						objectManager.method180(abyte0, k5, i4, (anInt1069 - 6) * 8, (anInt1070 - 6) * 8, aClass11Array1230);
+						objectManager.method180(abyte0, k5, i4, (anInt1069 - 6) * 8, (anInt1070 - 6) * 8, currentCollisionMap);
 				}
 
 				for (int j4 = 0; j4 < k2; j4++) {
@@ -448,7 +451,7 @@ public class Client extends RSApplet {
 					if (abyte1 != null) {
 						int l8 = (anIntArray1234[i6] >> 8) * 64 - baseX;
 						int k9 = (anIntArray1234[i6] & 0xff) * 64 - baseY;
-						objectManager.method190(l8, aClass11Array1230, k9, worldController, abyte1);
+						objectManager.method190(l8, currentCollisionMap, k9, worldController, abyte1);
 					}
 				}
 
@@ -467,7 +470,7 @@ public class Client extends RSApplet {
 								for (int l11 = 0; l11 < anIntArray1234.length; l11++) {
 									if (anIntArray1234[l11] != j11 || aByteArrayArray1183[l11] == null)
 										continue;
-									objectManager.method179(i9, l9, aClass11Array1230, k4 * 8, (j10 & 7) * 8, aByteArrayArray1183[l11], (l10 & 7) * 8, j3, j6 * 8);
+									objectManager.method179(i9, l9, currentCollisionMap, k4 * 8, (j10 & 7) * 8, aByteArrayArray1183[l11], (l10 & 7) * 8, j3, j6 * 8);
 									break;
 								}
 
@@ -501,7 +504,7 @@ public class Client extends RSApplet {
 								for (int k12 = 0; k12 < anIntArray1234.length; k12++) {
 									if (anIntArray1234[k12] != j12 || aByteArrayArray1247[k12] == null)
 										continue;
-									objectManager.method183(aClass11Array1230, worldController, k10, j8 * 8, (i12 & 7) * 8, l6, aByteArrayArray1247[k12], (k11 & 7) * 8, i11, j9 * 8);
+									objectManager.method183(currentCollisionMap, worldController, k10, j8 * 8, (i12 & 7) * 8, l6, aByteArrayArray1247[k12], (k11 & 7) * 8, i11, j9 * 8);
 									break;
 								}
 
@@ -514,7 +517,7 @@ public class Client extends RSApplet {
 
 			}
 			stream.createFrame(0);
-			objectManager.method171(aClass11Array1230, worldController);
+			objectManager.method171(currentCollisionMap, worldController);
 			aRSImageProducer_1165.initDrawingArea();
 			stream.createFrame(0);
 			int k3 = ObjectManager.anInt145;
@@ -637,7 +640,7 @@ public class Client extends RSApplet {
 						if (j3 != 22 && j3 != 29 && j3 != 34 && j3 != 36 && j3 != 46 && j3 != 47 && j3 != 48) {
 							byte byte0 = 104;
 							byte byte1 = 104;
-							int ai1[][] = aClass11Array1230[plane].anIntArrayArray294;
+							int ai1[][] = currentCollisionMap[plane].clippingData;
 							for (int i4 = 0; i4 < 10; i4++) {
 								int j4 = (int) (Math.random() * 4D);
 								if (j4 == 0 && k3 > 0 && k3 > k2 - 3 && (ai1[k3 - 1][l3] & 0x1280108) == 0)
@@ -1748,7 +1751,7 @@ public class Client extends RSApplet {
 		unlinkMRUNodes();
 		worldController.initToNull();
 		for (int i = 0; i < 4; i++)
-			aClass11Array1230[i].method210();
+			currentCollisionMap[i].method210();
 
 		System.gc();
 		stopMidi();
@@ -4058,11 +4061,11 @@ public class Client extends RSApplet {
 		intGroundArray = null;
 		byteGroundArray = null;
 		worldController = null;
-		aClass11Array1230 = null;
-		anIntArrayArray901 = null;
-		anIntArrayArray825 = null;
-		bigX = null;
-		bigY = null;
+		currentCollisionMap = null;
+		waypoints = null;
+		distanceValues = null;
+		walkingQueueX = null;
+		walkingQueueY = null;
 		aByteArray912 = null;
 		aRSImageProducer_1163 = null;
 		aRSImageProducer_1164 = null;
@@ -5507,115 +5510,115 @@ public class Client extends RSApplet {
 		byte byte1 = 104;
 		for (int l2 = 0; l2 < byte0; l2++) {
 			for (int i3 = 0; i3 < byte1; i3++) {
-				anIntArrayArray901[l2][i3] = 0;
-				anIntArrayArray825[l2][i3] = 0x5f5e0ff;
+				waypoints[l2][i3] = 0;
+				distanceValues[l2][i3] = 0x5f5e0ff;
 			}
 
 		}
 
 		int j3 = j2;
 		int k3 = j1;
-		anIntArrayArray901[j2][j1] = 99;
-		anIntArrayArray825[j2][j1] = 0;
+		waypoints[j2][j1] = 99;
+		distanceValues[j2][j1] = 0;
 		int l3 = 0;
 		int i4 = 0;
-		bigX[l3] = j2;
-		bigY[l3++] = j1;
+		walkingQueueX[l3] = j2;
+		walkingQueueY[l3++] = j1;
 		boolean flag1 = false;
-		int j4 = bigX.length;
-		int ai[][] = aClass11Array1230[plane].anIntArrayArray294;
+		int j4 = walkingQueueX.length;
+		int ai[][] = currentCollisionMap[plane].clippingData;
 		while (i4 != l3) {
-			j3 = bigX[i4];
-			k3 = bigY[i4];
+			j3 = walkingQueueX[i4];
+			k3 = walkingQueueY[i4];
 			i4 = (i4 + 1) % j4;
 			if (j3 == k2 && k3 == i2) {
 				flag1 = true;
 				break;
 			}
 			if (i1 != 0) {
-				if ((i1 < 5 || i1 == 10) && aClass11Array1230[plane].method219(k2, j3, k3, j, i1 - 1, i2)) {
+				if ((i1 < 5 || i1 == 10) && currentCollisionMap[plane].method219(k2, j3, k3, j, i1 - 1, i2)) {
 					flag1 = true;
 					break;
 				}
-				if (i1 < 10 && aClass11Array1230[plane].method220(k2, i2, k3, i1 - 1, j, j3)) {
+				if (i1 < 10 && currentCollisionMap[plane].method220(k2, i2, k3, i1 - 1, j, j3)) {
 					flag1 = true;
 					break;
 				}
 			}
-			if (k1 != 0 && k != 0 && aClass11Array1230[plane].method221(i2, k2, j3, k, l1, k1, k3)) {
+			if (k1 != 0 && k != 0 && currentCollisionMap[plane].method221(i2, k2, j3, k, l1, k1, k3)) {
 				flag1 = true;
 				break;
 			}
-			int l4 = anIntArrayArray825[j3][k3] + 1;
-			if (j3 > 0 && anIntArrayArray901[j3 - 1][k3] == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0) {
-				bigX[l3] = j3 - 1;
-				bigY[l3] = k3;
+			int l4 = distanceValues[j3][k3] + 1;
+			if (j3 > 0 && waypoints[j3 - 1][k3] == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0) {
+				walkingQueueX[l3] = j3 - 1;
+				walkingQueueY[l3] = k3;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 - 1][k3] = 2;
-				anIntArrayArray825[j3 - 1][k3] = l4;
+				waypoints[j3 - 1][k3] = 2;
+				distanceValues[j3 - 1][k3] = l4;
 			}
-			if (j3 < byte0 - 1 && anIntArrayArray901[j3 + 1][k3] == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0) {
-				bigX[l3] = j3 + 1;
-				bigY[l3] = k3;
+			if (j3 < byte0 - 1 && waypoints[j3 + 1][k3] == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0) {
+				walkingQueueX[l3] = j3 + 1;
+				walkingQueueY[l3] = k3;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 + 1][k3] = 8;
-				anIntArrayArray825[j3 + 1][k3] = l4;
+				waypoints[j3 + 1][k3] = 8;
+				distanceValues[j3 + 1][k3] = l4;
 			}
-			if (k3 > 0 && anIntArrayArray901[j3][k3 - 1] == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-				bigX[l3] = j3;
-				bigY[l3] = k3 - 1;
+			if (k3 > 0 && waypoints[j3][k3 - 1] == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
+				walkingQueueX[l3] = j3;
+				walkingQueueY[l3] = k3 - 1;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3][k3 - 1] = 1;
-				anIntArrayArray825[j3][k3 - 1] = l4;
+				waypoints[j3][k3 - 1] = 1;
+				distanceValues[j3][k3 - 1] = l4;
 			}
-			if (k3 < byte1 - 1 && anIntArrayArray901[j3][k3 + 1] == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-				bigX[l3] = j3;
-				bigY[l3] = k3 + 1;
+			if (k3 < byte1 - 1 && waypoints[j3][k3 + 1] == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
+				walkingQueueX[l3] = j3;
+				walkingQueueY[l3] = k3 + 1;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3][k3 + 1] = 4;
-				anIntArrayArray825[j3][k3 + 1] = l4;
+				waypoints[j3][k3 + 1] = 4;
+				distanceValues[j3][k3 + 1] = l4;
 			}
-			if (j3 > 0 && k3 > 0 && anIntArrayArray901[j3 - 1][k3 - 1] == 0 && (ai[j3 - 1][k3 - 1] & 0x128010e) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-				bigX[l3] = j3 - 1;
-				bigY[l3] = k3 - 1;
+			if (j3 > 0 && k3 > 0 && waypoints[j3 - 1][k3 - 1] == 0 && (ai[j3 - 1][k3 - 1] & 0x128010e) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
+				walkingQueueX[l3] = j3 - 1;
+				walkingQueueY[l3] = k3 - 1;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 - 1][k3 - 1] = 3;
-				anIntArrayArray825[j3 - 1][k3 - 1] = l4;
+				waypoints[j3 - 1][k3 - 1] = 3;
+				distanceValues[j3 - 1][k3 - 1] = l4;
 			}
-			if (j3 < byte0 - 1 && k3 > 0 && anIntArrayArray901[j3 + 1][k3 - 1] == 0 && (ai[j3 + 1][k3 - 1] & 0x1280183) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-				bigX[l3] = j3 + 1;
-				bigY[l3] = k3 - 1;
+			if (j3 < byte0 - 1 && k3 > 0 && waypoints[j3 + 1][k3 - 1] == 0 && (ai[j3 + 1][k3 - 1] & 0x1280183) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
+				walkingQueueX[l3] = j3 + 1;
+				walkingQueueY[l3] = k3 - 1;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 + 1][k3 - 1] = 9;
-				anIntArrayArray825[j3 + 1][k3 - 1] = l4;
+				waypoints[j3 + 1][k3 - 1] = 9;
+				distanceValues[j3 + 1][k3 - 1] = l4;
 			}
-			if (j3 > 0 && k3 < byte1 - 1 && anIntArrayArray901[j3 - 1][k3 + 1] == 0 && (ai[j3 - 1][k3 + 1] & 0x1280138) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-				bigX[l3] = j3 - 1;
-				bigY[l3] = k3 + 1;
+			if (j3 > 0 && k3 < byte1 - 1 && waypoints[j3 - 1][k3 + 1] == 0 && (ai[j3 - 1][k3 + 1] & 0x1280138) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
+				walkingQueueX[l3] = j3 - 1;
+				walkingQueueY[l3] = k3 + 1;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 - 1][k3 + 1] = 6;
-				anIntArrayArray825[j3 - 1][k3 + 1] = l4;
+				waypoints[j3 - 1][k3 + 1] = 6;
+				distanceValues[j3 - 1][k3 + 1] = l4;
 			}
-			if (j3 < byte0 - 1 && k3 < byte1 - 1 && anIntArrayArray901[j3 + 1][k3 + 1] == 0 && (ai[j3 + 1][k3 + 1] & 0x12801e0) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-				bigX[l3] = j3 + 1;
-				bigY[l3] = k3 + 1;
+			if (j3 < byte0 - 1 && k3 < byte1 - 1 && waypoints[j3 + 1][k3 + 1] == 0 && (ai[j3 + 1][k3 + 1] & 0x12801e0) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
+				walkingQueueX[l3] = j3 + 1;
+				walkingQueueY[l3] = k3 + 1;
 				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 + 1][k3 + 1] = 12;
-				anIntArrayArray825[j3 + 1][k3 + 1] = l4;
+				waypoints[j3 + 1][k3 + 1] = 12;
+				distanceValues[j3 + 1][k3 + 1] = l4;
 			}
 		}
-		anInt1264 = 0;
+		arbitraryDestination = 0;
 		if (!flag1) {
 			if (flag) {
 				int i5 = 100;
 				for (int k5 = 1; k5 < 2; k5++) {
 					for (int i6 = k2 - k5; i6 <= k2 + k5; i6++) {
 						for (int l6 = i2 - k5; l6 <= i2 + k5; l6++)
-							if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
-								i5 = anIntArrayArray825[i6][l6];
+							if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && distanceValues[i6][l6] < i5) {
+								i5 = distanceValues[i6][l6];
 								j3 = i6;
 								k3 = l6;
-								anInt1264 = 1;
+								arbitraryDestination = 1;
 								flag1 = true;
 							}
 
@@ -5630,14 +5633,14 @@ public class Client extends RSApplet {
 				return false;
 		}
 		i4 = 0;
-		bigX[i4] = j3;
-		bigY[i4++] = k3;
+		walkingQueueX[i4] = j3;
+		walkingQueueY[i4++] = k3;
 		int l5;
-		for (int j5 = l5 = anIntArrayArray901[j3][k3]; j3 != j2 || k3 != j1; j5 = anIntArrayArray901[j3][k3]) {
+		for (int j5 = l5 = waypoints[j3][k3]; j3 != j2 || k3 != j1; j5 = waypoints[j3][k3]) {
 			if (j5 != l5) {
 				l5 = j5;
-				bigX[i4] = j3;
-				bigY[i4++] = k3;
+				walkingQueueX[i4] = j3;
+				walkingQueueY[i4++] = k3;
 			}
 			if ((j5 & 2) != 0)
 				j3++;
@@ -5655,8 +5658,8 @@ public class Client extends RSApplet {
 			if (k4 > 25)
 				k4 = 25;
 			i4--;
-			int k6 = bigX[i4];
-			int i7 = bigY[i4];
+			int k6 = walkingQueueX[i4];
+			int i7 = walkingQueueY[i4];
 			anInt1288 += k4;
 			if (anInt1288 >= 92) {
 				stream.createFrame(36);
@@ -5676,12 +5679,12 @@ public class Client extends RSApplet {
 				stream.writeWordBigEndian(k4 + k4 + 3);
 			}
 			stream.method433(k6 + baseX);
-			destX = bigX[0];
-			destY = bigY[0];
+			destX = walkingQueueX[0];
+			destY = walkingQueueY[0];
 			for (int j7 = 1; j7 < k4; j7++) {
 				i4--;
-				stream.writeWordBigEndian(bigX[i4] - k6);
-				stream.writeWordBigEndian(bigY[i4] - i7);
+				stream.writeWordBigEndian(walkingQueueX[i4] - k6);
+				stream.writeWordBigEndian(walkingQueueY[i4] - i7);
 			}
 
 			stream.method431(i7 + baseY);
@@ -5692,119 +5695,118 @@ public class Client extends RSApplet {
 	}
 	
 	public int findPathDistance(int objectRotation, int objectSizeY, int objectType, int startY, int objectSizeX, int targetSurrounding, int endY, int startX, boolean flag, int endX) {
-		byte byte0 = 104;
-		byte byte1 = 104;
-		for (int l2 = 0; l2 < byte0; l2++) {
-			for (int i3 = 0; i3 < byte1; i3++) {
-				anIntArrayArray901[l2][i3] = 0;
-				anIntArrayArray825[l2][i3] = 0x5f5e0ff;
+		byte mapSizeX = 104;
+		byte mapSizeY = 104;
+		for (int x = 0; x < mapSizeX; x++) {
+			for (int y = 0; y < mapSizeY; y++) {
+				waypoints[x][y] = 0;
+				distanceValues[x][y] = 0x5f5e0ff;
 			}
 
 		}
-
-		int j3 = startX;
-		int k3 = startY;
-		anIntArrayArray901[startX][startY] = 99;
-		anIntArrayArray825[startX][startY] = 0;
-		int l3 = 0;
-		int currentStepCount = 0;
-		bigX[l3] = startX;
-		bigY[l3++] = startY;
+		int currentX = startX;
+		int currentY = startY;
+		waypoints[startX][startY] = 99;
+		distanceValues[startX][startY] = 0;
+		int nextStepCount = 0;
+		int currentIndex = 0;
+		walkingQueueX[nextStepCount] = startX;
+		walkingQueueY[nextStepCount++] = startY;
 		boolean foundDestination = false;
-		int j4 = bigX.length;
-		int ai[][] = aClass11Array1230[plane].anIntArrayArray294;
-		while (currentStepCount != l3) {
-			j3 = bigX[currentStepCount];
-			k3 = bigY[currentStepCount];
-			currentStepCount = (currentStepCount + 1) % j4;
-			if (j3 == endX && k3 == endY) {
+		int maxPathSize = walkingQueueX.length;
+		int clippingPaths[][] = currentCollisionMap[plane].clippingData;
+		while (currentIndex != nextStepCount) {
+			currentX = walkingQueueX[currentIndex];
+			currentY = walkingQueueY[currentIndex];
+			currentIndex = (currentIndex + 1) % maxPathSize;
+			if (currentX == endX && currentY == endY) {
 				foundDestination = true;
 				break;
 			}
 			if (objectType != 0) {
-				if ((objectType < 5 || objectType == 10) && aClass11Array1230[plane].method219(endX, j3, k3, objectRotation, objectType - 1, endY)) {
+				if ((objectType < 5 || objectType == 10) && currentCollisionMap[plane].method219(endX, currentX, currentY, objectRotation, objectType - 1, endY)) {
 					foundDestination = true;
 					break;
 				}
-				if (objectType < 10 && aClass11Array1230[plane].method220(endX, endY, k3, objectType - 1, objectRotation, j3)) {
+				if (objectType < 10 && currentCollisionMap[plane].method220(endX, endY, currentY, objectType - 1, objectRotation, currentX)) {
 					foundDestination = true;
 					break;
 				}
 			}
-			if (objectSizeX != 0 && objectSizeY != 0 && aClass11Array1230[plane].method221(endY, endX, j3, objectSizeY, targetSurrounding, objectSizeX, k3)) {
+			if (objectSizeX != 0 && objectSizeY != 0 && currentCollisionMap[plane].method221(endY, endX, currentX, objectSizeY, targetSurrounding, objectSizeX, currentY)) {
 				foundDestination = true;
 				break;
 			}
-			int l4 = anIntArrayArray825[j3][k3] + 1;
-			if (j3 > 0 && anIntArrayArray901[j3 - 1][k3] == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0) {
-				bigX[l3] = j3 - 1;
-				bigY[l3] = k3;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 - 1][k3] = 2;
-				anIntArrayArray825[j3 - 1][k3] = l4;
+			int newDistanceValue = distanceValues[currentX][currentY] + 1;
+			if (currentX > 0 && waypoints[currentX - 1][currentY] == 0 && (clippingPaths[currentX - 1][currentY] & 0x1280108) == 0) {
+				walkingQueueX[nextStepCount] = currentX - 1;
+				walkingQueueY[nextStepCount] = currentY;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX - 1][currentY] = 2;
+				distanceValues[currentX - 1][currentY] = newDistanceValue;
 			}
-			if (j3 < byte0 - 1 && anIntArrayArray901[j3 + 1][k3] == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0) {
-				bigX[l3] = j3 + 1;
-				bigY[l3] = k3;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 + 1][k3] = 8;
-				anIntArrayArray825[j3 + 1][k3] = l4;
+			if (currentX < mapSizeX - 1 && waypoints[currentX + 1][currentY] == 0 && (clippingPaths[currentX + 1][currentY] & 0x1280180) == 0) {
+				walkingQueueX[nextStepCount] = currentX + 1;
+				walkingQueueY[nextStepCount] = currentY;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX + 1][currentY] = 8;
+				distanceValues[currentX + 1][currentY] = newDistanceValue;
 			}
-			if (k3 > 0 && anIntArrayArray901[j3][k3 - 1] == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-				bigX[l3] = j3;
-				bigY[l3] = k3 - 1;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3][k3 - 1] = 1;
-				anIntArrayArray825[j3][k3 - 1] = l4;
+			if (currentY > 0 && waypoints[currentX][currentY - 1] == 0 && (clippingPaths[currentX][currentY - 1] & 0x1280102) == 0) {
+				walkingQueueX[nextStepCount] = currentX;
+				walkingQueueY[nextStepCount] = currentY - 1;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX][currentY - 1] = 1;
+				distanceValues[currentX][currentY - 1] = newDistanceValue;
 			}
-			if (k3 < byte1 - 1 && anIntArrayArray901[j3][k3 + 1] == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-				bigX[l3] = j3;
-				bigY[l3] = k3 + 1;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3][k3 + 1] = 4;
-				anIntArrayArray825[j3][k3 + 1] = l4;
+			if (currentY < mapSizeY - 1 && waypoints[currentX][currentY + 1] == 0 && (clippingPaths[currentX][currentY + 1] & 0x1280120) == 0) {
+				walkingQueueX[nextStepCount] = currentX;
+				walkingQueueY[nextStepCount] = currentY + 1;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX][currentY + 1] = 4;
+				distanceValues[currentX][currentY + 1] = newDistanceValue;
 			}
-			if (j3 > 0 && k3 > 0 && anIntArrayArray901[j3 - 1][k3 - 1] == 0 && (ai[j3 - 1][k3 - 1] & 0x128010e) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-				bigX[l3] = j3 - 1;
-				bigY[l3] = k3 - 1;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 - 1][k3 - 1] = 3;
-				anIntArrayArray825[j3 - 1][k3 - 1] = l4;
+			if (currentX > 0 && currentY > 0 && waypoints[currentX - 1][currentY - 1] == 0 && (clippingPaths[currentX - 1][currentY - 1] & 0x128010e) == 0 && (clippingPaths[currentX - 1][currentY] & 0x1280108) == 0 && (clippingPaths[currentX][currentY - 1] & 0x1280102) == 0) {
+				walkingQueueX[nextStepCount] = currentX - 1;
+				walkingQueueY[nextStepCount] = currentY - 1;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX - 1][currentY - 1] = 3;
+				distanceValues[currentX - 1][currentY - 1] = newDistanceValue;
 			}
-			if (j3 < byte0 - 1 && k3 > 0 && anIntArrayArray901[j3 + 1][k3 - 1] == 0 && (ai[j3 + 1][k3 - 1] & 0x1280183) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 - 1] & 0x1280102) == 0) {
-				bigX[l3] = j3 + 1;
-				bigY[l3] = k3 - 1;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 + 1][k3 - 1] = 9;
-				anIntArrayArray825[j3 + 1][k3 - 1] = l4;
+			if (currentX < mapSizeX - 1 && currentY > 0 && waypoints[currentX + 1][currentY - 1] == 0 && (clippingPaths[currentX + 1][currentY - 1] & 0x1280183) == 0 && (clippingPaths[currentX + 1][currentY] & 0x1280180) == 0 && (clippingPaths[currentX][currentY - 1] & 0x1280102) == 0) {
+				walkingQueueX[nextStepCount] = currentX + 1;
+				walkingQueueY[nextStepCount] = currentY - 1;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX + 1][currentY - 1] = 9;
+				distanceValues[currentX + 1][currentY - 1] = newDistanceValue;
 			}
-			if (j3 > 0 && k3 < byte1 - 1 && anIntArrayArray901[j3 - 1][k3 + 1] == 0 && (ai[j3 - 1][k3 + 1] & 0x1280138) == 0 && (ai[j3 - 1][k3] & 0x1280108) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-				bigX[l3] = j3 - 1;
-				bigY[l3] = k3 + 1;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 - 1][k3 + 1] = 6;
-				anIntArrayArray825[j3 - 1][k3 + 1] = l4;
+			if (currentX > 0 && currentY < mapSizeY - 1 && waypoints[currentX - 1][currentY + 1] == 0 && (clippingPaths[currentX - 1][currentY + 1] & 0x1280138) == 0 && (clippingPaths[currentX - 1][currentY] & 0x1280108) == 0 && (clippingPaths[currentX][currentY + 1] & 0x1280120) == 0) {
+				walkingQueueX[nextStepCount] = currentX - 1;
+				walkingQueueY[nextStepCount] = currentY + 1;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX - 1][currentY + 1] = 6;
+				distanceValues[currentX - 1][currentY + 1] = newDistanceValue;
 			}
-			if (j3 < byte0 - 1 && k3 < byte1 - 1 && anIntArrayArray901[j3 + 1][k3 + 1] == 0 && (ai[j3 + 1][k3 + 1] & 0x12801e0) == 0 && (ai[j3 + 1][k3] & 0x1280180) == 0 && (ai[j3][k3 + 1] & 0x1280120) == 0) {
-				bigX[l3] = j3 + 1;
-				bigY[l3] = k3 + 1;
-				l3 = (l3 + 1) % j4;
-				anIntArrayArray901[j3 + 1][k3 + 1] = 12;
-				anIntArrayArray825[j3 + 1][k3 + 1] = l4;
+			if (currentX < mapSizeX - 1 && currentY < mapSizeY - 1 && waypoints[currentX + 1][currentY + 1] == 0 && (clippingPaths[currentX + 1][currentY + 1] & 0x12801e0) == 0 && (clippingPaths[currentX + 1][currentY] & 0x1280180) == 0 && (clippingPaths[currentX][currentY + 1] & 0x1280120) == 0) {
+				walkingQueueX[nextStepCount] = currentX + 1;
+				walkingQueueY[nextStepCount] = currentY + 1;
+				nextStepCount = (nextStepCount + 1) % maxPathSize;
+				waypoints[currentX + 1][currentY + 1] = 12;
+				distanceValues[currentX + 1][currentY + 1] = newDistanceValue;
 			}
 		}
-		anInt1264 = 0;
+		arbitraryDestination = 0;
 		if (!foundDestination) {
 			if (flag) {
-				int i5 = 100;
-				for (int k5 = 1; k5 < 2; k5++) {
-					for (int i6 = endX - k5; i6 <= endX + k5; i6++) {
-						for (int l6 = endY - k5; l6 <= endY + k5; l6++)
-							if (i6 >= 0 && l6 >= 0 && i6 < 104 && l6 < 104 && anIntArrayArray825[i6][l6] < i5) {
-								i5 = anIntArrayArray825[i6][l6];
-								j3 = i6;
-								k3 = l6;
-								anInt1264 = 1;
+				int maxStepsNonInclusive = 100;
+				for (int deviation = 1; deviation < 2; deviation++) {
+					for (int deviationX = endX - deviation; deviationX <= endX + deviation; deviationX++) {
+						for (int deviationY = endY - deviation; deviationY <= endY + deviation; deviationY++)
+							if (deviationX >= 0 && deviationY >= 0 && deviationX < 104 && deviationY < 104 && distanceValues[deviationX][deviationY] < maxStepsNonInclusive) {
+								maxStepsNonInclusive = distanceValues[deviationX][deviationY];
+								currentX = deviationX;
+								currentY = deviationY;
+								arbitraryDestination = 1;
 								foundDestination = true;
 							}
 
@@ -5818,27 +5820,34 @@ public class Client extends RSApplet {
 			if (!foundDestination)
 				return -1;
 		}
-		currentStepCount = 0;
-		bigX[currentStepCount] = j3;
-		bigY[currentStepCount++] = k3;
-		int l5;
-		for (int j5 = l5 = anIntArrayArray901[j3][k3]; j3 != startX || k3 != startY; j5 = anIntArrayArray901[j3][k3]) {
-			if (j5 != l5) {
-				l5 = j5;
-				bigX[currentStepCount] = j3;
-				bigY[currentStepCount++] = k3;
+		currentIndex = 0;
+		walkingQueueX[currentIndex] = currentX;
+		walkingQueueY[currentIndex++] = currentY;
+		int initialSkipCheck;
+		for (int waypoint2 = initialSkipCheck = waypoints[currentX][currentY]; currentX != startX || currentY != startY; waypoint2 = waypoints[currentX][currentY]) {
+			if (waypoint2 != initialSkipCheck) {
+				initialSkipCheck = waypoint2;
+				walkingQueueX[currentIndex] = currentX;
+				walkingQueueY[currentIndex++] = currentY;
 			}
-			if ((j5 & 2) != 0)
-				j3++;
-			else if ((j5 & 8) != 0)
-				j3--;
-			if ((j5 & 1) != 0)
-				k3++;
-			else if ((j5 & 4) != 0)
-				k3--;
+			if ((waypoint2 & 2) != 0)
+				currentX++;
+			else if ((waypoint2 & 8) != 0)
+				currentX--;
+			if ((waypoint2 & 1) != 0)
+				currentY++;
+			else if ((waypoint2 & 4) != 0)
+				currentY--;
 		}
-		if (currentStepCount > 0) {
-			return currentStepCount;
+		int numberSteps = 0;
+		Tile last = new Tile(walkingQueueX[currentIndex], walkingQueueY[currentIndex]);
+		for (int i = currentIndex;i >= 0;i--) {
+			Tile curr = new Tile(walkingQueueX[i], walkingQueueY[i]);
+			numberSteps += Utils.distance(last, curr);
+			last = new Tile(walkingQueueX[i], walkingQueueY[i]);
+		}
+		if (numberSteps > 0) {
+			return numberSteps;
 		} else {
 			return 0;
 		}
@@ -6254,7 +6263,7 @@ public class Client extends RSApplet {
 			intGroundArray = new int[4][105][105];
 			worldController = new WorldController(intGroundArray);
 			for (int j = 0; j < 4; j++)
-				aClass11Array1230[j] = new Class11();
+				currentCollisionMap[j] = new Class11();
 
 			aClass30_Sub2_Sub1_Sub1_1263 = new Sprite(512, 512);
 			StreamLoader streamLoader_6 = streamLoaderForName(5, "update list", "versionlist", expectedCRCs[5], 60);
@@ -6607,7 +6616,7 @@ public class Client extends RSApplet {
 					stream.writeWordBigEndian(89);
 					stream.writeWord(myPlayer.x);
 					stream.writeWord(myPlayer.y);
-					stream.writeWordBigEndian(anInt1264);
+					stream.writeWordBigEndian(arbitraryDestination);
 					stream.writeWordBigEndian(63);
 				}
 			}
@@ -9172,7 +9181,7 @@ public class Client extends RSApplet {
 					worldController.method291(i1, j, i, (byte) -119);
 					ObjectDef class46 = ObjectDef.forID(j2);
 					if (class46.aBoolean767)
-						aClass11Array1230[j].method215(l2, k2, class46.aBoolean757, i1, i);
+						currentCollisionMap[j].method215(l2, k2, class46.aBoolean757, i1, i);
 				}
 				if (j1 == 1)
 					worldController.method292(i, j, i1);
@@ -9182,20 +9191,20 @@ public class Client extends RSApplet {
 					if (i1 + class46_1.sizeX > 103 || i + class46_1.sizeX > 103 || i1 + class46_1.sizeY > 103 || i + class46_1.sizeY > 103)
 						return;
 					if (class46_1.aBoolean767)
-						aClass11Array1230[j].method216(l2, class46_1.sizeX, i1, i, class46_1.sizeY, class46_1.aBoolean757);
+						currentCollisionMap[j].method216(l2, class46_1.sizeX, i1, i, class46_1.sizeY, class46_1.aBoolean757);
 				}
 				if (j1 == 3) {
 					worldController.method294(j, i, i1);
 					ObjectDef class46_2 = ObjectDef.forID(j2);
 					if (class46_2.aBoolean767 && class46_2.hasActions)
-						aClass11Array1230[j].method218(i, i1);
+						currentCollisionMap[j].method218(i, i1);
 				}
 			}
 			if (k1 >= 0) {
 				int j3 = j;
 				if (j3 < 3 && (byteGroundArray[1][i1][i] & 2) == 2)
 					j3++;
-				ObjectManager.method188(worldController, k, i, l, j3, aClass11Array1230[j], intGroundArray, i1, k1, j);
+				ObjectManager.method188(worldController, k, i, l, j3, currentCollisionMap[j], intGroundArray, i1, k1, j);
 			}
 		}
 	}
@@ -10419,7 +10428,7 @@ public class Client extends RSApplet {
 		clanChatMode = 0;
 		cButtonCPos = 0;
 		server = "darklights.no-ip.biz";
-		anIntArrayArray825 = new int[104][104];
+		distanceValues = new int[104][104];
 		friendsNodeIDs = new int[200];
 		groundArray = new NodeList[4][104][104];
 		aBoolean831 = false;
@@ -10447,7 +10456,7 @@ public class Client extends RSApplet {
 		anIntArray894 = new int[maxPlayers];
 		aStreamArray895s = new Stream[maxPlayers];
 		anInt897 = 1;
-		anIntArrayArray901 = new int[104][104];
+		waypoints = new int[104][104];
 		anInt902 = 0x766654;
 		aByteArray912 = new byte[16384];
 		currentStats = new int[Skills.skillsCount];
@@ -10554,7 +10563,7 @@ public class Client extends RSApplet {
 		inputTaken = false;
 		songChanging = true;
 		anIntArray1229 = new int[151];
-		aClass11Array1230 = new Class11[4];
+		currentCollisionMap = new Class11[4];
 		aBoolean1233 = false;
 		anIntArray1240 = new int[100];
 		anIntArray1241 = new int[50];
@@ -10569,8 +10578,8 @@ public class Client extends RSApplet {
 		loginMessage2 = "";
 		backDialogID = -1;
 		anInt1279 = 2;
-		bigX = new int[4000];
-		bigY = new int[4000];
+		walkingQueueX = new int[4000];
+		walkingQueueY = new int[4000];
 		anInt1289 = -1;
 	}
 
@@ -10589,7 +10598,7 @@ public class Client extends RSApplet {
 	private RSImageProducer frame;
 	private int ignoreCount;
 	private long aLong824;
-	public int[][] anIntArrayArray825;
+	public int[][] distanceValues;
 	private int[] friendsNodeIDs;
 	public static NodeList[][][] groundArray;
 	private int[] anIntArray828;
@@ -10652,7 +10661,7 @@ public class Client extends RSApplet {
 	private int anInt897;
 	private int friendsCount;
 	private int anInt900;
-	public int[][] anIntArrayArray901;
+	public int[][] waypoints;
 	private final int anInt902;
 	private byte[] aByteArray912;
 	private int anInt913;
@@ -10937,7 +10946,7 @@ public class Client extends RSApplet {
 	private int nextSong;
 	private boolean songChanging;
 	private final int[] anIntArray1229;
-	private Class11[] aClass11Array1230;
+	private Class11[] currentCollisionMap;
 	public static int anIntArray1232[];
 	private boolean aBoolean1233;
 	private int[] anIntArray1234;
@@ -10969,7 +10978,7 @@ public class Client extends RSApplet {
 	private int destX;
 	private int destY;
 	private Sprite aClass30_Sub2_Sub1_Sub1_1263;
-	private int anInt1264;
+	private int arbitraryDestination;
 	private int anInt1265;
 	private String loginMessage1;
 	private String loginMessage2;
@@ -10982,8 +10991,8 @@ public class Client extends RSApplet {
 	private int backDialogID;
 	private int anInt1278;
 	private int anInt1279;
-	private int[] bigX;
-	private int[] bigY;
+	private int[] walkingQueueX;
+	private int[] walkingQueueY;
 	private int itemSelected;
 	private int anInt1283;
 	private int anInt1284;

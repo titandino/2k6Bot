@@ -6,6 +6,12 @@ public class Tile {
 	private int y;
 	private int z;
 	
+	public Tile(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.z = 0;
+	}
+	
 	public Tile(int x, int y, int z) {
 		this.x = x;
 		this.y = y;

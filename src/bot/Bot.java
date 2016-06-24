@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 import bot.scripts.Script;
@@ -277,7 +279,9 @@ public class Bot {
 		}
 		if (distanceMap.isEmpty())
 			return null;
-		return (WorldObject) distanceMap.values().toArray()[0];
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (WorldObject) distanceMap.get(sortedKeys.get(0));
 	}
 	
 	public static WorldObject getClosestWorldObject(int id) {
@@ -292,7 +296,9 @@ public class Bot {
 		}
 		if (distanceMap.isEmpty())
 			return null;
-		return (WorldObject) distanceMap.values().toArray()[0];
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (WorldObject) distanceMap.get(sortedKeys.get(0));
 	}
 	
 	public static ArrayList<WorldObject> getObjectsNearby(int id) {

@@ -850,7 +850,7 @@ label0:
 		{
 			for(int j2 = 0; j2 < 8; j2++)
 				if(l + i2 > 0 && l + i2 < 103 && l1 + j2 > 0 && l1 + j2 < 103)
-					aclass11[k1].anIntArrayArray294[l + i2][l1 + j2] &= 0xfeffffff;
+					aclass11[k1].clippingData[l + i2][l1 + j2] &= 0xfeffffff;
 
 		}
 		Stream stream = new Stream(abyte0);
@@ -878,7 +878,7 @@ label0:
 			{
 				for(int k1 = 0; k1 < 64; k1++)
 					if(j + j1 > 0 && j + j1 < 103 && i + k1 > 0 && i + k1 < 103)
-						aclass11[i1].anIntArrayArray294[j + j1][i + k1] &= 0xfeffffff;
+						aclass11[i1].clippingData[j + j1][i + k1] &= 0xfeffffff;
 
 			}
 
