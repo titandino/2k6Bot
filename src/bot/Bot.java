@@ -435,6 +435,14 @@ public class Bot {
 		return format(getXpPerHour(skillId, startingXp, startTime));
 	}
 	
+	public static int getLootPerHour(int itemAmount, int startingAmount, long startTime){
+        return (int)((itemAmount - startingAmount) / hoursElapsed(startTime));
+    }
+
+    public static String getFormattedLootPerHour(int itemAmount, int startingAmount, long startTime) {
+        return format(getLootPerHour(itemAmount, startingAmount, startTime));
+    }
+	
 	public static String format(int number) {
 		return NumberFormat.getNumberInstance(Locale.US).format(number);
 	}
