@@ -236,9 +236,9 @@ public class Bot {
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
-				if (obj != null && (obj.uid >> 14 & 0x7fff) != id)
+				if (obj == null || (obj.uid >> 14 & 0x7fff) != id)
 					continue;
-				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x, y);
+				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY);
 			}
 		}
 		return worldObject;
@@ -249,12 +249,30 @@ public class Bot {
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
-				if (obj != null && (ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id)))
+				if (obj == null || !ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id))
 					continue;
-				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x, y);
+				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY);
 			}
 		}
 		return worldObject;
+	}
+	
+	public static void itemOnObject(int itemId, int objectId, int x, int y) {
+		clientt.stream.createFrame(192);
+		clientt.stream.writeWord(3214);
+		clientt.stream.method431(objectId);
+		clientt.stream.method433(y);
+		clientt.stream.method431(Bot.getInventory().getSlotByItem(itemId));
+		clientt.stream.method433(x);
+		clientt.stream.writeWord(itemId);
+	}
+	
+	public static void clickObject(int id, int x, int y) {
+		walkTo(x, y);
+		clientt.stream.createFrame(132);
+		clientt.stream.method433(x);
+		clientt.stream.writeWord(id);
+		clientt.stream.method432(y);
 	}
 	
 	public static boolean myPlayerInCombat() {

@@ -23,7 +23,7 @@ public final class ObjectDef {
 	private void setDefaults() {
 		anIntArray773 = null;
 		anIntArray776 = null;
-		name = null;
+		name = "null";
 		description = null;
 		modifiedModelColors = null;
 		originalModelColors = null;
@@ -403,7 +403,7 @@ public final class ObjectDef {
 	public boolean aBoolean736;
 	private byte aByte737;
 	private int anInt738;
-	public String name;
+	public String name = "null";
 	private int anInt740;
 	private static final Model[] aModelArray741s = new Model[4];
 	private byte aByte742;

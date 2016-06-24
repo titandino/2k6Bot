@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.zip.CRC32;
 
 public class Client extends RSApplet {
-	
+
 	private static final long serialVersionUID = -4346630109161488336L;
 
 	public static String getHost() {
@@ -697,7 +697,7 @@ public class Client extends RSApplet {
 		int i1 = i + (j << 7) + 0x60000000;
 		worldController.method281(i, i1, ((Animable) (obj1)), method42(plane, j * 128 + 64, i * 128 + 64), ((Animable) (obj2)), ((Animable) (obj)), plane, j);
 	}
-	
+
 	public ArrayList<NPC> getNPCs() {
 		ArrayList<NPC> npcs = new ArrayList<NPC>();
 		for (int j = 0; j < npcCount; j++) {
@@ -2095,7 +2095,7 @@ public class Client extends RSApplet {
 	private void loadTitleScreen() {
 		aBackground_966 = new Background(titleStreamLoader, "titlebox", 0);
 		aBackground_967 = new Background(titleStreamLoader, "titlebutton", 0);
-		aBackgroundArray1152s = new Background[12];
+		runeImage = new Background[12];
 		int j = 0;
 		try {
 			j = Integer.parseInt(getParameter("fl_icon"));
@@ -2103,11 +2103,11 @@ public class Client extends RSApplet {
 		}
 		if (j == 0) {
 			for (int k = 0; k < 12; k++)
-				aBackgroundArray1152s[k] = new Background(titleStreamLoader, "runes", k);
+				runeImage[k] = new Background(titleStreamLoader, "runes", k);
 
 		} else {
 			for (int l = 0; l < 12; l++)
-				aBackgroundArray1152s[l] = new Background(titleStreamLoader, "runes", 12 + (l & 3));
+				runeImage[l] = new Background(titleStreamLoader, "runes", 12 + (l & 3));
 
 		}
 		aClass30_Sub2_Sub1_Sub1_1201 = new Sprite(128, 265);
@@ -2403,7 +2403,7 @@ public class Client extends RSApplet {
 		if (anInt1275 > anIntArray1190.length) {
 			anInt1275 -= anIntArray1190.length;
 			int i2 = (int) (Math.random() * 12D);
-			randomizeBackground(aBackgroundArray1152s[i2]);
+			randomizeBackground(runeImage[i2]);
 		}
 		for (int j2 = 1; j2 < c - 1; j2++) {
 			for (int i3 = 1; i3 < 127; i3++) {
@@ -2457,7 +2457,7 @@ public class Client extends RSApplet {
 		if (spriteDrawX > -1 && loopCycle % 20 < 10)
 			headIconsHint[0].drawSprite(spriteDrawX - 12, spriteDrawY - 28);
 	}
-	
+
 	public void click() {
 		long l = (super.aLong29 - aLong1220) / 50L;
 		if (l > 4095L)
@@ -2478,8 +2478,8 @@ public class Client extends RSApplet {
 		if (super.clickMode3 == 2)
 			j5 = 1;
 		int l5 = (int) l;
-//		stream.createFrame(241);
-//		stream.writeDWord((l5 << 20) + (j5 << 19) + k4);
+		// stream.createFrame(241);
+		// stream.writeDWord((l5 << 20) + (j5 << 19) + k4);
 	}
 
 	private void mainGameProcessor() {
@@ -2719,7 +2719,7 @@ public class Client extends RSApplet {
 		if (super.idleTime > 12000) {
 			anInt1011 = 250;
 			super.idleTime -= 500;
-			//stream.createFrame(202);
+			// stream.createFrame(202);
 		}
 		anInt988++;
 		if (anInt988 > 500) {
@@ -2766,7 +2766,7 @@ public class Client extends RSApplet {
 			stream.createFrame(0);
 		writeStream();
 	}
-	
+
 	public void writeStream() {
 		try {
 			if (socketStream != null && stream.currentOffset > 0) {
@@ -3130,7 +3130,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 74) {
 			stream.createFrame(122);
-			System.out.println("Clicked: "+k+", "+j+", "+i1);
+			System.out.println("Clicked: " + k + ", " + j + ", " + i1);
 			stream.method433(k);
 			stream.method432(j);
 			stream.method431(i1);
@@ -3534,8 +3534,8 @@ public class Client extends RSApplet {
 					if (entityDef.description != null)
 						s9 = new String(entityDef.description);
 					else
-						s9 = "It's a " + entityDef.name + "." + "(ID: "+class30_sub2_sub4_sub1_sub1_5.id+")";
-					pushMessage(s9+" (ID: "+entityDef.npcId+")", 0, "");
+						s9 = "It's a " + entityDef.name + "." + "(ID: " + class30_sub2_sub4_sub1_sub1_5.id + ")";
+					pushMessage(s9 + " (ID: " + entityDef.npcId + ")", 0, "");
 				}
 			}
 		}
@@ -3773,7 +3773,7 @@ public class Client extends RSApplet {
 				s5 = new String(itemDef.description);
 			else
 				s5 = "It's a " + itemDef.name + ".";
-			pushMessage(s5+" (ID: "+itemDef.id+")", 0, "");
+			pushMessage(s5 + " (ID: " + itemDef.id + ")", 0, "");
 		}
 		if (l == 169) {
 			stream.createFrame(185);
@@ -3804,7 +3804,7 @@ public class Client extends RSApplet {
 				s10 = new String(class46.description);
 			else
 				s10 = "It's a " + class46.name + ".";
-			pushMessage(s10+" (ID: "+j1+")", 0, "");
+			pushMessage(s10 + " (ID: " + j1 + ")", 0, "");
 		}
 		if (l == 244) {
 			boolean flag7 = doWalkTo(2, 0, 0, 0, myPlayer.smallY[0], 0, 0, k, myPlayer.smallX[0], false, j);
@@ -3826,7 +3826,7 @@ public class Client extends RSApplet {
 				s6 = new String(itemDef_1.description);
 			else
 				s6 = "It's a " + itemDef_1.name + ".";
-			pushMessage(s6+" (ID: "+itemDef_1.id+")", 0, "");
+			pushMessage(s6 + " (ID: " + itemDef_1.id + ")", 0, "");
 		}
 		itemSelected = 0;
 		spellSelected = 0;
@@ -4313,16 +4313,16 @@ public class Client extends RSApplet {
 						clientData = true;
 					if (inputString.equals("::dataoff"))
 						clientData = false;
-//					if (inputString.equals("::noclip")) {
-//						for (int k1 = 0; k1 < 4; k1++) {
-//							for (int i2 = 1; i2 < 103; i2++) {
-//								for (int k2 = 1; k2 < 103; k2++)
-//									aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
-//
-//							}
-//
-//						}
-//					}
+					// if (inputString.equals("::noclip")) {
+					// for (int k1 = 0; k1 < 4; k1++) {
+					// for (int i2 = 1; i2 < 103; i2++) {
+					// for (int k2 = 1; k2 < 103; k2++)
+					// aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
+					//
+					// }
+					//
+					// }
+					// }
 					if (inputString.startsWith("::")) {
 						if (!Bot.processCommand(inputString.substring(2))) {
 							stream.createFrame(103);
@@ -7781,7 +7781,7 @@ public class Client extends RSApplet {
 		}
 		aBackground_966 = null;
 		aBackground_967 = null;
-		aBackgroundArray1152s = null;
+		runeImage = null;
 		anIntArray850 = null;
 		anIntArray851 = null;
 		anIntArray852 = null;
@@ -10706,7 +10706,7 @@ public class Client extends RSApplet {
 	private boolean aBoolean1149;
 	private Sprite[] crosses;
 	private boolean musicEnabled;
-	private Background[] aBackgroundArray1152s;
+	private Background[] runeImage;
 	public static boolean needDrawTabArea;
 	private int unreadMessages;
 	private static int anInt1155;
