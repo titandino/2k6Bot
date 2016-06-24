@@ -36,15 +36,16 @@ public class VarrockOaks extends Script {
 					Bot.clickClosestWorldObject("bank booth");
 					Thread.sleep(1200);
 					Bot.bankAllItems();
-				}
-				if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
-					stage = "Getting level 15";
-					Bot.clickClosestWorldObject("tree");
-					Thread.sleep(3000);
 				} else {
-					stage = "chainsaw.exe";
-					Bot.clickClosestWorldObject("oak");
-					Thread.sleep(3000);
+					if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
+						stage = "Getting level 15";
+						Bot.clickClosestWorldObject("tree");
+						Thread.sleep(3000);
+					} else {
+						stage = "chainsaw.exe";
+						Bot.clickClosestWorldObject("oak");
+						Thread.sleep(3000);
+					}
 				}
 			}
 		} catch (Exception e) {

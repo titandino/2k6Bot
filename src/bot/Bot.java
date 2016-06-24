@@ -161,6 +161,11 @@ public class Bot {
 		return (paramEntity.y >> 7) + clientt.baseY;
 	}
 	
+	public static int calculatePathDistance(int x, int y) {
+		//return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
+		return clientt.findPathDistance(0, 0, 0, Client.myPlayer.smallY[0], 0, 0, y-clientt.baseY, Client.myPlayer.smallX[0], false, x-clientt.baseX);
+	}
+	
 	public static void walkTo(int x, int y) {
 		boolean flag1 = clientt.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, y-clientt.baseY, Client.myPlayer.smallX[0], false, x-clientt.baseX);
 		if (!flag1)
@@ -254,7 +259,9 @@ public class Bot {
 		ArrayList<WorldObject> objects = getObjectsNearby(id);
 		for (WorldObject object : objects) {
 			if (object != null) {
-				distanceMap.put(Utils.distance(getMyPlayerPos(), object), object);
+				int distance = calculatePathDistance(object.getX(), object.getY());
+				if (distance != -1)
+					distanceMap.put(distance, object);
 			}
 		}
 		if (distanceMap.isEmpty())
@@ -267,7 +274,9 @@ public class Bot {
 		ArrayList<WorldObject> objects = getObjectsNearby(id);
 		for (WorldObject object : objects) {
 			if (object != null) {
-				distanceMap.put(Utils.distance(getMyPlayerPos(), object), object);
+				int distance = calculatePathDistance(object.getX(), object.getY());
+				if (distance != -1)
+					distanceMap.put(distance, object);
 			}
 		}
 		if (distanceMap.isEmpty())
@@ -398,6 +407,10 @@ public class Bot {
 		clientt.stream.method432(paramInt2);
 		clientt.writeStream();
 	}
+	
+	public static void sendInfoMessage(String message) {
+		clientt.pushMessage(message, 5, "");
+	}
 
 	public static boolean processCommand(String string) {
 		String[] cmd = string.split(" ");
@@ -408,12 +421,18 @@ public class Bot {
 			}
 			chooseScript(cmd[1], args);
 			return true;
+		} else if (cmd[0].startsWith("walktoo")) {
+			WorldObject o = getClosestWorldObject(cmd[1].replace("_", " "));
+			if (o != null)
+				walkTo(o.getX(), o.getY());
+			else
+				sendInfoMessage("No object found.");
 		} else if (cmd[0].startsWith("mypos")) {
-			System.out.println(getMyPlayerPos());
+			sendInfoMessage(getMyPlayerPos().toString());
 		} else if (cmd[0].startsWith("invinfo")) {
-			System.out.println(""+Bot.getInventory().freeSlots());
-			System.out.println(""+Bot.getInventory().numberOf(314));
-			System.out.println(""+Bot.getInventory().getItem(1));
+			sendInfoMessage(""+Bot.getInventory().freeSlots());
+			sendInfoMessage(""+Bot.getInventory().numberOf(314));
+			sendInfoMessage(""+Bot.getInventory().getItem(1));
 		} else if (cmd[0].startsWith("stop")) {
 			TaskExecutor.getEventExecutor().shutdownNow();
 			currentScript = null;
@@ -421,16 +440,16 @@ public class Bot {
 		} else if (cmd[0].startsWith("gitem")) {
 			Tile item = findGroundItem(Integer.valueOf(cmd[1]));
 			if (item != null)
-				System.out.println(""+item.toString());
+				sendInfoMessage(""+item.toString());
 			else
-				System.out.println("No items found. "+Integer.valueOf(cmd[1]));
+				sendInfoMessage("No items found. "+Integer.valueOf(cmd[1]));
 			return true;
 		} else if (cmd[0].startsWith("fobject")) {
 			WorldObject item = Bot.getClosestWorldObject(cmd[1].replace("_", " "));
 			if (item != null)
-				System.out.println(""+item.toString());
+				sendInfoMessage(""+item.toString()+", distance: "+calculatePathDistance(item.getX(), item.getY()));
 			else
-				System.out.println("No objects found. "+Integer.valueOf(cmd[1]));
+				sendInfoMessage("No objects found. "+Integer.valueOf(cmd[1]));
 			return true;
 		}
 		return false;
