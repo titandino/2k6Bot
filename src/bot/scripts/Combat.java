@@ -39,6 +39,8 @@ public class Combat extends Script {
 	public void run() {
 		super.run();
 		try {
+			if (Bot.getInventory().contains(526, 1))
+				Bot.clickItem(526);
 			if (args.length > 1)
 				Bot.findAndPickupItems(args);
 			if (!Bot.myPlayerInCombat()) {
