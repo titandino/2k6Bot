@@ -296,7 +296,7 @@ public final class WorldController {
 		class28.anInt520 = k1;
 		class28.anInt518 = l1;
 		class28.aClass30_Sub2_Sub4_521 = class30_sub2_sub4;
-		class28.anInt522 = i2;
+		class28.rotation = i2;
 		class28.anInt523 = j;
 		class28.anInt525 = k;
 		class28.anInt524 = (j + l) - 1;
@@ -1140,7 +1140,7 @@ public final class WorldController {
 						InteractiveObject class28 = class30_sub3_7.obj5Array[i2];
 						if (class28 != null)
 							class28.aClass30_Sub2_Sub4_521.method443(
-									class28.anInt522, anInt458, anInt459,
+									class28.rotation, anInt458, anInt459,
 									anInt460, anInt461, class28.anInt519
 											- anInt455, class28.anInt518
 											- anInt456, class28.anInt520
@@ -1419,7 +1419,7 @@ public final class WorldController {
 								class28_3.anInt526,
 								class28_3.aClass30_Sub2_Sub4_521.modelHeight))
 							class28_3.aClass30_Sub2_Sub4_521.method443(
-									class28_3.anInt522, anInt458, anInt459,
+									class28_3.rotation, anInt458, anInt459,
 									anInt460, anInt461, class28_3.anInt519
 											- anInt455, class28_3.anInt518
 											- anInt456, class28_3.anInt520

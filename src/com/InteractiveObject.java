@@ -8,18 +8,18 @@ public final class InteractiveObject {
 	public InteractiveObject() {
 	}
 
-	int anInt517;
-	int anInt518;
-	int anInt519;
-	int anInt520;
+	public int anInt517;
+	public int anInt518;
+	public int anInt519;
+	public int anInt520;
 	public Animable aClass30_Sub2_Sub4_521;
-	public int anInt522;
-	int anInt523;
-	int anInt524;
-	int anInt525;
-	int anInt526;
-	int anInt527;
-	int anInt528;
+	public int rotation;
+	public int anInt523;
+	public int anInt524;
+	public int anInt525;
+	public int anInt526;
+	public int anInt527;
+	public int anInt528;
 	public int uid;
-	byte aByte530;
+	public byte aByte530;
 }

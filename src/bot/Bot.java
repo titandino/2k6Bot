@@ -161,9 +161,20 @@ public class Bot {
 		return (paramEntity.y >> 7) + clientt.baseY;
 	}
 	
+	public static int calculatePathDistance(WorldObject object) {
+		//return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
+		return clientt.findPathDistance(object.getRotation(), object.getSizeY(), 10, Client.myPlayer.smallY[0], object.getSizeX(), 0, object.getY()-clientt.baseY, Client.myPlayer.smallX[0], false, object.getX()-clientt.baseX);
+	}
+	
 	public static int calculatePathDistance(int x, int y) {
 		//return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
-		return clientt.findPathDistance(0, 0, 0, Client.myPlayer.smallY[0], 0, 0, y-clientt.baseY, Client.myPlayer.smallX[0], false, x-clientt.baseX);
+		return clientt.findPathDistance(0, 0, 0, Client.myPlayer.smallY[0], 0, 1, y-clientt.baseY, Client.myPlayer.smallX[0], false, x-clientt.baseX);
+	}
+	
+	public static void walkTo(WorldObject object) {
+		boolean flag1 = clientt.doWalkTo(2, object.getRotation(), object.getSizeY(), 10, Client.myPlayer.smallY[0], object.getSizeX(), 0, object.getY()-clientt.baseY, Client.myPlayer.smallX[0], false, object.getX()-clientt.baseX);
+		if (!flag1)
+			flag1 = clientt.doWalkTo(2, object.getRotation(), object.getSizeY(), 10, Client.myPlayer.smallY[0], object.getSizeX(), 0, object.getY()-clientt.baseY, Client.myPlayer.smallX[0], false, object.getX()-clientt.baseX);
 	}
 	
 	public static void walkTo(int x, int y) {
@@ -175,7 +186,7 @@ public class Bot {
 	public static void walkToLocal(int x, int y) {
 		boolean flag1 = clientt.doWalkTo(2, 0, 0, 0, Client.myPlayer.smallY[0], 0, 0, y, Client.myPlayer.smallX[0], false, x);
 		if (!flag1)
-			flag1 = clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, y, Client.myPlayer.smallX[0], false, x);
+			flag1 = clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 0, 0, y, Client.myPlayer.smallX[0], false, x);
 	}
 
 	public static void pickupDrop(int itemId, int x, int y) {
@@ -251,7 +262,7 @@ public class Bot {
 	
 	public static void clickWorldObject(WorldObject object) {
 		if (object != null)
-			Bot.clickObject(object.getId(), object.getX(), object.getY());
+			Bot.clickObject(object);
 	}
 	
 	public static WorldObject getClosestWorldObject(String id) {
@@ -259,7 +270,7 @@ public class Bot {
 		ArrayList<WorldObject> objects = getObjectsNearby(id);
 		for (WorldObject object : objects) {
 			if (object != null) {
-				int distance = calculatePathDistance(object.getX(), object.getY());
+				int distance = calculatePathDistance(object);
 				if (distance != -1)
 					distanceMap.put(distance, object);
 			}
@@ -274,7 +285,7 @@ public class Bot {
 		ArrayList<WorldObject> objects = getObjectsNearby(id);
 		for (WorldObject object : objects) {
 			if (object != null) {
-				int distance = calculatePathDistance(object.getX(), object.getY());
+				int distance = calculatePathDistance(object);
 				if (distance != -1)
 					distanceMap.put(distance, object);
 			}
@@ -289,9 +300,10 @@ public class Bot {
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
-				if (obj == null || (obj.uid >> 14 & 0x7fff) != id)
+				if (obj == null || id != (obj.uid >> 14 & 0x7fff))
 					continue;
-				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
+				ObjectDef def = ObjectDef.forID(obj.uid >> 14 & 0x7fff);
+				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x+clientt.baseX, y+clientt.baseY));
 			}
 		}
 		return objects;
@@ -302,9 +314,12 @@ public class Bot {
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
-				if (obj == null || (!ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id)))
+				if (obj == null)
 					continue;
-				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
+				ObjectDef def = ObjectDef.forID(obj.uid >> 14 & 0x7fff);
+				if (def != null && !def.name.equalsIgnoreCase(id))
+					continue;
+				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x+clientt.baseX, y+clientt.baseY));
 			}
 		}
 		return objects;
@@ -359,12 +374,21 @@ public class Bot {
 		clientt.writeStream();
 	}
 	
-	public static void clickObject(int id, int x, int y) {
+	public static void clickObject(int objectId, int x, int y) {
 		walkTo(x, y);
 		clientt.stream.createFrame(132);
 		clientt.stream.method433(x);
-		clientt.stream.writeWord(id);
+		clientt.stream.writeWord(objectId);
 		clientt.stream.method432(y);
+		clientt.writeStream();
+	}
+	
+	private static void clickObject(WorldObject object) {
+		walkTo(object);
+		clientt.stream.createFrame(132);
+		clientt.stream.method433(object.getX());
+		clientt.stream.writeWord(object.getId());
+		clientt.stream.method432(object.getY());
 		clientt.writeStream();
 	}
 	
@@ -450,7 +474,7 @@ public class Bot {
 		} else if (cmd[0].startsWith("walktoo")) {
 			WorldObject o = getClosestWorldObject(cmd[1].replace("_", " "));
 			if (o != null)
-				walkTo(o.getX(), o.getY());
+				walkTo(o);
 			else
 				sendInfoMessage("No object found.");
 		} else if (cmd[0].startsWith("mypos")) {

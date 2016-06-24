@@ -518,12 +518,12 @@ label0:
 				int l4;
 				if(j1 == 1 || j1 == 3)
 				{
-					j4 = class46.anInt761;
-					l4 = class46.anInt744;
+					j4 = class46.sizeY;
+					l4 = class46.sizeX;
 				} else
 				{
-					j4 = class46.anInt744;
-					l4 = class46.anInt761;
+					j4 = class46.sizeX;
+					l4 = class46.sizeY;
 				}
 				if(worldController.method284(l2, byte0, k2, l4, ((Animable) (obj1)), j4, k, i5, i, l) && class46.aBoolean779)
 				{
@@ -551,7 +551,7 @@ label0:
 				}
 			}
 			if(class46.aBoolean767 && class11 != null)
-				class11.method212(class46.aBoolean757, class46.anInt744, class46.anInt761, l, i, j1);
+				class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, l, i, j1);
 			return;
 		}
 		if(j >= 12)
@@ -565,7 +565,7 @@ label0:
 			if(j >= 12 && j <= 17 && j != 13 && k > 0)
 				anIntArrayArrayArray135[k][l][i] |= 0x924;
 			if(class46.aBoolean767 && class11 != null)
-				class11.method212(class46.aBoolean757, class46.anInt744, class46.anInt761, l, i, j1);
+				class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, l, i, j1);
 			return;
 		}
 		if(j == 0)
@@ -721,7 +721,7 @@ label0:
 				obj6 = new Animable_Sub5(i1, j1, j, l1, i2, k1, j2, class46.anInt781, true);
 			worldController.method284(l2, byte0, k2, 1, ((Animable) (obj6)), 1, k, 0, i, l);
 			if(class46.aBoolean767 && class11 != null)
-				class11.method212(class46.aBoolean757, class46.anInt744, class46.anInt761, l, i, j1);
+				class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, l, i, j1);
 			return;
 		}
 		if(class46.aBoolean762)
@@ -997,8 +997,8 @@ label0:
 					if(j3 == i && i3 >= i1 && i3 < i1 + 8 && l2 >= k && l2 < k + 8)
 					{
 						ObjectDef class46 = ObjectDef.forID(l1);
-						int j4 = j + Class4.method157(j1, class46.anInt761, i3 & 7, l2 & 7, class46.anInt744);
-						int k4 = k1 + Class4.method158(l2 & 7, class46.anInt761, j1, class46.anInt744, i3 & 7);
+						int j4 = j + Class4.method157(j1, class46.sizeY, i3 & 7, l2 & 7, class46.sizeX);
+						int k4 = k1 + Class4.method158(l2 & 7, class46.sizeY, j1, class46.sizeX, i3 & 7);
 						if(j4 > 0 && k4 > 0 && j4 < 103 && k4 < 103)
 						{
 							int l4 = j3;
@@ -1106,17 +1106,17 @@ label0:
 				int i5;
 				if(i == 1 || i == 3)
 				{
-					k4 = class46.anInt761;
-					i5 = class46.anInt744;
+					k4 = class46.sizeY;
+					i5 = class46.sizeX;
 				} else
 				{
-					k4 = class46.anInt744;
-					i5 = class46.anInt761;
+					k4 = class46.sizeX;
+					i5 = class46.sizeY;
 				}
 				worldController.method284(i3, byte1, l2, i5, ((Animable) (obj1)), k4, k1, j5, j, i1);
 			}
 			if(class46.aBoolean767)
-				class11.method212(class46.aBoolean757, class46.anInt744, class46.anInt761, i1, j, i);
+				class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, i1, j, i);
 			return;
 		}
 		if(k >= 12)
@@ -1128,7 +1128,7 @@ label0:
 				obj2 = new Animable_Sub5(j1, i, k, i2, j2, l1, k2, class46.anInt781, true);
 			worldController.method284(i3, byte1, l2, 1, ((Animable) (obj2)), 1, k1, 0, j, i1);
 			if(class46.aBoolean767)
-				class11.method212(class46.aBoolean757, class46.anInt744, class46.anInt761, i1, j, i);
+				class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, i1, j, i);
 			return;
 		}
 		if(k == 0)
@@ -1195,7 +1195,7 @@ label0:
 				obj6 = new Animable_Sub5(j1, i, k, i2, j2, l1, k2, class46.anInt781, true);
 			worldController.method284(i3, byte1, l2, 1, ((Animable) (obj6)), 1, k1, 0, j, i1);
 			if(class46.aBoolean767)
-				class11.method212(class46.aBoolean757, class46.anInt744, class46.anInt761, i1, j, i);
+				class11.method212(class46.aBoolean757, class46.sizeX, class46.sizeY, i1, j, i);
 			return;
 		}
 		if(class46.aBoolean762)

@@ -31,8 +31,8 @@ public final class ObjectDef {
 		description = null;
 		modifiedModelColors = null;
 		originalModelColors = null;
-		anInt744 = 1;
-		anInt761 = 1;
+		sizeX = 1;
+		sizeY = 1;
 		aBoolean767 = true;
 		aBoolean757 = true;
 		hasActions = false;
@@ -297,9 +297,9 @@ public final class ObjectDef {
 							stream.currentOffset += l * 2;
 						}
 				} else if (j == 14)
-					anInt744 = stream.readUnsignedByte();
+					sizeX = stream.readUnsignedByte();
 				else if (j == 15)
-					anInt761 = stream.readUnsignedByte();
+					sizeY = stream.readUnsignedByte();
 				else if (j == 17)
 					aBoolean767 = false;
 				else if (j == 18)
@@ -412,7 +412,7 @@ public final class ObjectDef {
 	private int anInt740;
 	private static final Model[] aModelArray741s = new Model[4];
 	private byte aByte742;
-	public int anInt744;
+	public int sizeX;
 	private int anInt745;
 	public int anInt746;
 	private int[] originalModelColors;
@@ -427,7 +427,7 @@ public final class ObjectDef {
 	public int anInt758;
 	public int childrenIDs[];
 	private int anInt760;
-	public int anInt761;
+	public int sizeY;
 	public boolean aBoolean762;
 	public boolean aBoolean764;
 	public static Client clientInstance;
