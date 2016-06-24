@@ -287,6 +287,18 @@ public class Bot {
 		}
 		return objects;
 	}
+	
+	public static void itemOnItem(int primaryItemID, int secondaryItemID, int primarySlotID, int secondarySlotID)
+	{
+		clientt.stream.createFrame(53);
+		clientt.stream.writeWord(secondarySlotID); // Item slot (secondary item)
+		clientt.stream.method432(primarySlotID); //Item slot (primary item)
+		clientt.stream.method433(secondaryItemID); //Item ID (secondary item)
+		clientt.stream.writeWord(3214); //Inventory interface
+		clientt.stream.method431(primaryItemID); //Item ID (primary item)
+		clientt.stream.writeWord(3214); //Inventory Interface
+		clientt.writeStream();
+	}
 
 	public static void itemOnObject(int itemId, int objectId, int x, int y) {
 		clientt.stream.createFrame(192);

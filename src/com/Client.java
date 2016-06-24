@@ -2794,6 +2794,13 @@ public class Client extends RSApplet {
 			}
 
 	}
+	
+	void mouseWheelDragged(int i, int j) {
+		if (!mouseWheelDown)
+			return;
+		this.anInt1186 += i * 3;
+		this.anInt1187 += (j << 1);
+	}
 
 	private void resetImageProducers() {
 		if (aRSImageProducer_1107 != null)
@@ -3308,13 +3315,14 @@ public class Client extends RSApplet {
 			}
 		}
 		if (l == 870) {
+			System.out.println("Using item: " + anInt1285 + " on item: " + i1 + " on interface ID " + k);
 			stream.createFrame(53);
-			stream.writeWord(j);
-			stream.method432(anInt1283);
-			stream.method433(i1);
-			stream.writeWord(anInt1284);
-			stream.method431(anInt1285);
-			stream.writeWord(k);
+			stream.writeWord(j); // Item slot (secondary item)
+			stream.method432(anInt1283); //Item slot (primary item)
+			stream.method433(i1); //Item ID (secondary item)
+			stream.writeWord(anInt1284); //Inventory interface
+			stream.method431(anInt1285); //Item ID (primary item)
+			stream.writeWord(k); //Inventory Interface
 			atInventoryLoopCycle = 0;
 			atInventoryInterface = k;
 			atInventoryIndex = j;
