@@ -1,7 +1,12 @@
 package bot;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import bot.scripts.Script;
@@ -231,30 +236,56 @@ public class Bot {
 		return (Client.myPlayer.currentHealth/Client.myPlayer.maxHealth)*100;
 	}
 	
-	public static WorldObject getClosestObjectById(int id) {
-		WorldObject worldObject = null;
+	public static WorldObject getClosestWorldObject(String id) {
+		Map<Integer, WorldObject> distanceMap = new TreeMap<Integer, WorldObject>();
+		ArrayList<WorldObject> objects = getObjectsNearby(id);
+		for (WorldObject object : objects) {
+			if (object != null) {
+				distanceMap.put(Utils.distance(getMyPlayerPos(), object), object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		return (WorldObject) distanceMap.values().toArray()[0];
+	}
+	
+	public static WorldObject getClosestWorldObject(int id) {
+		Map<Integer, WorldObject> distanceMap = new TreeMap<Integer, WorldObject>();
+		ArrayList<WorldObject> objects = getObjectsNearby(id);
+		for (WorldObject object : objects) {
+			if (object != null) {
+				distanceMap.put(Utils.distance(getMyPlayerPos(), object), object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		return (WorldObject) distanceMap.values().toArray()[0];
+	}
+	
+	public static ArrayList<WorldObject> getObjectsNearby(int id) {
+		ArrayList<WorldObject> objects = new ArrayList<WorldObject>();
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
 				if (obj == null || (obj.uid >> 14 & 0x7fff) != id)
 					continue;
-				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY);
+				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
 			}
 		}
-		return worldObject;
+		return objects;
 	}
 	
-	public static WorldObject getClosestObjectByName(String id) {
-		WorldObject worldObject = null;
+	public static ArrayList<WorldObject> getObjectsNearby(String id) {
+		ArrayList<WorldObject> objects = new ArrayList<WorldObject>();
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
 				if (obj == null || !ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id))
 					continue;
-				worldObject = new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY);
+				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
 			}
 		}
-		return worldObject;
+		return objects;
 	}
 	
 	public static void itemOnObject(int itemId, int objectId, int x, int y) {
@@ -265,6 +296,7 @@ public class Bot {
 		clientt.stream.method431(Bot.getInventory().getSlotByItem(itemId));
 		clientt.stream.method433(x);
 		clientt.stream.writeWord(itemId);
+		clientt.writeStream();
 	}
 	
 	public static void clickObject(int id, int x, int y) {
@@ -273,6 +305,7 @@ public class Bot {
 		clientt.stream.method433(x);
 		clientt.stream.writeWord(id);
 		clientt.stream.method432(y);
+		clientt.writeStream();
 	}
 	
 	public static boolean myPlayerInCombat() {
@@ -368,7 +401,7 @@ public class Bot {
 				System.out.println("No items found. "+Integer.valueOf(cmd[1]));
 			return true;
 		} else if (cmd[0].startsWith("fobject")) {
-			WorldObject item = Bot.getClosestObjectByName(cmd[1].replace("_", " "));
+			WorldObject item = Bot.getClosestWorldObject(cmd[1].replace("_", " "));
 			if (item != null)
 				System.out.println(""+item.toString());
 			else

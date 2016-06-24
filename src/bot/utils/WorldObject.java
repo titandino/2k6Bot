@@ -17,4 +17,9 @@ public class WorldObject extends Tile {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "["+id+"@("+this.getX()+", "+this.getY()+","+this.getZ()+")]";
+	}
+	
 }
