@@ -301,6 +301,32 @@ public class Bot {
 		return objects;
 	}
 	
+	public static String getScriptTime(long currTime, long startTime){
+		    long ms = currTime - startTime;
+	        long totalSecs = ms/1000;
+	        long hours = (totalSecs / 3600);
+	        long mins = (totalSecs / 60) % 60;
+	        long secs = totalSecs % 60;
+	        String hoursString = (hours == 0)
+	        		? "00"
+	        		: ((hours < 10)
+	        		? "0" + hours
+	        		: "" + hours);
+	        String minsString = (mins == 0)
+	            ? "00"
+	            : ((mins < 10)
+	               ? "0" + mins
+	               : "" + mins);
+	        String secsString = (secs == 0)
+	            ? "00"
+	            : ((secs < 10)
+	               ? "0" + secs
+	               : "" + secs);
+	        
+	            return hoursString + ":" + minsString + ":" + secsString;
+	      
+	}
+	
 	public static void itemOnItem(int primaryItemID, int secondaryItemID, int primarySlotID, int secondarySlotID)
 	{
 		clientt.stream.createFrame(53);
