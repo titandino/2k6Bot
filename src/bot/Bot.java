@@ -105,21 +105,117 @@ public class Bot {
 	}
 	
 	public static void attackNPC(String name) {
-		int i = Bot.getNotInCombatNpcName(name);
-		if (i < 0)
+		NPC i = getClosestOutOfCombatNPC(name);
+		if (i == null || i.idx < 0)
 			return;
-		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, Bot.clientt.npcArray[i].smallY[0], Client.myPlayer.smallX[0], false, Bot.clientt.npcArray[i].smallX[0]);
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
 		clientt.stream.createFrame(72);
-		clientt.stream.method432(i);
+		clientt.stream.method432(i.idx);
 		clientt.writeStream();
 	}
 	
 	public static void attackNPC(int id) {
-		int i = Bot.getNotInCombatNpcIndex(id);
-		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, Bot.clientt.npcArray[i].smallY[0], Client.myPlayer.smallX[0], false, Bot.clientt.npcArray[i].smallX[0]);
+		NPC i = getClosestOutOfCombatNPC(id);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
 		clientt.stream.createFrame(72);
-		clientt.stream.method432(i);
+		clientt.stream.method432(i.idx);
 		clientt.writeStream();
+	}
+	
+	public static ArrayList<NPC> getFilteredNPCs(int id) {
+		ArrayList<NPC> allNpcs = clientt.getNPCs();
+		if (allNpcs != null) {
+			ArrayList<NPC> filtered = new ArrayList<NPC>();
+			for (NPC n : allNpcs) {
+				if (n != null && n.desc.npcId == id)
+					filtered.add(n);
+			}
+			return filtered;
+		}
+		return new ArrayList<NPC>();
+	}
+	
+	public static ArrayList<NPC> getFilteredNPCs(String id) {
+		ArrayList<NPC> allNpcs = clientt.getNPCs();
+		if (allNpcs != null) {
+			ArrayList<NPC> filtered = new ArrayList<NPC>();
+			for (NPC n : allNpcs) {
+				if (n != null && n.desc.name.equalsIgnoreCase(id))
+					filtered.add(n);
+			}
+			return filtered;
+		}
+		return new ArrayList<NPC>();
+	}
+	
+	public static NPC getClosestNPC(String id) {
+		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
+		ArrayList<NPC> objects = getFilteredNPCs(id);
+		for (NPC object : objects) {
+			if (object != null) {
+				int distance = calculatePathDistance(object.x+clientt.baseX, object.y+clientt.baseY);
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (NPC) distanceMap.get(sortedKeys.get(0));
+	}
+	
+	public static NPC getClosestNPC(int id) {
+		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
+		ArrayList<NPC> objects = getFilteredNPCs(id);
+		for (NPC object : objects) {
+			if (object != null) {
+				int distance = calculatePathDistance(object.x+clientt.baseX, object.y+clientt.baseY);
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (NPC) distanceMap.get(sortedKeys.get(0));
+	}
+	
+	public static NPC getClosestOutOfCombatNPC(String id) {
+		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
+		ArrayList<NPC> objects = getFilteredNPCs(id);
+		for (NPC object : objects) {
+			if (object != null && !inCombat(object)) {
+				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7)+clientt.baseY);
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (NPC) distanceMap.get(sortedKeys.get(0));
+	}
+	
+	public static NPC getClosestOutOfCombatNPC(int id) {
+		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
+		ArrayList<NPC> objects = getFilteredNPCs(id);
+		for (NPC object : objects) {
+			if (object != null && !inCombat(object)) {
+				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7)+clientt.baseY);
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (NPC) distanceMap.get(sortedKeys.get(0));
 	}
 
 	public static int getNotInCombatNpcName(String name) {

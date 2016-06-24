@@ -36,6 +36,7 @@ public class VarrockOaks extends Script {
 					Bot.clickClosestWorldObject("bank booth");
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
+					logsCut += 28;
 				} else {
 					if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
 						stage = "Getting level 15";
