@@ -267,7 +267,7 @@ public class Bot {
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
-				if (obj != null && (obj.uid >> 14 & 0x7fff) != id)
+				if (obj == null || (obj.uid >> 14 & 0x7fff) != id)
 					continue;
 				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
 			}
@@ -280,7 +280,7 @@ public class Bot {
 		for (int x = 0;x < 104;x++) {
 			for (int y = 0;y < 104;y++) {
 				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
-				if (obj != null && (ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id)))
+				if (obj == null || (!ObjectDef.forID(obj.uid >> 14 & 0x7fff).name.equalsIgnoreCase(id)))
 					continue;
 				objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, x+clientt.baseX, y+clientt.baseY));
 			}

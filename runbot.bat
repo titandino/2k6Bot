@@ -1,3 +1,3 @@
 @echo off
-javaw -cp bin; bot.Bot
+java -cp bin; bot.Bot
 pause

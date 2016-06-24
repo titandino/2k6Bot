@@ -41,8 +41,9 @@ public class Combat extends Script {
 		try {
 			if (Bot.getInventory().contains(526, 1))
 				Bot.clickItem(526);
-			if (args.length > 1)
-				Bot.findAndPickupItems(args);
+			//if (args.length > 1)
+			//	Bot.findAndPickupItems(args);
+			Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes");
 			if (!Bot.myPlayerInCombat()) {
 				stage = "Attacking shit";
 				Bot.attackNPC(args[1].replace("_", " "));

@@ -4,8 +4,12 @@ package com;
 // Decompiler options: packimports(3) 
 
 public final class ObjectDef {
+	
+	private static ObjectDef[] definitions = new ObjectDef[14974];
 
 	public static ObjectDef forID(int i) {
+		if (definitions[i] != null)
+			return definitions[i];
 		for (int j = 0; j < 20; j++)
 			if (cache[j].type == i)
 				return cache[j];
@@ -84,11 +88,12 @@ public final class ObjectDef {
 			streamIndices[j] = i;
 			i += stream.readUnsignedWord();
 		}
-
 		cache = new ObjectDef[20];
 		for (int k = 0; k < 20; k++)
 			cache[k] = new ObjectDef();
-
+//		for (int x = 0;x < definitions.length;x++) {
+//			definitions[x] = forID(x);
+//		}
 	}
 
 	public boolean method577(int i) {
