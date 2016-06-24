@@ -32,7 +32,7 @@ public class RuneLooter extends Script {
 		super.run();
 		
 		try {
-			Bot.findAndPickupItems("rune");
+			Bot.findAndPickupItems(15, "rune");
 
 			} catch(Exception e) {
 			e.printStackTrace();
