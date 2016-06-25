@@ -33,13 +33,13 @@ public class AIOWoodcut extends Script {
 			if (Client.myPlayer.anim == -1) {
 				if (Bot.getInventory().freeSlots() <= 0) {
 					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth");
+					Bot.clickClosestWorldObject("bank booth", "use");
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
 					logsCut += 28;
 				} else {
 					stage = "chainsaw.exe";
-					Bot.clickClosestWorldObject(args[1].replace("_", " "));
+					Bot.clickClosestWorldObject(args[1].replace("_", " "), "chop down");
 					Thread.sleep(3000);
 				}
 			}

@@ -350,6 +350,14 @@ public class Bot {
 		return (Client.myPlayer.currentHealth/Client.myPlayer.maxHealth)*100;
 	}
 	
+	public static void clickClosestWorldObject(int name, String action) {
+		clickWorldObject(getClosestWorldObject(name, action));
+	}
+	
+	public static void clickClosestWorldObject(String name, String action) {
+		clickWorldObject(getClosestWorldObject(name, action));
+	}
+	
 	public static void clickClosestWorldObject(int name) {
 		clickWorldObject(getClosestWorldObject(name));
 	}
@@ -361,6 +369,10 @@ public class Bot {
 	public static void clickWorldObject(WorldObject object) {
 		if (object != null)
 			Bot.clickObject(object);
+	}
+	
+	public static boolean isAnimating() {
+		return Client.myPlayer.anim != -1;
 	}
 	
 	public static WorldObject getClosestWorldObject(String id) {
