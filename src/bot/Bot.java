@@ -925,4 +925,8 @@ public class Bot {
 	public static String format(int number) {
 		return NumberFormat.getNumberInstance(Locale.US).format(number);
 	}
+
+	public static void walkTo(Tile fishTile) {
+		walkTo(fishTile.getX(), fishTile.getY());
+	}
 }

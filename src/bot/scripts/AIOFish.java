@@ -6,13 +6,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import com.NPC;
+
 import bot.Bot;
+import bot.utils.Tile;
 
 public class AIOFish extends Script {
 
 	long startTime;
 	int startXp;
 	int startFish;
+	Tile fishTile;
 
 	String stage = "Starting";
 
@@ -21,6 +25,7 @@ public class AIOFish extends Script {
 		startTime = System.currentTimeMillis();
 		startXp = Bot.getXp(Bot.FISHING);
 		startFish = Bot.getBank().numberOf("raw");
+		fishTile = Bot.getMyPlayerPos();
 		return true;
 	}
 
@@ -36,6 +41,9 @@ public class AIOFish extends Script {
 					Bot.depositAllBySlot(1);
 				} else {
 					stage = "avid_angler.exe";
+					NPC spot = Bot.getClosestNPCNoClip(Integer.valueOf(args[1]));
+					if (spot == null)
+						Bot.walkTo(fishTile);
 					Bot.clickNPCNoClip(Integer.valueOf(args[1]), args[2] != null ? Integer.valueOf(args[2]) : 1);
 					Thread.sleep(3000);
 				}
