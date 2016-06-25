@@ -10,7 +10,7 @@ public class Area {
 	}
 	
 	public boolean within(Tile tile) {
-		return !((tile.getX() >= bottomLeft.getX()) && (tile.getY() >= bottomLeft.getY()) && 
+		return ((tile.getX() >= bottomLeft.getX()) && (tile.getY() >= bottomLeft.getY()) && 
 				(tile.getX() <= topRight.getX()) && (tile.getY() <= topRight.getY()));
 	}
 	
