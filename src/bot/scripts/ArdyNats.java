@@ -9,10 +9,11 @@ import java.awt.image.BufferedImage;
 
 import bot.Bot;
 
-public class Pickpocket extends Script {
+public class ArdyNats extends Script {
 
 	long startTime;
 	int startXp;
+	int startNats;
 
 	String stage = "Starting";
 
@@ -20,6 +21,7 @@ public class Pickpocket extends Script {
 	public boolean onStart() {
 		startTime = System.currentTimeMillis();
 		startXp = Bot.getXp(Bot.THIEVING);
+		startNats = Bot.getInventory().numberOf(561);
 		return true;
 	}
 
@@ -27,8 +29,9 @@ public class Pickpocket extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Bot.getInventory().freeSlots() >= 0 && !Bot.isAnimating()) {
-				Bot.clickNPCNoClip(args[1].replace("_", " "), 2);
+			if (Bot.getMyHealth() > 10 && !Bot.isAnimating()) {
+					Bot.clickClosestWorldObject(2568, "search for traps");
+					Thread.sleep(1000);
 				}
 		} catch (Exception e) {
 
@@ -44,14 +47,16 @@ public class Pickpocket extends Script {
 		g2d.setColor(new Color(0, 255, 255, 150));
 		g2d.drawRoundRect(0, 0, 210, 120, 15, 15);
 		g2d.setFont(new Font("Arial", 1, 16));
-		g2d.drawString("C9 thiiief", 15, 15);
+		g2d.drawString("Wicked Fast Nats Man", 15, 15);
 		g2d.setFont(new Font("Arial", 1, 12));
 		g2d.drawString("Thieving xp p/h: " + Bot.getFormattedXpPerHour(Bot.THIEVING, startXp, startTime), 15, 47);
+		g2d.drawString("Nats p/hr: " + Bot.getFormattedLootPerHour(Bot.getInventory().numberOf(561), startNats, startTime), 15, 59);
 		g2d.setColor(Color.GREEN);
-		g2d.drawString("Time Running: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 62);
-		g2d.drawString("Stage: " + stage, 15, 74);
+		g2d.drawString("Time Running: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 74);
+		g2d.drawString("Stage: " + stage, 15, 86);
 		g.drawImage(bufferedImage, 0, 0, null);
 	}
 
 }
+
 
