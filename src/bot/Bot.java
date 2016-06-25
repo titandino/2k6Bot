@@ -388,11 +388,13 @@ public class Bot {
 	}
 
 	public static void clickClosestWorldObject(int name, String action) {
-		clickWorldObject(getClosestWorldObject(name, action));
+		WorldObject object = getClosestWorldObject(name, action);
+		clickWorldObject(getClosestWorldObject(name, action), object.containsOption(action));
 	}
 
 	public static void clickClosestWorldObject(String name, String action) {
-		clickWorldObject(getClosestWorldObject(name, action));
+		WorldObject object = getClosestWorldObject(name, action);
+		clickWorldObject(getClosestWorldObject(name, action), object.containsOption(action));
 	}
 
 	public static void clickClosestWorldObject(int name) {
@@ -401,6 +403,11 @@ public class Bot {
 
 	public static void clickClosestWorldObject(String name) {
 		clickWorldObject(getClosestWorldObject(name));
+	}
+	
+	public static void clickWorldObject(WorldObject object, int option) {
+		if (object != null)
+			Bot.clickObject(object, option);
 	}
 
 	public static void clickWorldObject(WorldObject object) {
@@ -489,7 +496,7 @@ public class Bot {
 					continue;
 				ObjectDef def = ObjectDef.forID(obj.uid >> 14 & 0x7fff);
 				if (def.containsOption(option))
-					objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x + clientt.baseX, y + clientt.baseY));
+					objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x + clientt.baseX, y + clientt.baseY, def.actions));
 			}
 		}
 		return objects;
@@ -506,7 +513,7 @@ public class Bot {
 				if (def != null && !def.name.equalsIgnoreCase(id))
 					continue;
 				if (def.containsOption(option))
-					objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x + clientt.baseX, y + clientt.baseY));
+					objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x + clientt.baseX, y + clientt.baseY, def.actions));
 			}
 		}
 		return objects;
@@ -601,6 +608,32 @@ public class Bot {
 		clientt.stream.method433(x);
 		clientt.stream.writeWord(objectId);
 		clientt.stream.method432(y);
+		clientt.writeStream();
+	}
+	
+	private static void clickObject(WorldObject object, int option) {
+		walkTo(object);
+		if (option == -1 || option == 1) {
+			clientt.stream.createFrame(132);
+			clientt.stream.method433(object.getX());
+			clientt.stream.writeWord(object.getId());
+			clientt.stream.method432(object.getY());
+		} else if (option == 2) {
+			clientt.stream.createFrame(252);
+			clientt.stream.method433(object.getId());
+			clientt.stream.method431(object.getY());
+			clientt.stream.method432(object.getX());
+		} else if (option == 3) {
+			clientt.stream.createFrame(70);
+			clientt.stream.method431(object.getX());
+			clientt.stream.writeWord(object.getY());
+			clientt.stream.method433(object.getId());
+		} else {
+			clientt.stream.createFrame(132);
+			clientt.stream.method433(object.getX());
+			clientt.stream.writeWord(object.getId());
+			clientt.stream.method432(object.getY());
+		}
 		clientt.writeStream();
 	}
 

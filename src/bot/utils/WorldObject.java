@@ -6,6 +6,16 @@ public class WorldObject extends Tile {
 	private int sizeX;
 	private int sizeY;
 	private int rotation;
+	private String[] actions;
+	
+	public WorldObject(int id, int rotation, int sizeX, int sizeY, int x, int y, String[] actions) {
+		super(x, y, 0);
+		this.id = id;
+		this.rotation = rotation;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.actions = actions;
+	}
 	
 	public WorldObject(int id, int rotation, int sizeX, int sizeY, int x, int y) {
 		super(x, y, 0);
@@ -55,6 +65,16 @@ public class WorldObject extends Tile {
 
 	public void setRotation(int rotation) {
 		this.rotation = rotation;
+	}
+	
+	public int containsOption(String option) {
+		if (actions == null)
+			return -1;
+		for (int i = 0;i < actions.length;i++) {
+			if (actions[i].equalsIgnoreCase(option))
+				return i+1;
+		}
+		return -1;
 	}
 	
 }
