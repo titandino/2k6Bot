@@ -14,15 +14,15 @@ public class AIOWoodcut extends Script {
 
 	long startTime;
 	int startXp;
-	int logsCut;
+	int startLogs;
 
 	String stage = "Starting";
 
 	@Override
 	public boolean onStart() {
 		startTime = System.currentTimeMillis();
-		logsCut = 0;
 		startXp = Bot.getXp(Bot.WOODCUTTING);
+		startLogs = Bot.getBank().numberOf("log");
 		return true;
 	}
 
@@ -36,7 +36,6 @@ public class AIOWoodcut extends Script {
 					Bot.clickClosestWorldObject("bank booth", "use");
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
-					logsCut += 28;
 				} else {
 					stage = "chainsaw.exe";
 					Bot.clickClosestWorldObject(args[1].replace("_", " "), "chop down");
@@ -59,7 +58,7 @@ public class AIOWoodcut extends Script {
 		g2d.setFont(new Font("System", 1, 20));
 		g2d.drawString("Trent's AIO WC", 15, 20);
 		g2d.setFont(new Font("System", 1, 16));
-		g2d.drawString("Logs p/h: " + Bot.getFormattedLootPerHour(logsCut, 0, startTime), 15, 40);
+		g2d.drawString("Logs p/h: " + Bot.getFormattedLootPerHour(Bot.getBank().numberOf("log"), startLogs, startTime), 15, 40);
 		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.WOODCUTTING, startXp, startTime), 15, 60);
 		g2d.drawString("Time: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 80);
 		g2d.setFont(new Font("System", 1, 10));

@@ -717,6 +717,10 @@ public class Bot {
 		clientt.stream.method432(paramInt1);
 		clientt.writeStream();
 	}
+	
+	public static RSInterface getBank() {
+		return RSInterface.interfaceCache[5382];
+	}
 
 	public static void widthdrawItem10(int paramInt1, int paramInt2) {
 		clientt.stream.createFrame(43);

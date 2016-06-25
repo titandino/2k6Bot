@@ -463,6 +463,17 @@ public final class RSInterface {
 		return amtOf;
 	}
 	
+	public int numberOf(String string) {
+		int amtOf = 0;
+		for (int i = 0;i < items.length;i++) {
+			ItemDef def = ItemDef.forID(getItem(i));
+			if (def != null && def.name.toLowerCase().contains(string.toLowerCase())) {
+				amtOf += amounts[i];
+			}
+		}
+		return amtOf;
+	}
+	
 	public int freeSlots() {
 		int j = 0;
 		for (int i = 0;i < items.length;i++) {
