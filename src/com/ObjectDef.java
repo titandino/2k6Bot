@@ -327,9 +327,13 @@ public final class ObjectDef {
 				else if (j >= 30 && j < 39) {
 					if (actions == null)
 						actions = new String[5];
-					actions[j - 30] = stream.readString();
-					if (actions[j - 30].equalsIgnoreCase("hidden"))
-						actions[j - 30] = null;
+					if (((j-30) >= 0) && ((j-30) < 5)) {
+						actions[j - 30] = stream.readString();
+						if (actions[j - 30].equalsIgnoreCase("hidden"))
+							actions[j - 30] = null;
+					} else {
+						stream.readString();
+					}
 				} else if (j == 40) {
 					int i1 = stream.readUnsignedByte();
 					modifiedModelColors = new int[i1];
