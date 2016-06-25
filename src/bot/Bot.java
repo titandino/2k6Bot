@@ -474,6 +474,14 @@ public class Bot {
 		WorldObject object = getClosestWorldObject(name, action);
 		clickWorldObject(getClosestWorldObject(name, action), object.containsOption(action));
 	}
+	
+	public static void clickClosestWorldObject(int name, int action) {
+		clickWorldObject(getClosestWorldObject(name), action);
+	}
+
+	public static void clickClosestWorldObject(String name, int action) {
+		clickWorldObject(getClosestWorldObject(name), action);
+	}
 
 	public static void clickClosestWorldObject(int name) {
 		clickWorldObject(getClosestWorldObject(name));
