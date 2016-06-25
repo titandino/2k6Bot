@@ -780,6 +780,9 @@ public class Bot {
 				sendInfoMessage("No object found.");
 		} else if (cmd[0].startsWith("mypos")) {
 			sendInfoMessage(getMyPlayerPos().toString());
+		} else if (cmd[0].startsWith("clicko")) {
+			clickObject(Integer.valueOf(cmd[1]), getMyPlayerPos().getX(), getMyPlayerPos().getY());
+			return true;
 		} else if (cmd[0].startsWith("invinfo")) {
 			sendInfoMessage("" + Bot.getInventory().freeSlots());
 			sendInfoMessage("" + Bot.getInventory().numberOf(314));
