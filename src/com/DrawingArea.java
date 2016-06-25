@@ -46,7 +46,7 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	public static void method335(int i, int j, int k, int l, int i1, int k1) {
+	public static void drawAlphaFilledPixels(int i, int j, int k, int l, int i1, int k1) {
 		if (k1 < topX) {
 			k -= topX - k1;
 			k1 = topX;

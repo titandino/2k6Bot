@@ -7,6 +7,9 @@ import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+
+import bot.Bot;
+
 import java.awt.event.*;
 
 public class RSApplet extends Applet implements Runnable, MouseListener,
@@ -345,6 +348,8 @@ public class RSApplet extends Applet implements Runnable, MouseListener,
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
+		if (Bot.console.handleOpenConsole(j))
+			return;
 		if (j < 30)
 			j = 0;
 		if (i == 37)

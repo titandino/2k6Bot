@@ -7,6 +7,8 @@ import java.math.BigInteger;
 
 import com.sign.signlink;
 
+import bot.Bot;
+
 public final class Stream extends NodeSub {
 
 	public static Stream create() {
@@ -36,8 +38,10 @@ public final class Stream extends NodeSub {
 	}
 
 	public void createFrame(int i) {
-		if (i != 0 && i != 86 && i != 241 && i != 3)
-			System.out.println("Creating packet: "+i);
+		if (Bot.printPackets) {
+			if (i != 0 && i != 86 && i != 241 && i != 3)
+				Bot.printConsole("Creating packet: "+i);
+		}
 		buffer[currentOffset++] = (byte) (i + encryption.getNextKey());
 	}
 

@@ -3,12 +3,9 @@ package bot;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.SortedSet;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 import bot.scripts.Script;
@@ -27,10 +24,13 @@ import com.NodeList;
 import com.ObjectDef;
 import com.RSInterface;
 import com.Client;
+import com.Console;
 
 public class Bot {
 	public static Jframe clientt;
 	public static Script currentScript = null;
+	
+	public static Console console = new Console();
 
 	public static final int ATTACK = 0, DEFENCE = 1, STRENGTH = 2, HITPOINTS = 3, RANGE = 4, PRAYER = 5, MAGIC = 6, COOKING = 7, WOODCUTTING = 8, FLETCHING = 9, FISHING = 10, FIREMAKING = 11, CRAFTING = 12, SMITHING = 13, MINING = 14, HERBLORE = 15,
 			AGILITY = 16, THIEVING = 17, SLAYER = 18, FARMING = 19, RUNECRAFTING = 20;
@@ -86,7 +86,7 @@ public class Bot {
 			currentScript = (Script) Class.forName("bot.scripts." + script).getConstructor().newInstance();
 			currentScript.args = cmd;
 			runScript(currentScript);
-			System.out.println("Started script: " + script);
+			printConsole("Started script: " + script);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,6 +101,8 @@ public class Bot {
 	public static int[] questInterface = { 8145, 8147, 8148, 8149, 8150, 8151, 8152, 8153, 8154, 8155, 8156, 8157, 8158, 8159, 8160, 8161, 8162, 8163, 8164, 8165, 8166, 8167, 8168, 8169, 8170, 8171, 8172, 8173, 8174, 8175, 8176, 8177, 8178, 8179, 8180,
 			8181, 8182, 8183, 8184, 8185, 8186, 8187, 8188, 8189, 8190, 8191, 8192, 8193, 8194, 8195, 12174, 12175, 12176, 12177, 12178, 12179, 12180, 12181, 12182, 12183, 12184, 12185, 12186, 12187, 12188, 12189, 12190, 12191, 12192, 12193, 12194,
 			12195, 12196, 12197, 12198, 12199, 12200, 12201, 12202, 12203, 12204, 12205, 12206, 12207, 12208, 12209, 12210, 12211, 12212, 12213, 12214, 12215, 12216, 12217, 12218, 12219, 12220, 12221, 12222, 12223 };
+	
+	public static boolean printPackets = false;
 
 	public static int getNpcIndex(int id) {
 		for (NPC n : clientt.getNPCs()) {
@@ -237,8 +239,6 @@ public class Bot {
 				int distance = Utils.distance(getMyPlayerPos(), new Tile(object.getX(), object.getY()));
 				if (distance != -1)
 					distanceMap.put(distance, object);
-				else
-					System.out.println("Unreachable NPC: "+object.desc.npcId+" @ ("+object.getX()+", "+object.getY()+")");
 			}
 		}
 		if (distanceMap.isEmpty())
@@ -273,8 +273,6 @@ public class Bot {
 				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
 				if (distance != -1)
 					distanceMap.put(distance, object);
-				else
-					System.out.println("Unreachable NPC: "+object.desc.npcId+" @ ("+object.getX()+", "+object.getY()+")");
 			}
 		}
 		if (distanceMap.isEmpty())
@@ -833,8 +831,8 @@ public class Bot {
 		clientt.writeStream();
 	}
 
-	public static void sendInfoMessage(String message) {
-		clientt.pushMessage(message, 5, "");
+	public static void printConsole(String message) {
+		console.printMessage(message, 1);
 	}
 
 	public static boolean processCommand(String string) {
@@ -851,22 +849,22 @@ public class Bot {
 			if (o != null)
 				walkTo(o);
 			else
-				sendInfoMessage("No object found.");
+				printConsole("No object found.");
 		} else if (cmd[0].startsWith("walkton")) {
 			NPC o = getClosestNPC(cmd[1].replace("_", " "));
 			if (o != null)
 				walkTo(o.getX(), o.getY());
 			else
-				sendInfoMessage("No npc found.");
+				printConsole("No npc found.");
 		} else if (cmd[0].startsWith("mypos")) {
-			sendInfoMessage(getMyPlayerPos().toString());
+			printConsole(getMyPlayerPos().toString());
 		} else if (cmd[0].startsWith("clicko")) {
 			clickObject(Integer.valueOf(cmd[1]), getMyPlayerPos().getX(), getMyPlayerPos().getY());
 			return true;
 		} else if (cmd[0].startsWith("invinfo")) {
-			sendInfoMessage("" + Bot.getInventory().freeSlots());
-			sendInfoMessage("" + Bot.getInventory().numberOf(314));
-			sendInfoMessage("" + Bot.getInventory().getItem(1));
+			printConsole("" + Bot.getInventory().freeSlots());
+			printConsole("" + Bot.getInventory().numberOf(314));
+			printConsole("" + Bot.getInventory().getItem(1));
 		} else if (cmd[0].startsWith("stop")) {
 			TaskExecutor.getEventExecutor().shutdownNow();
 			currentScript = null;
@@ -874,16 +872,16 @@ public class Bot {
 		} else if (cmd[0].startsWith("gitem")) {
 			Tile item = findGroundItem(Integer.valueOf(cmd[1]));
 			if (item != null)
-				sendInfoMessage("" + item.toString());
+				printConsole("" + item.toString());
 			else
-				sendInfoMessage("No items found. " + Integer.valueOf(cmd[1]));
+				printConsole("No items found. " + Integer.valueOf(cmd[1]));
 			return true;
 		}  else if (cmd[0].startsWith("fobject")) {
 			WorldObject item = Bot.getClosestWorldObject(cmd[1].replace("_", " "));
 			if (item != null)
-				sendInfoMessage("" + item.toString() + ", distance: " + calculatePathDistance(item.getX(), item.getY()));
+				printConsole("" + item.toString() + ", distance: " + calculatePathDistance(item.getX(), item.getY()));
 			else
-				sendInfoMessage("No objects found. " + Integer.valueOf(cmd[1]));
+				printConsole("No objects found. " + Integer.valueOf(cmd[1]));
 			return true;
 		}
 		return false;

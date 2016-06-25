@@ -58,7 +58,7 @@ public class AIOWoodcut extends Script {
 		g2d.setFont(new Font("System", 1, 20));
 		g2d.drawString("Trent's AIO WC", 15, 20);
 		g2d.setFont(new Font("System", 1, 16));
-		g2d.drawString("Logs p/h: " + Bot.getFormattedLootPerHour(Bot.getBank().numberOf("log"), startLogs, startTime), 15, 40);
+		//g2d.drawString("Logs p/h: " + Bot.getFormattedLootPerHour(Bot.getBank().numberOf("log"), startLogs, startTime), 15, 40);
 		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.WOODCUTTING, startXp, startTime), 15, 60);
 		g2d.drawString("Time: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 80);
 		g2d.setFont(new Font("System", 1, 10));
