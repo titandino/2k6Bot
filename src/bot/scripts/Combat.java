@@ -44,15 +44,19 @@ public class Combat extends Script {
 				Bot.clickClosestWorldObject("bank booth");
 				stage = "Banking";
 				Thread.sleep(3000);
-					for (int i = 0; i <= 27; i++) {
-						Bot.depositItem(Bot.getInventory().getItem(i));
-						if (Bot.getInventory().freeSlots() == 28);
-							break;
-					}
+				for (int i = 0; i <= 27; i++) {
+					Bot.depositItem(Bot.getInventory().getItem(i));
+					Thread.sleep(400);
+					if (Bot.getInventory().freeSlots() == 28)
+						break;
+				}
 			}
 			
-			if (Bot.getInventory().contains(526, 1))
+			if (Bot.getInventory().contains(526, 1)) {
 				Bot.clickItem(526);
+				Thread.sleep(1000);
+			}
+			
 			Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
 			
 			if (!Bot.myPlayerInCombat()) {
