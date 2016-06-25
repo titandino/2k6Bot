@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-
 import bot.Bot;
 
 public class ArdyNats extends Script {
@@ -29,10 +28,10 @@ public class ArdyNats extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Bot.getMyHealth() > 10 && !Bot.isAnimating()) {
-					Bot.clickClosestWorldObject(2568, "search for traps");
-					Thread.sleep(1000);
-				}
+			if (!Bot.isAnimating()) {
+				Bot.clickClosestWorldObject("chest", 2);
+				Thread.sleep(1000);
+			}
 		} catch (Exception e) {
 
 		}
@@ -58,5 +57,3 @@ public class ArdyNats extends Script {
 	}
 
 }
-
-
