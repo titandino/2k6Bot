@@ -46,8 +46,8 @@ public class FlaxPicker extends Script {
 					}
 				} else {
 					stage = "Picking Cotton";
-					Bot.clickClosestWorldObject("Flax", "Pick");
-					Thread.sleep(3000);
+					Bot.clickClosestWorldObject("flax", 2);
+					Thread.sleep(1000);
 				}
 			}
 		} catch (Exception e) {
