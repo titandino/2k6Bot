@@ -452,4 +452,14 @@ public final class ObjectDef {
 	public static MRUNodes mruNodes1 = new MRUNodes(500);
 	public String actions[];
 
+	public boolean containsOption(String option) {
+		if (actions == null)
+			return false;
+		for (int i = 0;i < actions.length;i++) {
+			if (actions[i].equalsIgnoreCase(option))
+				return true;
+		}
+		return false;
+	}
+
 }

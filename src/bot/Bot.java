@@ -397,6 +397,72 @@ public class Bot {
 		return (WorldObject) distanceMap.get(sortedKeys.get(0));
 	}
 	
+	public static WorldObject getClosestWorldObject(String id, String option) {
+		Map<Integer, WorldObject> distanceMap = new TreeMap<Integer, WorldObject>();
+		ArrayList<WorldObject> objects = getObjectsNearby(id, option);
+		for (WorldObject object : objects) {
+			if (object != null) {
+				int distance = calculatePathDistance(object);
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (WorldObject) distanceMap.get(sortedKeys.get(0));
+	}
+	
+	public static WorldObject getClosestWorldObject(int id, String option) {
+		Map<Integer, WorldObject> distanceMap = new TreeMap<Integer, WorldObject>();
+		ArrayList<WorldObject> objects = getObjectsNearby(id, option);
+		for (WorldObject object : objects) {
+			if (object != null) {
+				int distance = calculatePathDistance(object);
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (WorldObject) distanceMap.get(sortedKeys.get(0));
+	}
+	
+	public static ArrayList<WorldObject> getObjectsNearby(int id, String option) {
+		ArrayList<WorldObject> objects = new ArrayList<WorldObject>();
+		for (int x = 0;x < 104;x++) {
+			for (int y = 0;y < 104;y++) {
+				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
+				if (obj == null || id != (obj.uid >> 14 & 0x7fff))
+					continue;
+				ObjectDef def = ObjectDef.forID(obj.uid >> 14 & 0x7fff);
+				if (def.containsOption(option))
+					objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x+clientt.baseX, y+clientt.baseY));
+			}
+		}
+		return objects;
+	}
+	
+	public static ArrayList<WorldObject> getObjectsNearby(String id, String option) {
+		ArrayList<WorldObject> objects = new ArrayList<WorldObject>();
+		for (int x = 0;x < 104;x++) {
+			for (int y = 0;y < 104;y++) {
+				InteractiveObject obj = clientt.worldController.getInteractiveObject(x, y, clientt.plane);
+				if (obj == null)
+					continue;
+				ObjectDef def = ObjectDef.forID(obj.uid >> 14 & 0x7fff);
+				if (def != null && !def.name.equalsIgnoreCase(id))
+					continue;
+				if (def.containsOption(option))
+					objects.add(new WorldObject(obj.uid >> 14 & 0x7fff, obj.rotation, def.sizeX, def.sizeY, x+clientt.baseX, y+clientt.baseY));
+			}
+		}
+		return objects;
+	}
+	
 	public static ArrayList<WorldObject> getObjectsNearby(int id) {
 		ArrayList<WorldObject> objects = new ArrayList<WorldObject>();
 		for (int x = 0;x < 104;x++) {
