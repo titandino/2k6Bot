@@ -795,7 +795,7 @@ public class Bot {
 			else
 				sendInfoMessage("No items found. " + Integer.valueOf(cmd[1]));
 			return true;
-		} else if (cmd[0].startsWith("fobject")) {
+		}  else if (cmd[0].startsWith("fobject")) {
 			WorldObject item = Bot.getClosestWorldObject(cmd[1].replace("_", " "));
 			if (item != null)
 				sendInfoMessage("" + item.toString() + ", distance: " + calculatePathDistance(item.getX(), item.getY()));
