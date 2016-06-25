@@ -710,11 +710,11 @@ public class Bot {
 		}
 	}
 
-	public static void depositItem(int paramInt1, int paramInt2) {
+	public static void depositItem(int itemID, int slotID) {
 		clientt.stream.createFrame(129);
-		clientt.stream.method432(paramInt2);
+		clientt.stream.method432(slotID);
 		clientt.stream.writeWord(5064);
-		clientt.stream.method432(paramInt1);
+		clientt.stream.method432(itemID);
 		clientt.writeStream();
 	}
 

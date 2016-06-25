@@ -28,13 +28,12 @@ public class PureEss extends Script {
 		try {
 			while (Bot.getInventory().freeSlots() == 0) {
 				stage = "Banking";
-				Bot.getClosestWorldObject(2213);
+				Bot.clickClosestWorldObject("bank booth", "use");
 				Thread.sleep(2000);
 				Bot.depositAllBySlot(1);
 				Thread.sleep(500);
-				
-			
 			}
+			
 			Bot.findAndPickupItems("bones", "rune");
 			if (!Bot.myPlayerInCombat()) {
 				stage = "Mining";
