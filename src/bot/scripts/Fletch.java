@@ -30,20 +30,20 @@ public class Fletch extends Script {
 				if (!Bot.getInventory().contains(args[1].replace("_", " "), 1)) {
 					stage = "Banking";
 					Bot.clickClosestWorldObject("bank booth", "use");
-					Thread.sleep(3000);
+					Thread.sleep(1500);
 					Bot.depositAllBySlot(1);
 					Thread.sleep(1000);
 					Bot.withdrawItem(Bot.getBank().getItem(Bot.getBank().getSlotByItem(args[1].replace("_", " "))), Bot.getBank().getSlotByItem(args[1].replace("_", " ")));
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} else {
 					stage = "lathe.exe";
 					Bot.itemOnItem("knife", args[1].replace("_", " "));
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					if (args[2].equalsIgnoreCase("shortbow"))
 						Bot.clickButton(8871);
 					else
 						Bot.clickButton(8875);
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					Bot.sendIntegerInput(50);
 					Thread.sleep(5000);
 				}
