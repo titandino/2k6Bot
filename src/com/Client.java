@@ -3188,6 +3188,7 @@ public class Client extends RSApplet {
 				crossY = super.saveClickY;
 				crossType = 2;
 				crossIndex = 0;
+				System.out.println("NPC Option 1: "+class30_sub2_sub4_sub1_sub1_1.id+", "+class30_sub2_sub4_sub1_sub1_1.desc.name);
 				stream.createFrame(155);
 				stream.method431(i1);
 			}
@@ -3497,6 +3498,7 @@ public class Client extends RSApplet {
 					stream.writeWordBigEndian(239);
 					anInt1226 = 0;
 				}
+				System.out.println("NPC Option 2: "+class30_sub2_sub4_sub1_sub1_2.id+", "+class30_sub2_sub4_sub1_sub1_2.desc.name);
 				stream.createFrame(17);
 				stream.method433(i1);
 			}
@@ -3515,6 +3517,7 @@ public class Client extends RSApplet {
 					stream.writeWordBigEndian(88);
 					anInt1134 = 0;
 				}
+				System.out.println("NPC Option 3: "+class30_sub2_sub4_sub1_sub1_3.id+", "+class30_sub2_sub4_sub1_sub1_3.desc.name);
 				stream.createFrame(21);
 				stream.writeWord(i1);
 			}

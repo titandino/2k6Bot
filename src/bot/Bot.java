@@ -104,6 +104,42 @@ public class Bot {
 		return -1;
 	}
 	
+	public static void clickNPC(String name, int option) {
+		NPC i = getClosestNPC(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		if (option == 1) {
+			clientt.stream.createFrame(155);
+			clientt.stream.method431(i.idx);
+		} else if (option == 2) {
+			clientt.stream.createFrame(17);
+			clientt.stream.method433(i.idx);
+		} else if (option == 3) {
+			clientt.stream.createFrame(21);
+			clientt.stream.writeWord(i.idx);
+		}
+		clientt.writeStream();
+	}
+	
+	public static void clickNPC(int name, int option) {
+		NPC i = getClosestNPC(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		if (option == 1) {
+			clientt.stream.createFrame(155);
+			clientt.stream.method431(i.idx);
+		} else if (option == 2) {
+			clientt.stream.createFrame(17);
+			clientt.stream.method433(i.idx);
+		} else if (option == 3) {
+			clientt.stream.createFrame(21);
+			clientt.stream.writeWord(i.idx);
+		}
+		clientt.writeStream();
+	}
+	
 	public static void attackNPC(String name) {
 		NPC i = getClosestOutOfCombatNPC(name);
 		if (i == null || i.idx < 0)
