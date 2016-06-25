@@ -329,8 +329,10 @@ public final class ObjectDef {
 						actions = new String[5];
 					if (((j-30) >= 0) && ((j-30) < 5)) {
 						actions[j - 30] = stream.readString();
-						if (actions[j - 30].equalsIgnoreCase("hidden"))
-							actions[j - 30] = null;
+						if (actions[j-30] != null) {
+							if (actions[j - 30].equalsIgnoreCase("hidden"))
+								actions[j - 30] = null;
+						}
 					} else {
 						stream.readString();
 					}
