@@ -3160,6 +3160,7 @@ public class Client extends RSApplet {
 				flag8 = promptUserForInput(class9);
 			if (flag8) {
 				stream.createFrame(185);
+				System.out.println("Clicked button: "+k);
 				stream.writeWord(k);
 			}
 		}
@@ -3473,6 +3474,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 646) {
 			stream.createFrame(185);
+			System.out.println("Clicked button: "+k);
 			stream.writeWord(k);
 			RSInterface class9_2 = RSInterface.interfaceCache[k];
 			if (class9_2.valueIndexArray != null && class9_2.valueIndexArray[0][0] == 5) {
@@ -3791,6 +3793,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 169) {
 			stream.createFrame(185);
+			System.out.println("Clicked button: "+k);
 			stream.writeWord(k);
 			RSInterface class9_3 = RSInterface.interfaceCache[k];
 			if (class9_3.valueIndexArray != null && class9_3.valueIndexArray[0][0] == 5) {

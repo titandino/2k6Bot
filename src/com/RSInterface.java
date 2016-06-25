@@ -434,6 +434,17 @@ public final class RSInterface {
 	public int getItem(int slot) {
 		return items[slot]-1;
 	}
+	
+	public boolean contains(String string, int amount) {
+		int amtOf = 0;
+		for (int i = 0;i < items.length;i++) {
+			ItemDef def = ItemDef.forID(getItem(i));
+			if (def != null && def.name.toLowerCase().contains(string.toLowerCase())) {
+				amtOf += amounts[i];
+			}
+		}
+		return amtOf >= amount;
+	}
 
 	public boolean contains(int itemId, int amount) {
 		int amtOf = 0;
@@ -443,6 +454,16 @@ public final class RSInterface {
 			}
 		}
 		return amtOf >= amount;
+	}
+	
+	public int getSlotByItem(String string) {
+		for (int i = 0;i < items.length;i++) {
+			ItemDef def = ItemDef.forID(getItem(i));
+			if (def != null && def.name.toLowerCase().contains(string.toLowerCase())) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public int getSlotByItem(int itemId) {

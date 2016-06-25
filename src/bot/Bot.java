@@ -46,6 +46,12 @@ public class Bot {
 	public static void setClient(Jframe frame) {
 		clientt = frame;
 	}
+	
+	public static void clickButton(int buttonId) {
+		clientt.stream.createFrame(185);
+		clientt.stream.writeWord(buttonId);
+		clientt.writeStream();
+	}
 
 	public static void addTask(Runnable r, int delay) {
 		if (TaskExecutor.getEventExecutor().isShutdown())
@@ -563,6 +569,10 @@ public class Bot {
 
 	}
 	
+	public static void itemOnItem(String item1, String item2) {
+		itemOnItem(getInventory().getItem(getInventory().getSlotByItem(item1)), getInventory().getItem(getInventory().getSlotByItem(item2)), getInventory().getSlotByItem(item1), getInventory().getSlotByItem(item2));
+	}
+	
 	public static void itemOnItem(int item1, int item2) {
 		itemOnItem(item1, item2, getInventory().getSlotByItem(item1), getInventory().getSlotByItem(item2));
 	}
@@ -709,24 +719,43 @@ public class Bot {
 			}
 		}
 	}
-
-	public static void depositItem(int itemID, int slotID) {
+	
+	public static void clickOptionAll(int interfaceId, int itemId, int slotId) {
 		clientt.stream.createFrame(129);
-		clientt.stream.method432(slotID);
-		clientt.stream.writeWord(5064);
-		clientt.stream.method432(itemID);
+		clientt.stream.method432(slotId);
+		clientt.stream.writeWord(interfaceId);
+		clientt.stream.method432(itemId);
 		clientt.writeStream();
+	}
+	
+	public static void clickOption10(int interfaceId, int itemId, int slotId) {
+		clientt.stream.createFrame(43);
+		clientt.stream.method431(interfaceId);
+		clientt.stream.method432(itemId);
+		clientt.stream.method432(slotId);
+		clientt.writeStream();
+	}
+
+	public static void sendIntegerInput(int amount) {
+		clientt.stream.createFrame(208);
+		clientt.stream.writeDWord(amount);
+		clientt.writeStream();
+	}
+	
+	public static void depositItem(int itemId, int slotId) {
+		clickOptionAll(5064, itemId, slotId);
 	}
 	
 	public static RSInterface getBank() {
 		return RSInterface.interfaceCache[5382];
 	}
+	
+	public static void withdrawItem(int itemId, int slotId) {
+		clickOptionAll(5382, itemId, slotId);
+	}
 
-	public static void widthdrawItem10(int paramInt1, int paramInt2) {
-		clientt.stream.createFrame(43);
-		clientt.stream.method431(5382);
-		clientt.stream.method432(paramInt1);
-		clientt.stream.method432(paramInt2);
+	public static void withdraw10(int itemId, int slotId) {
+		clickOption10(5382, itemId, slotId);
 		clientt.writeStream();
 	}
 

@@ -36,7 +36,8 @@ public final class Stream extends NodeSub {
 	}
 
 	public void createFrame(int i) {
-		//System.out.println("Creating packet: "+i);
+		if (i != 0 && i != 86 && i != 241 && i != 3)
+			System.out.println("Creating packet: "+i);
 		buffer[currentOffset++] = (byte) (i + encryption.getNextKey());
 	}
 
