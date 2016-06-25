@@ -36,6 +36,7 @@ public class AIOWoodcut extends Script {
 					Bot.clickClosestWorldObject("bank booth", "use");
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
+					Thread.sleep(1000);
 				} else {
 					stage = "chainsaw.exe";
 					Bot.clickClosestWorldObject(args[1].replace("_", " "), "chop down");

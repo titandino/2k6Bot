@@ -39,6 +39,7 @@ public class AIOFish extends Script {
 					Bot.clickClosestWorldObject("bank booth", "use");
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
+					Thread.sleep(1000);
 				} else {
 					stage = "avid_angler.exe";
 					NPC spot = Bot.getClosestNPCNoClip(Integer.valueOf(args[1]));

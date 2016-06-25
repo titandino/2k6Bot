@@ -14,14 +14,12 @@ public class VarrockOaks extends Script {
 
 	long startTime;
 	int startXp;
-	int logsCut;
 
 	String stage = "Starting";
 
 	@Override
 	public boolean onStart() {
 		startTime = System.currentTimeMillis();
-		logsCut = 0;
 		startXp = Bot.getXp(Bot.WOODCUTTING);
 		return true;
 	}
@@ -36,7 +34,7 @@ public class VarrockOaks extends Script {
 					Bot.clickClosestWorldObject("bank booth");
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
-					logsCut += 28;
+					Thread.sleep(1000);
 				} else {
 					if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
 						stage = "Getting level 15";
@@ -65,7 +63,6 @@ public class VarrockOaks extends Script {
 		g2d.setFont(new Font("System", 1, 20));
 		g2d.drawString("Trent's Deforester", 15, 20);
 		g2d.setFont(new Font("System", 1, 16));
-		g2d.drawString("Oaks p/h: " + Bot.getFormattedLootPerHour(logsCut, 0, startTime), 15, 40);
 		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.WOODCUTTING, startXp, startTime), 15, 60);
 		g2d.drawString("Time: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 80);
 		g2d.setFont(new Font("System", 1, 10));
