@@ -5,9 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import bot.utils.*;
 
-import com.Client;
 
 import bot.Bot;
 
@@ -15,7 +13,6 @@ public class Pickpocket extends Script {
 
 	long startTime;
 	int startXp;
-	Area mine = new Area(new Tile(2624, 3129, 0), new Tile(2650, 3153, 0));
 
 	String stage = "Starting";
 
