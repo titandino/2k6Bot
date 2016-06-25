@@ -110,6 +110,42 @@ public class Bot {
 		}
 		return -1;
 	}
+	
+	public static void clickNPCNoClip(String name, int option) {
+		NPC i = getClosestNPCNoClip(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		if (option == 1) {
+			clientt.stream.createFrame(155);
+			clientt.stream.method431(i.idx);
+		} else if (option == 2) {
+			clientt.stream.createFrame(17);
+			clientt.stream.method433(i.idx);
+		} else if (option == 3) {
+			clientt.stream.createFrame(21);
+			clientt.stream.writeWord(i.idx);
+		}
+		clientt.writeStream();
+	}
+
+	public static void clickNPCNoClip(int name, int option) {
+		NPC i = getClosestNPCNoClip(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		if (option == 1) {
+			clientt.stream.createFrame(155);
+			clientt.stream.method431(i.idx);
+		} else if (option == 2) {
+			clientt.stream.createFrame(17);
+			clientt.stream.method433(i.idx);
+		} else if (option == 3) {
+			clientt.stream.createFrame(21);
+			clientt.stream.writeWord(i.idx);
+		}
+		clientt.writeStream();
+	}
 
 	public static void clickNPC(String name, int option) {
 		NPC i = getClosestNPC(name);
@@ -192,6 +228,42 @@ public class Bot {
 		}
 		return new ArrayList<NPC>();
 	}
+	
+	public static NPC getClosestNPCNoClip(String id) {
+		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
+		ArrayList<NPC> objects = getFilteredNPCs(id);
+		for (NPC object : objects) {
+			if (object != null) {
+				int distance = Utils.distance(getMyPlayerPos(), new Tile(object.getX(), object.getY()));
+				if (distance != -1)
+					distanceMap.put(distance, object);
+				else
+					System.out.println("Unreachable NPC: "+object.desc.npcId+" @ ("+object.getX()+", "+object.getY()+")");
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (NPC) distanceMap.get(sortedKeys.get(0));
+	}
+
+	public static NPC getClosestNPCNoClip(int id) {
+		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
+		ArrayList<NPC> objects = getFilteredNPCs(id);
+		for (NPC object : objects) {
+			if (object != null) {
+				int distance = Utils.distance(getMyPlayerPos(), new Tile(object.getX(), object.getY()));
+				if (distance != -1)
+					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (NPC) distanceMap.get(sortedKeys.get(0));
+	}
 
 	public static NPC getClosestNPC(String id) {
 		Map<Integer, NPC> distanceMap = new TreeMap<Integer, NPC>();
@@ -201,6 +273,8 @@ public class Bot {
 				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
 				if (distance != -1)
 					distanceMap.put(distance, object);
+				else
+					System.out.println("Unreachable NPC: "+object.desc.npcId+" @ ("+object.getX()+", "+object.getY()+")");
 			}
 		}
 		if (distanceMap.isEmpty())
@@ -309,7 +383,7 @@ public class Bot {
 
 	public static int calculatePathDistance(int x, int y) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
-		return clientt.findPathDistance(0, 0, 0, Client.myPlayer.smallY[0], 0, 1, y - clientt.baseY, Client.myPlayer.smallX[0], false, x - clientt.baseX);
+		return clientt.findPathDistance(0, 1, 0, Client.myPlayer.smallY[0], 1, 0, y - clientt.baseY, Client.myPlayer.smallX[0], true, x - clientt.baseX);
 	}
 
 	public static void walkTo(WorldObject object) {
@@ -778,6 +852,12 @@ public class Bot {
 				walkTo(o);
 			else
 				sendInfoMessage("No object found.");
+		} else if (cmd[0].startsWith("walkton")) {
+			NPC o = getClosestNPC(cmd[1].replace("_", " "));
+			if (o != null)
+				walkTo(o.getX(), o.getY());
+			else
+				sendInfoMessage("No npc found.");
 		} else if (cmd[0].startsWith("mypos")) {
 			sendInfoMessage(getMyPlayerPos().toString());
 		} else if (cmd[0].startsWith("clicko")) {

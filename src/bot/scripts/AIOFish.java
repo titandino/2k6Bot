@@ -36,7 +36,7 @@ public class AIOFish extends Script {
 					Bot.depositAllBySlot(1);
 				} else {
 					stage = "avid_angler.exe";
-					Bot.clickNPC(Integer.valueOf(args[1]), args[2] != null ? Integer.valueOf(args[2]) : 1);
+					Bot.clickNPCNoClip(Integer.valueOf(args[1]), args[2] != null ? Integer.valueOf(args[2]) : 1);
 					Thread.sleep(3000);
 				}
 			}
@@ -57,7 +57,7 @@ public class AIOFish extends Script {
 		g2d.drawString("Trent's AIO Fish", 15, 20);
 		g2d.setFont(new Font("System", 1, 16));
 		g2d.drawString("Fish p/h: " + Bot.getFormattedLootPerHour(Bot.getBank().numberOf("raw"), startFish, startTime), 15, 40);
-		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.FISHING, startXp, startTime), 15, 60);
+		g2d.drawString("Fish xp p/h: " + Bot.getFormattedXpPerHour(Bot.FISHING, startXp, startTime), 15, 60);
 		g2d.drawString("Time: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 80);
 		g2d.setFont(new Font("System", 1, 10));
 		g2d.drawString("Stage: " + stage, 15, 95);

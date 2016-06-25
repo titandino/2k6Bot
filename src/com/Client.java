@@ -5512,6 +5512,7 @@ public class Client extends RSApplet {
 	}
 
 	public boolean doWalkTo(int i, int j, int k, int i1, int j1, int k1, int l1, int i2, int j2, boolean flag, int k2) {
+		//System.out.println("Walk: "+j+", "+k+", "+i1+", "+(j1+baseY)+", "+k1+", "+l1+", "+(i2+baseY)+", "+(j2+baseX)+", "+flag+", "+(k2+baseX));
 		byte byte0 = 104;
 		byte byte1 = 104;
 		for (int l2 = 0; l2 < byte0; l2++) {

@@ -3,6 +3,8 @@ package com;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import bot.Bot;
+
 public final class NPC extends Entity {
 
 	private Model method450() {
@@ -67,5 +69,13 @@ public final class NPC extends Entity {
 	public NPC setIndex(int idx) {
 		this.idx = idx;
 		return this;
+	}
+
+	public int getX() {
+		return (x >> 7)+Bot.clientt.baseX;
+	}
+	
+	public int getY() {
+		return (y >> 7)+Bot.clientt.baseY;
 	}
 }
