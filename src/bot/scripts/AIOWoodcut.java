@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import com.Client;
+import com.NPC;
 
 import bot.Bot;
 
@@ -30,17 +30,23 @@ public class AIOWoodcut extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Client.myPlayer.anim == -1) {
-				if (Bot.getInventory().freeSlots() <= 0) {
-					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth", "use");
-					Thread.sleep(3000);
-					Bot.depositAllBySlot(1);
-					Thread.sleep(1000);
-				} else {
-					stage = "chainsaw.exe";
-					Bot.clickClosestWorldObject(args[1].replace("_", " "), "chop down");
-					Thread.sleep(3000);
+			NPC spirit = Bot.getClosestNPCNoClip("tree spirit");
+			if (spirit != null) {
+				Bot.clickClosestWorldObject("bank booth", "use");
+				Thread.sleep(400);
+			} else {
+				if (!Bot.isAnimating()) {
+					if (Bot.getInventory().freeSlots() <= 0) {
+						stage = "Banking";
+						Bot.clickClosestWorldObject("bank booth", "use");
+						Thread.sleep(3000);
+						Bot.depositAllBySlot(1);
+						Thread.sleep(1000);
+					} else {
+						stage = "chainsaw.exe";
+						Bot.clickClosestWorldObject(args[1].replace("_", " "), "chop down");
+						Thread.sleep(3000);
+					}
 				}
 			}
 		} catch (Exception e) {

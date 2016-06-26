@@ -482,6 +482,10 @@ public class Bot {
 	public static void clickClosestWorldObject(int name, int action) {
 		clickWorldObject(getClosestWorldObject(name), action);
 	}
+	
+	public static void clickClosestWorldObject(int[] name, int action) {
+		clickWorldObject(getClosestWorldObject(name), action);
+	}
 
 	public static void clickClosestWorldObject(String name, int action) {
 		clickWorldObject(getClosestWorldObject(name), action);
@@ -521,6 +525,25 @@ public class Bot {
 				int distance = calculatePathDistance(object);
 				if (distance != -99)
 					distanceMap.put(distance, object);
+			}
+		}
+		if (distanceMap.isEmpty())
+			return null;
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(distanceMap.keySet());
+		Collections.sort(sortedKeys);
+		return (WorldObject) distanceMap.get(sortedKeys.get(0));
+	}
+	
+	public static WorldObject getClosestWorldObject(int... ids) {
+		Map<Integer, WorldObject> distanceMap = new TreeMap<Integer, WorldObject>();
+		for (int i = 0;i < ids.length;i++) {
+			ArrayList<WorldObject> objects = getObjectsNearby(ids[i]);
+			for (WorldObject object : objects) {
+				if (object != null) {
+					int distance = calculatePathDistance(object);
+					if (distance != -99)
+						distanceMap.put(distance, object);
+				}
 			}
 		}
 		if (distanceMap.isEmpty())
@@ -906,7 +929,7 @@ public class Bot {
 		}  else if (cmd[0].startsWith("fobject")) {
 			WorldObject item = Bot.getClosestWorldObject(cmd[1].replace("_", " "));
 			if (item != null)
-				printConsole("" + item.toString() + ", distance: " + calculatePathDistance(item.getX(), item.getY()));
+				printConsole("" + item.toString() + ", distance: " + calculatePathDistance(item));
 			else
 				printConsole("No objects found. " + Integer.valueOf(cmd[1]));
 			return true;
