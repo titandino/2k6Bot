@@ -5744,6 +5744,11 @@ public class Client extends RSApplet {
 	public int findPathDistance(int objectRotation, int objectSizeY, int objectType, int startY, int objectSizeX, int targetSurrounding, int endY, int startX, boolean flag, int endX) {
 		byte mapSizeX = 104;
 		byte mapSizeY = 104;
+		int[] walkingQueueX = new int[4000];
+		int[] walkingQueueY = new int[4000];
+		int[][] waypoints = new int[104][104];
+		int[][] distanceValues = new int[104][104];
+		
 		for (int x = 0; x < mapSizeX; x++) {
 			for (int y = 0; y < mapSizeY; y++) {
 				waypoints[x][y] = 0;
@@ -5846,7 +5851,6 @@ public class Client extends RSApplet {
 				distanceValues[currentX + 1][currentY + 1] = newDistanceValue;
 			}
 		}
-		arbitraryDestination = 0;
 		if (!foundDestination) {
 			if (flag) {
 				int maxStepsNonInclusive = 100;
@@ -5857,7 +5861,6 @@ public class Client extends RSApplet {
 								maxStepsNonInclusive = distanceValues[deviationX][deviationY];
 								currentX = deviationX;
 								currentY = deviationY;
-								arbitraryDestination = 1;
 								foundDestination = true;
 							}
 
@@ -5892,6 +5895,8 @@ public class Client extends RSApplet {
 		}
 		int numberSteps = 0;
 		Tile last = new Tile(walkingQueueX[currentIndex], walkingQueueY[currentIndex]);
+		if (walkingQueueX[currentIndex] == 0 && walkingQueueY[currentIndex] == 0)
+			return 0;
 		for (int i = currentIndex; i >= 0; i--) {
 			Tile curr = new Tile(walkingQueueX[i], walkingQueueY[i]);
 			numberSteps += Utils.distance(last, curr);
