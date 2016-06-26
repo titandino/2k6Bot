@@ -35,7 +35,7 @@ public class Mining extends Script {
 			if (Client.myPlayer.anim == -1) {
 				if (Bot.getInventory().freeSlots() <= 0) {
 					while (mine.within(Bot.getMyPlayerPos())) {
-						Bot.walkTo(2620, 3117);
+						Bot.walkTo(2618, 3107);
 						Thread.sleep(5000);
 					} 
 					if (!mine.within(Bot.getMyPlayerPos())){
