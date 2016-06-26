@@ -698,6 +698,18 @@ public class Bot {
 		clientt.stream.writeWord(3214); // Inventory Interface
 		clientt.writeStream();
 	}
+	
+	public static void clickNearestBank() {
+		if (getClosestWorldObject("bank booth") != null) {
+			clickClosestWorldObject("bank booth", "use");
+		}
+		else if (getClosestNPCNoClip("banker") != null) {
+			clickNPCNoClip("banker", 2);
+		} 
+		else {
+			printConsole("No bank nearby.");
+		}
+	}
 
 	public static void itemOnObject(int itemId, WorldObject object) {
 		walkTo(object);

@@ -39,7 +39,7 @@ public class FlaxPicker extends Script {
 					} 
 					if (!Flax.within(Bot.getMyPlayerPos())){
 					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth", "use");
+					Bot.clickNearestBank();
 					Thread.sleep(3000);
 					Bot.depositAllBySlot(1);
 					flaxPicked = Bot.getBank().numberOf(1779) - startFlax;
