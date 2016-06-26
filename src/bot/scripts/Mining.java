@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import bot.utils.*;
 
 import com.Client;
+import com.NPC;
 
 import bot.Bot;
 
@@ -16,6 +17,7 @@ public class Mining extends Script {
 	long startTime;
 	int startXp;
 	int oresMined;
+	int[] rocks = new int[3];
 	Area mine = new Area(new Tile(2624, 3129, 0), new Tile(2650, 3153, 0));
 
 	String stage = "Starting";
@@ -32,7 +34,14 @@ public class Mining extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Client.myPlayer.anim == -1) {
+			rocks[1] = Integer.valueOf(args[1].replace("_", " "));
+			rocks[2] = Integer.valueOf(args[2].replace("_", " "));
+			NPC golem = Bot.getClosestNPCNoClip("rock golem");
+			if (golem != null) {
+				Bot.walkTo(2618, 3107);
+				Thread.sleep(400);
+			}
+			else if (!Bot.isAnimating()) {
 				if (Bot.getInventory().freeSlots() <= 0) {
 					while (mine.within(Bot.getMyPlayerPos())) {
 						Bot.walkTo(2618, 3107);
@@ -47,10 +56,11 @@ public class Mining extends Script {
 					}
 				} else {
 					stage = "Hulk Smashing";
-					Bot.clickClosestWorldObject(Integer.valueOf(args[1].replace("_", " ")), "mine");
+					Bot.clickClosestWorldObject(rocks, 0);
 					Thread.sleep(3000);
+					}
 				}
-			}
+			
 		} catch (Exception e) {
 
 		}
