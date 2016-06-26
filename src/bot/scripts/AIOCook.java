@@ -27,7 +27,7 @@ public class AIOCook extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (!Bot.hasAnimatedIn(3000)) {
+			if (!Bot.hasAnimatedIn(4000)) {
 				if (!Bot.getInventory().contains(Integer.valueOf(args[1]), 1)) {
 					stage = "I need more fish";
 					Bot.clickClosestWorldObject("bank booth", "use");

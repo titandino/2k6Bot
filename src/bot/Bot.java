@@ -871,6 +871,8 @@ public class Bot {
 			}
 			chooseScript(cmd[1], args);
 			return true;
+		} else if (cmd[0].startsWith("log")) {
+			Bot.clientt.dropClient();
 		} else if (cmd[0].startsWith("walktoo")) {
 			WorldObject o = getClosestWorldObject(cmd[1].replace("_", " "));
 			if (o != null)
