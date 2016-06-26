@@ -842,7 +842,7 @@ public class Bot {
 		for (int i = 0; i < 28; i++) {
 			if (getInventory().getItem(i) != -1) {
 				depositItem(getInventory().getItem(i), i);
-				Thread.sleep(1000);
+				Thread.sleep(200);
 			}
 		}
 	}

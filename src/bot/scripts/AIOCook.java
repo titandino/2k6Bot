@@ -30,17 +30,11 @@ public class AIOCook extends Script {
 			if (!Bot.hasAnimatedIn(5000)) {
 				if (!Bot.getInventory().contains(Integer.valueOf(args[1]), 1)) {
 					stage = "I need more fish";
-					System.out.println("Dicks0");
 					Bot.clickClosestWorldObject("bank booth", "use");
-					System.out.println("Dicks1");
 					Thread.sleep(1000);
-					System.out.println("Dicks2");
 					Bot.bankAll();
-					System.out.println("Dicks3");
 					Thread.sleep(1000);
-					System.out.println("Dicks4");
 					Bot.withdrawItem(Integer.valueOf(args[1]), Bot.getBank().getSlotByItem(Integer.valueOf(args[1].replace("_", " "))));
-					System.out.println("Dicks5");
 					Thread.sleep(1000);
 				} else {
 					stage = "This is hot";
