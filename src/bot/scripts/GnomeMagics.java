@@ -28,7 +28,7 @@ public class GnomeMagics extends Script {
 		try {
 			if (!Bot.isAnimating()) {
 				if (Bot.getInventory().freeSlots() <= 0) {
-					if (Bot.clientt.plane < 1) {
+					if (Bot.clientt.plane == 1) {
 						stage = "Banking";
 						Bot.clickClosestWorldObject("bank booth", "use");
 						Thread.sleep(3000);
@@ -36,7 +36,7 @@ public class GnomeMagics extends Script {
 						Thread.sleep(1000);
 					} else {
 						stage = "Climbing tree";
-						Bot.clickClosestWorldObject(1742);
+						Bot.clickObject(1742, 2444, 3414);
 						Thread.sleep(1000);
 					}
 				} else {

@@ -3846,7 +3846,7 @@ public class Client extends RSApplet {
 				s10 = new String(class46.description);
 			else
 				s10 = "It's a " + class46.name + ".";
-			pushMessage(s10 + " (ID: " + j1 + ")", 0, "");
+			pushMessage(s10 + " (ID: " + j1 + ")"+" @ ("+(j+baseX)+", "+(k+baseY)+")", 0, "");
 		}
 		if (l == 244) {
 			boolean flag7 = doWalkTo(2, 0, 0, 0, myPlayer.smallY[0], 0, 0, k, myPlayer.smallX[0], false, j);
