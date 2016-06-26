@@ -271,7 +271,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -288,7 +288,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -305,7 +305,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null && !inCombat(object)) {
 				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7) + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -322,7 +322,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null && !inCombat(object)) {
 				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7) + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -376,11 +376,15 @@ public class Bot {
 
 	public static int calculatePathDistance(WorldObject object) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
+		if (Utils.distance(getMyPlayerPos(), object) <= 0)
+			return Utils.distance(getMyPlayerPos(), object);
 		return clientt.findPathDistance(object.getRotation(), object.getSizeY(), 10, Client.myPlayer.smallY[0], object.getSizeX(), 0, object.getY() - clientt.baseY, Client.myPlayer.smallX[0], false, object.getX() - clientt.baseX);
 	}
 
 	public static int calculatePathDistance(int x, int y) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
+		if (Utils.distance(getMyPlayerPos(), new Tile(x, y)) <= 0)
+			return Utils.distance(getMyPlayerPos(), new Tile(x, y));
 		return clientt.findPathDistance(0, 1, 0, Client.myPlayer.smallY[0], 1, 0, y - clientt.baseY, Client.myPlayer.smallX[0], true, x - clientt.baseX);
 	}
 
@@ -491,6 +495,10 @@ public class Bot {
 		clickWorldObject(getClosestWorldObject(name));
 	}
 	
+	public static boolean hasAnimatedIn(long millis) {
+		return Client.myPlayer.getTimeSinceLastAnimation() < millis;
+	}
+	
 	public static void clickWorldObject(WorldObject object, int option) {
 		if (object != null)
 			Bot.clickObject(object, option);
@@ -511,7 +519,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -528,7 +536,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -545,7 +553,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -562,7 +570,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -830,6 +838,15 @@ public class Bot {
 		return RSInterface.interfaceCache[5382];
 	}
 	
+	public static void bankAll() throws InterruptedException {
+		for (int i = 0; i < 28; i++) {
+			if (getInventory().getItem(i) != -1) {
+				depositItem(getInventory().getItem(i), i);
+				Thread.sleep(200);
+			}
+		}
+	}
+	
 	public static void withdrawItem(int itemId, int slotId) {
 		clickOptionAll(5382, itemId, slotId);
 	}
@@ -852,6 +869,8 @@ public class Bot {
 			}
 			chooseScript(cmd[1], args);
 			return true;
+		} else if (cmd[0].startsWith("log")) {
+			Bot.clientt.dropClient();
 		} else if (cmd[0].startsWith("walktoo")) {
 			WorldObject o = getClosestWorldObject(cmd[1].replace("_", " "));
 			if (o != null)

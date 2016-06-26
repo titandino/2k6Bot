@@ -2792,10 +2792,6 @@ public class Client extends RSApplet {
 		anInt1010++;
 		if (anInt1010 > 50)
 			stream.createFrame(0);
-		writeStream();
-	}
-
-	public void writeStream() {
 		try {
 			if (socketStream != null && stream.currentOffset > 0) {
 				socketStream.queueBytes(stream.currentOffset, stream.buffer);
@@ -2809,6 +2805,23 @@ public class Client extends RSApplet {
 			exception.printStackTrace();
 			resetLogout();
 		}
+		writeStream();
+	}
+
+	public void writeStream() {
+//		try {
+//			if (socketStream != null && stream.currentOffset > 0) {
+//				socketStream.queueBytes(stream.currentOffset, stream.buffer);
+//				stream.currentOffset = 0;
+//				anInt1010 = 0;
+//			}
+//		} catch (IOException _ex) {
+//			_ex.printStackTrace();
+//			dropClient();
+//		} catch (Exception exception) {
+//			exception.printStackTrace();
+//			resetLogout();
+//		}
 	}
 
 	private void method63() {
@@ -3846,7 +3859,7 @@ public class Client extends RSApplet {
 				s10 = new String(class46.description);
 			else
 				s10 = "It's a " + class46.name + ".";
-			pushMessage(s10 + " (ID: " + j1 + ")", 0, "");
+			pushMessage(s10 + " (ID: " + j1 + ")"+" @ ("+(j+baseX)+", "+(k+baseY)+")", 0, "");
 		}
 		if (l == 244) {
 			boolean flag7 = doWalkTo(2, 0, 0, 0, myPlayer.smallY[0], 0, 0, k, myPlayer.smallX[0], false, j);
@@ -5856,7 +5869,7 @@ public class Client extends RSApplet {
 
 			}
 			if (!foundDestination)
-				return -1;
+				return -99;
 		}
 		currentIndex = 0;
 		walkingQueueX[currentIndex] = currentX;
@@ -7490,6 +7503,7 @@ public class Client extends RSApplet {
 					player.anInt1530 = 0;
 			} else if (l == -1 || player.anim == -1 || Animation.anims[l].anInt359 >= Animation.anims[player.anim].anInt359) {
 				player.anim = l;
+				player.refreshLastAnimated();
 				player.anInt1527 = 0;
 				player.anInt1528 = 0;
 				player.anInt1529 = i2;

@@ -341,5 +341,14 @@ public final class Player extends Entity {
 	int anInt1721;
 	int anInt1722;
 	int skill;
+	private long lastAnimated;
+	
+	public long getTimeSinceLastAnimation() {
+		return System.currentTimeMillis()-lastAnimated;
+	}
+	
+	public void refreshLastAnimated() {
+		lastAnimated = System.currentTimeMillis();
+	}
 
 }
