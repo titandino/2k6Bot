@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import com.Client;
-
 import bot.Bot;
 
 public class AIOCook extends Script {
@@ -29,18 +27,23 @@ public class AIOCook extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Client.myPlayer.anim == -1) {
+			if (!Bot.hasAnimatedIn(3000)) {
 				if (!Bot.getInventory().contains(Integer.valueOf(args[1]), 1)) {
 					stage = "I need more fish";
 					Bot.clickClosestWorldObject("bank booth", "use");
 					Thread.sleep(3000);
-					Bot.depositAllBySlot(1);
-					Bot.withdrawItem(Integer.valueOf(args[1]), Bot.getInventory().getSlotByItem(Integer.valueOf(args[1].replace("_", " "))));
+					Bot.bankAll();
+					Thread.sleep(1000);
+					Bot.withdrawItem(Integer.valueOf(args[1]), Bot.getBank().getSlotByItem(Integer.valueOf(args[1].replace("_", " "))));
+					Thread.sleep(1000);
 				} else {
 					stage = "This is hot";
 					Bot.itemOnObject(Integer.valueOf(args[1]), Bot.getClosestWorldObject("range"));
-					Thread.sleep(3000);
-					Bot.clickButton(13717);
+					Thread.sleep(1000);
+					Bot.clickButton(13718);
+					Thread.sleep(1000);
+					Bot.sendIntegerInput(50);
+					Thread.sleep(5000);
 				}
 			}
 		} catch (Exception e) {

@@ -495,6 +495,10 @@ public class Bot {
 		clickWorldObject(getClosestWorldObject(name));
 	}
 	
+	public static boolean hasAnimatedIn(long millis) {
+		return Client.myPlayer.getTimeSinceLastAnimation() < millis;
+	}
+	
 	public static void clickWorldObject(WorldObject object, int option) {
 		if (object != null)
 			Bot.clickObject(object, option);
@@ -832,6 +836,17 @@ public class Bot {
 	
 	public static RSInterface getBank() {
 		return RSInterface.interfaceCache[5382];
+	}
+	
+	public static void bankAll() throws InterruptedException {
+		while(getInventory().freeSlots() < 28) {
+			for(int i = 0;i < 28;i++) {
+				if (getInventory().getItem(i) != -1) {
+					depositItem(getInventory().getItem(i), i);
+					Thread.sleep(1000);
+				}
+			}
+		}
 	}
 	
 	public static void withdrawItem(int itemId, int slotId) {

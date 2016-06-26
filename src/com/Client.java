@@ -7490,6 +7490,7 @@ public class Client extends RSApplet {
 					player.anInt1530 = 0;
 			} else if (l == -1 || player.anim == -1 || Animation.anims[l].anInt359 >= Animation.anims[player.anim].anInt359) {
 				player.anim = l;
+				player.refreshLastAnimated();
 				player.anInt1527 = 0;
 				player.anInt1528 = 0;
 				player.anInt1529 = i2;
