@@ -2792,10 +2792,6 @@ public class Client extends RSApplet {
 		anInt1010++;
 		if (anInt1010 > 50)
 			stream.createFrame(0);
-		writeStream();
-	}
-
-	public void writeStream() {
 		try {
 			if (socketStream != null && stream.currentOffset > 0) {
 				socketStream.queueBytes(stream.currentOffset, stream.buffer);
@@ -2809,6 +2805,23 @@ public class Client extends RSApplet {
 			exception.printStackTrace();
 			resetLogout();
 		}
+		writeStream();
+	}
+
+	public void writeStream() {
+//		try {
+//			if (socketStream != null && stream.currentOffset > 0) {
+//				socketStream.queueBytes(stream.currentOffset, stream.buffer);
+//				stream.currentOffset = 0;
+//				anInt1010 = 0;
+//			}
+//		} catch (IOException _ex) {
+//			_ex.printStackTrace();
+//			dropClient();
+//		} catch (Exception exception) {
+//			exception.printStackTrace();
+//			resetLogout();
+//		}
 	}
 
 	private void method63() {

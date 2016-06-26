@@ -376,14 +376,14 @@ public class Bot {
 
 	public static int calculatePathDistance(WorldObject object) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
-		if (Utils.distance(getMyPlayerPos(), object) <= 1)
+		if (Utils.distance(getMyPlayerPos(), object) <= 0)
 			return Utils.distance(getMyPlayerPos(), object);
 		return clientt.findPathDistance(object.getRotation(), object.getSizeY(), 10, Client.myPlayer.smallY[0], object.getSizeX(), 0, object.getY() - clientt.baseY, Client.myPlayer.smallX[0], false, object.getX() - clientt.baseX);
 	}
 
 	public static int calculatePathDistance(int x, int y) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
-		if (Utils.distance(getMyPlayerPos(), new Tile(x, y)) <= 1)
+		if (Utils.distance(getMyPlayerPos(), new Tile(x, y)) <= 0)
 			return Utils.distance(getMyPlayerPos(), new Tile(x, y));
 		return clientt.findPathDistance(0, 1, 0, Client.myPlayer.smallY[0], 1, 0, y - clientt.baseY, Client.myPlayer.smallX[0], true, x - clientt.baseX);
 	}
@@ -839,12 +839,10 @@ public class Bot {
 	}
 	
 	public static void bankAll() throws InterruptedException {
-		while(getInventory().freeSlots() < 28) {
-			for(int i = 0;i < 28;i++) {
-				if (getInventory().getItem(i) != -1) {
-					depositItem(getInventory().getItem(i), i);
-					Thread.sleep(1000);
-				}
+		for (int i = 0; i < 28; i++) {
+			if (getInventory().getItem(i) != -1) {
+				depositItem(getInventory().getItem(i), i);
+				Thread.sleep(1000);
 			}
 		}
 	}
