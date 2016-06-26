@@ -577,11 +577,13 @@ public final class Model extends Animable {
 			super.aClass33Array1425 = new Class33[anInt1626];
 			for (int j1 = 0; j1 < anInt1626; j1++) {
 				Class33 class33 = super.aClass33Array1425[j1] = new Class33();
-				Class33 class33_1 = model.aClass33Array1425[j1];
-				class33.anInt602 = class33_1.anInt602;
-				class33.anInt603 = class33_1.anInt603;
-				class33.anInt604 = class33_1.anInt604;
-				class33.anInt605 = class33_1.anInt605;
+				if (model.aClass33Array1425 != null) {
+					Class33 class33_1 = model.aClass33Array1425[j1];
+					class33.anInt602 = class33_1.anInt602;
+					class33.anInt603 = class33_1.anInt603;
+					class33.anInt604 = class33_1.anInt604;
+					class33.anInt605 = class33_1.anInt605;
+				}
 			}
 
 			aClass33Array1660 = model.aClass33Array1660;
