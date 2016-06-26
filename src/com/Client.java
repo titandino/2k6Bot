@@ -5856,7 +5856,7 @@ public class Client extends RSApplet {
 
 			}
 			if (!foundDestination)
-				return -1;
+				return -99;
 		}
 		currentIndex = 0;
 		walkingQueueX[currentIndex] = currentX;

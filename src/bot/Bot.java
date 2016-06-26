@@ -271,7 +271,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -288,7 +288,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -305,7 +305,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null && !inCombat(object)) {
 				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7) + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -322,7 +322,7 @@ public class Bot {
 		for (NPC object : objects) {
 			if (object != null && !inCombat(object)) {
 				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7) + clientt.baseY);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -376,11 +376,15 @@ public class Bot {
 
 	public static int calculatePathDistance(WorldObject object) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
+		if (Utils.distance(getMyPlayerPos(), object) <= 1)
+			return Utils.distance(getMyPlayerPos(), object);
 		return clientt.findPathDistance(object.getRotation(), object.getSizeY(), 10, Client.myPlayer.smallY[0], object.getSizeX(), 0, object.getY() - clientt.baseY, Client.myPlayer.smallX[0], false, object.getX() - clientt.baseX);
 	}
 
 	public static int calculatePathDistance(int x, int y) {
 		// return clientt.findPathDistance(objectRotation, objectSizeY, objectType, startY, objectSizeX, targetSurrounding, endY, startX, flag, endX);
+		if (Utils.distance(getMyPlayerPos(), new Tile(x, y)) <= 1)
+			return Utils.distance(getMyPlayerPos(), new Tile(x, y));
 		return clientt.findPathDistance(0, 1, 0, Client.myPlayer.smallY[0], 1, 0, y - clientt.baseY, Client.myPlayer.smallX[0], true, x - clientt.baseX);
 	}
 
@@ -511,7 +515,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -528,7 +532,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -545,7 +549,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
@@ -562,7 +566,7 @@ public class Bot {
 		for (WorldObject object : objects) {
 			if (object != null) {
 				int distance = calculatePathDistance(object);
-				if (distance != -1)
+				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
 		}
