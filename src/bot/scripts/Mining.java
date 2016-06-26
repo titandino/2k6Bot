@@ -18,7 +18,8 @@ public class Mining extends Script {
 	int startXp;
 	int oresMined;
 	int[] rocks = new int[3];
-	Area mine = new Area(new Tile(2624, 3129, 0), new Tile(2650, 3153, 0));
+	Area yanille = new Area(new Tile(2624, 3129, 0), new Tile(2650, 3153, 0));
+	Area shilo = new Area(new Tile(2817, 2994, 0), new Tile(2828, 3005, 0));
 
 	String stage = "Starting";
 
@@ -35,7 +36,11 @@ public class Mining extends Script {
 		super.run();
 		try {
 			rocks[1] = Integer.valueOf(args[1].replace("_", " "));
-			rocks[2] = Integer.valueOf(args[2].replace("_", " "));
+			if (args[2] != null)
+				rocks[2] = Integer.valueOf(args[2].replace("_", " "));
+			if (args[3] != null)
+				rocks[3] = Integer.valueOf(args[2].replace("_", " "));
+			
 			NPC golem = Bot.getClosestNPCNoClip("rock golem");
 			if (golem != null) {
 				Bot.walkTo(2618, 3107);
@@ -43,24 +48,33 @@ public class Mining extends Script {
 			}
 			else if (!Bot.isAnimating()) {
 				if (Bot.getInventory().freeSlots() <= 0) {
-					while (mine.within(Bot.getMyPlayerPos())) {
+					while (yanille.within(Bot.getMyPlayerPos())) {
 						Bot.walkTo(2618, 3107);
 						Thread.sleep(5000);
 					} 
-					if (!mine.within(Bot.getMyPlayerPos())){
-					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth", "use");
-					Thread.sleep(3000);
-					Bot.depositAllBySlot(1);
-					oresMined += 27;
+					while (shilo.within(Bot.getMyPlayerPos())) {
+						Bot.walkTo(2840, 2965);
+						Thread.sleep(5000);
 					}
+					
+					stage = "Banking";
+						if (Bot.getClosestWorldObject("bank booth") != null) {
+							Bot.clickClosestWorldObject("bank booth", "use");
+							Thread.sleep(3000);
+						}
+						else {
+							Bot.clickNPCNoClip("banker", 2);
+							Thread.sleep(3000);
+						}
+					Bot.bankAll();
+					oresMined += 27;
+					
 				} else {
 					stage = "Hulk Smashing";
 					Bot.clickClosestWorldObject(rocks, 0);
 					Thread.sleep(3000);
 					}
-				}
-			
+			}
 		} catch (Exception e) {
 
 		}
