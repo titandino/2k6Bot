@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import bot.utils.*;
 
 import com.Client;
+import com.ItemDef;
 import com.NPC;
 
 import bot.Bot;
@@ -26,7 +27,6 @@ public class Mining extends Script {
 	@Override
 	public boolean onStart() {
 		startTime = System.currentTimeMillis();
-		oresMined = 0;
 		startXp = Bot.getXp(Bot.MINING);
 		return true;
 	}
@@ -58,17 +58,8 @@ public class Mining extends Script {
 					}
 					
 					stage = "Banking";
-						if (Bot.getClosestWorldObject("bank booth") != null) {
-							Bot.clickClosestWorldObject("bank booth", "use");
-							Thread.sleep(3000);
-						}
-						else {
-							Bot.clickNPCNoClip("banker", 2);
-							Thread.sleep(3000);
-						}
+					Bot.clickNearestBank();
 					Bot.bankAll();
-					oresMined += 27;
-					
 				} else {
 					stage = "Hulk Smashing";
 					Bot.clickClosestWorldObject(rocks, 0);
@@ -82,16 +73,15 @@ public class Mining extends Script {
 
 	@Override
 	public void onRepaint(Graphics g) {
-		BufferedImage bufferedImage = new BufferedImage(210, 120, 2);
+		BufferedImage bufferedImage = new BufferedImage(210, 80, 2);
 		Graphics2D g2d = (Graphics2D) bufferedImage.getGraphics();
 		g2d.setColor(Color.black);
-		g2d.fillRoundRect(0, 0, 210, 120, 15, 15);
+		g2d.fillRoundRect(0, 0, 210, 80, 15, 15);
 		g2d.setColor(new Color(0, 255, 255, 150));
-		g2d.drawRoundRect(0, 0, 210, 120, 15, 15);
+		g2d.drawRoundRect(0, 0, 209, 79, 15, 15);
 		g2d.setFont(new Font("Arial", 1, 16));
-		g2d.drawString("Devin's Ass Smasher	", 15, 15);
+		g2d.drawString("Devin's Minority Miner", 15, 15);
 		g2d.setFont(new Font("Arial", 1, 12));
-		g2d.drawString("Ores p/h: " + Bot.getFormattedLootPerHour(oresMined, 0, startTime), 15, 35);
 		g2d.drawString("Mining xp p/h: " + Bot.getFormattedXpPerHour(Bot.MINING, startXp, startTime), 15, 47);
 		g2d.setColor(Color.GREEN);
 		g2d.drawString("Time Running: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 62);
