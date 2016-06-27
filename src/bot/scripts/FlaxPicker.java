@@ -16,7 +16,7 @@ public class FlaxPicker extends Script {
 	long startTime;
 	int flaxPicked;
 	int startFlax;
-	Area Flax = new Area(new Tile(2738, 3438, 0), new Tile(2751, 3451, 0));
+	Area Flax = new Area(new Tile(2700, 3400, 0), new Tile(2751, 3451, 0));
 
 	String stage = "Starting";
 
