@@ -927,6 +927,9 @@ public class Bot {
 			return true;
 		} else if (cmd[0].startsWith("log")) {
 			Bot.clientt.dropClient();
+		} else if (cmd[0].startsWith("togglepackets")) {
+			printPackets = !printPackets;
+			printConsole("Printing packets: "+printPackets);
 		} else if (cmd[0].startsWith("walktoo")) {
 			WorldObject o = getClosestWorldObject(cmd[1].replace("_", " "));
 			if (o != null)
@@ -941,6 +944,8 @@ public class Bot {
 				printConsole("No npc found.");
 		} else if (cmd[0].startsWith("mypos")) {
 			printConsole(getMyPlayerPos().toString());
+		} else if (cmd[0].startsWith("inter")) {
+			printConsole("Open: "+Client.openInterfaceID);
 		} else if (cmd[0].startsWith("clicko")) {
 			clickObject(Integer.valueOf(cmd[1]), getMyPlayerPos().getX(), getMyPlayerPos().getY());
 			return true;

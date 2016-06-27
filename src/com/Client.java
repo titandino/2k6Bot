@@ -3269,9 +3269,10 @@ public class Client extends RSApplet {
 		}
 		if (l == 431) {
 			stream.createFrame(129);
-			stream.method432(j);
-			stream.writeWord(k);
-			stream.method432(i1);
+			Bot.printConsole("Deposit all: Slot: "+j+" Inter: "+k+" Item: "+i1);
+			stream.method432(j); //slot
+			stream.writeWord(k); //interface
+			stream.method432(i1); //item
 			atInventoryLoopCycle = 0;
 			atInventoryInterface = k;
 			atInventoryIndex = j;
