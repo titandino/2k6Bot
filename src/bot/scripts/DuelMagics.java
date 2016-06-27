@@ -6,9 +6,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import bot.Bot;
+import com.NPC;
 
-public class GnomeMagics extends Script {
+import bot.Bot;
+import bot.utils.Tile;
+import bot.utils.WorldObject;
+
+public class DuelMagics extends Script {
 
 	long startTime;
 	int startXp;
@@ -26,28 +30,30 @@ public class GnomeMagics extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (!Bot.isAnimating()) {
-				if (Bot.getInventory().freeSlots() <= 0) {
-					if (Bot.clientt.plane == 1) {
+			NPC spirit = Bot.getClosestNPCNoClip("tree spirit");
+			if (spirit != null) {
+				Bot.walkTo(new Tile(3382, 3269));
+				Thread.sleep(400);
+			} else {
+				if (!Bot.isAnimating()) {
+					if (Bot.getInventory().freeSlots() <= 0) {
 						stage = "Banking";
-						Bot.clickClosestWorldObject("bank booth", "use");
-						Thread.sleep(3000);
-						Bot.depositAllBySlot(1);
-						Thread.sleep(1000);
+						NPC banker = Bot.getClosestNPCNoClip(958);
+						if (banker == null) {
+							Bot.walkTo(new Tile(3382, 3269));
+							Thread.sleep(1000);
+						} else {
+							Bot.clickClosestWorldObject(3193);
+							Thread.sleep(1000);
+							Bot.clickWorldObject(new WorldObject(3194, 3381, 3269), 2);
+							Thread.sleep(1000);
+							Bot.depositAllBySlot(1);
+							Thread.sleep(1000);	
+						}
 					} else {
-						stage = "Climbing tree";
-						Bot.clickObject(1742, 2444, 3414);
-						Thread.sleep(1000);
-					}
-				} else {
-					if (Bot.clientt.plane == 0) {
 						stage = "chainsaw.exe";
-						Bot.clickClosestWorldObject("magic tree", "chop down");
+						Bot.clickClosestWorldObject("magic tree");
 						Thread.sleep(3000);
-					} else {
-						stage = "Jumping out of tree";
-						Bot.clickClosestWorldObject(1744);
-						Thread.sleep(1000);
 					}
 				}
 			}
