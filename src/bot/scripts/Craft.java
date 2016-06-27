@@ -28,7 +28,7 @@ public class Craft extends Script {
 				else if (!Bot.getInventory().contains(uncut, 1)) {
 					Bot.clickClosestWorldObject("bank booth", 2);
 					Thread.sleep(2000);
-					Bot.bankAll();
+					Bot.bankAll(1755);
 					Bot.withdrawItem(uncut, Bot.getBank().getSlotByItem(uncut));
 					Thread.sleep(500);
 					Bot.walkTo(Bot.getMyPlayerPos());

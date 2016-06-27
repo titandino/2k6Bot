@@ -57,7 +57,7 @@ public class Combat extends Script {
 				Thread.sleep(1000);
 			}
 			
-			Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
+			Bot.findAndPickupItems("dragon", "rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
 			
 			if (!Bot.myPlayerInCombat()) {
 				stage = "Attacking shit";
