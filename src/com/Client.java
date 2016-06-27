@@ -1756,9 +1756,9 @@ public class Client extends RSApplet {
 		if (j < 0x186a0)
 			return String.valueOf(j);
 		if (j < 0x989680)
-			return j / 1000 + "K";
+			return (j/1000)+"K";
 		else
-			return j / 0xf4240 + "M";
+			return (j/0xf4240)+"M";
 	}
 
 	public void resetLogout() {
@@ -7253,7 +7253,7 @@ public class Client extends RSApplet {
 										if (class30_sub2_sub1_sub1_2.anInt1444 == 33 || class9_1.amounts[i3] != 1) {
 											int k10 = class9_1.amounts[i3];
 											smallText.drawText(0, intToKOrMil(k10), j6 + 10 + j7, k5 + 1 + k6);
-											smallText.drawText(0xffff00, intToKOrMil(k10), j6 + 9 + j7, k5 + k6);
+											smallText.drawText(intToKOrMil(k10).contains("K") ? 0xFFFFFF : intToKOrMil(k10).contains("M") ? 0x00FF88 : 0xffff00, intToKOrMil(k10), j6 + 9 + j7, k5 + k6);
 										}
 									}
 								}
