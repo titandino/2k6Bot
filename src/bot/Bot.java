@@ -963,7 +963,11 @@ public class Bot {
 			TaskExecutor.getEventExecutor().shutdownNow();
 			currentScript = null;
 			return true;
-		} else if (cmd[0].startsWith("gitem")) {
+		} else if  (cmd[0].startsWith("cls") || cmd[0].startsWith("clear")){
+			console = new Console();
+			console.isOpen = true;
+		}
+		else if (cmd[0].startsWith("gitem")) {
 			Tile item = findGroundItem(Integer.valueOf(cmd[1]));
 			if (item != null)
 				printConsole("" + item.toString());

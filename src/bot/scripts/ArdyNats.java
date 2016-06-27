@@ -13,6 +13,7 @@ public class ArdyNats extends Script {
 	long startTime;
 	int startXp;
 	int startNats;
+	int[] chests = { 2568, 2567 };
 
 	String stage = "Starting";
 
@@ -28,8 +29,12 @@ public class ArdyNats extends Script {
 	public void run() {
 		super.run();
 		try {
+			if (Bot.getHealthPercent() < 50.0) {
+				Bot.clickItem(379);
+				Thread.sleep(1000);
+			}
 			if (!Bot.isAnimating()) {
-				Bot.clickClosestWorldObject("chest", 2);
+				Bot.clickClosestWorldObject(chests, 2);
 				Thread.sleep(1000);
 			}
 		} catch (Exception e) {
