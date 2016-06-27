@@ -6,22 +6,20 @@ import java.awt.image.BufferedImage;
 import bot.Bot;
 
 public class Combat extends Script {
-		
+
 	Stage currentStage = Stage.STARTING;
-	
+
 	int startAtk;
 	int startStr;
 	int startDef;
 	int startPray;
 	long timeStarted;
 	int foodId = -1;
-	
+
 	String stage = "Starting";
-	
+
 	private enum Stage {
-		STARTING,
-		KILLING,
-		LOOTING;
+		STARTING, KILLING, LOOTING;
 	}
 
 	@Override
@@ -35,7 +33,7 @@ public class Combat extends Script {
 			foodId = Integer.valueOf(args[2]);
 		return true;
 	}
-	
+
 	@Override
 	public void run() {
 		super.run();
@@ -50,34 +48,22 @@ public class Combat extends Script {
 				stage = "Banking";
 				Bot.clickClosestWorldObject("bank booth");
 				Thread.sleep(1000);
-<<<<<<< HEAD
-			}
-			
-			Bot.findAndPickupItems("dragon", "rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
-			
-			if (!Bot.myPlayerInCombat()) {
-				stage = "Attacking shit";
-				Bot.attackNPC(args[1].replace("_", " "));
-				Thread.sleep(3000);
-=======
 				Bot.bankAll();
 			} else {
 				Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
 				buryBones();
-				
+
 				if (!Bot.myPlayerInCombat()) {
 					stage = "Attacking shit";
 					Bot.attackNPC(args[1].replace("_", " "));
 					Thread.sleep(3000);
 				}
->>>>>>> 38ecda244c6a4ba72d9ebda2c25a0cc7c8ebf464
 			}
-			
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void buryBones() throws InterruptedException {
 		if (Bot.getInventory().contains(526, 1)) {
 			Bot.clickItem(526);
@@ -88,7 +74,7 @@ public class Combat extends Script {
 			Thread.sleep(1000);
 		}
 	}
-	
+
 	@Override
 	public void onRepaint(Graphics g) {
 		BufferedImage bufferedImage = new BufferedImage(205, 113, 2);
