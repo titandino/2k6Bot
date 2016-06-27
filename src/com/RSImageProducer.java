@@ -31,14 +31,10 @@ final class RSImageProducer implements ImageProducer, ImageObserver {
 
 	public void drawGraphics(int i, Graphics g, int k) {
 		method239();
-		g.drawImage(anImage320, k, i, this);
-		try {
-			if ((Bot.currentScript != null) && (Client.loggedInBot)) {
-				Bot.currentScript.onRepaint(g);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (Bot.currentScript != null) {
+			Bot.currentScript.onRepaint(anImage320.getGraphics());
 		}
+		g.drawImage(anImage320, k, i, this);
 	}
 
 	public synchronized void addConsumer(ImageConsumer imageconsumer) {

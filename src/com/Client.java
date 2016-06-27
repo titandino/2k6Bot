@@ -1023,7 +1023,6 @@ public class Client extends RSApplet {
 	private int cButtonHPos;
 	private int cButtonHCPos;
 	private int cButtonCPos;
-	public static boolean loggedInBot = false;
 
 	private void processChatModeClick() {
 		if (super.clickMode3 == 1) {
@@ -1762,7 +1761,6 @@ public class Client extends RSApplet {
 	}
 
 	public void resetLogout() {
-		loggedInBot = false;
 		try {
 			if (socketStream != null)
 				socketStream.close();
@@ -3085,7 +3083,6 @@ public class Client extends RSApplet {
 	}
 
 	public void dropClient() {
-		loggedInBot = false;
 		if (anInt1011 > 0) {
 			resetLogout();
 			return;
@@ -5314,7 +5311,6 @@ public class Client extends RSApplet {
 				return;
 			}
 			if (k == 2) {
-				loggedInBot = true;
 				myPrivilege = socketStream.read();
 				flagged = socketStream.read() == 1;
 				aLong1220 = 0L;
