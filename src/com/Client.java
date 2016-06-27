@@ -10728,7 +10728,7 @@ public class Client extends RSApplet {
 	private int crossIndex;
 	private int crossType;
 	public int plane;
-	private final int[] currentStats;
+	public final int[] currentStats;
 	private static int anInt924;
 	private final long[] ignoreListAsLongs;
 	private boolean loadingError;
@@ -10839,7 +10839,7 @@ public class Client extends RSApplet {
 	private int anInt1040;
 	private int anInt1041;
 	private int dialogID;
-	private final int[] maxStats;
+	public final int[] maxStats;
 	private final int[] anIntArray1045;
 	private int anInt1046;
 	private boolean aBoolean1047;
