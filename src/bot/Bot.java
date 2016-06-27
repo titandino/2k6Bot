@@ -425,7 +425,7 @@ public class Bot {
 				NodeList groundItems = Client.groundArray[clientt.plane][x][y];
 				if (groundItems != null) {
 					for (Item item = (Item) groundItems.peekLast(); item != null; item = (Item) groundItems.reverseGetNext()) {
-						if (!ItemDef.forID(item.ID).name.toLowerCase().contains(id.toLowerCase()))
+						if (ItemDef.forID(item.ID) != null && !ItemDef.forID(item.ID).name.toLowerCase().contains(id.toLowerCase()))
 							continue;
 						if (Utils.distance(getMyLocalPlayerPos(), new Tile(x, y, 0)) > distance)
 							continue;
