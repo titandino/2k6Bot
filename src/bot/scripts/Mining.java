@@ -59,6 +59,7 @@ public class Mining extends Script {
 					
 					stage = "Banking";
 					Bot.clickNearestBank();
+					Thread.sleep(1000);
 					Bot.bankAll();
 				} else {
 					stage = "Hulk Smashing";
