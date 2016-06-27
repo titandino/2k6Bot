@@ -15,8 +15,8 @@ public class Combat extends Script {
 	int[] food = new int[] { 361, 373, 379, 385 };
 	
 	static {
-		LOOT.put("chaos_druid", new String[] {"law rune", "herb", "lantadyme", "air rune", "dragon"});
-		LOOT.put("hill_giant", new String[] {"law rune", "bones", "cosmic rune"});
+		LOOT.put("chaos druid", new String[] {"nature rune", "law rune", "herb", "lantadyme", "air rune", "dragon"});
+		LOOT.put("hill giant", new String[] {"law rune", "bones", "cosmic rune"});
 		LOOT.put("guard", new String[] {"rune", "arrow", "grapes", "bones"});
 		LOOT.put("chicken", new String[] {"feather", "bones"});
 	}
@@ -48,10 +48,14 @@ public class Combat extends Script {
 		super.run();
 		try {
 			if (hasFood() != -1) {
-				if (Bot.getHealthPercent() < 25.0) {
+				if (Bot.getHealthPercent() < 50.0) {
 					Bot.clickItem(hasFood());
 					Thread.sleep(1000);
 				}
+			}
+			if (Bot.getHealthPercent() < 25.0) {
+				Bot.clickButton(1174);
+				Thread.sleep(1000);
 			}
 			if (Bot.getInventory().freeSlots() == 0) {
 				stage = "Banking";
@@ -59,7 +63,7 @@ public class Combat extends Script {
 				Thread.sleep(1000);
 				Bot.bankAll();
 			} else {
-				String[] loot = LOOT.get(args[1].replace("_", " ").toLowerCase());
+				String[] loot = LOOT.get(args[1].toLowerCase().replace("_", " "));
 				if (loot != null)
 					Bot.findAndPickupItems(loot);
 				buryBones();

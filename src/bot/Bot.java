@@ -464,7 +464,7 @@ public class Bot {
 	}
 	
 	public static double getHealthPercent() {
-		return (getHitpoints()/getLevelForXp(HITPOINTS))*100;
+		return (((double)getHitpoints())/((double)getLevelForXp(HITPOINTS)))*100.0;
 	}
 	
 	public static int getPrayerPoints() {
@@ -934,6 +934,8 @@ public class Bot {
 		} else if (cmd[0].startsWith("togglepackets")) {
 			printPackets = !printPackets;
 			printConsole("Printing packets: "+printPackets);
+		} else if (cmd[0].startsWith("healthperc")) {
+			printConsole("Health perc: "+getHealthPercent());
 		} else if (cmd[0].startsWith("walktoo")) {
 			WorldObject o = getClosestWorldObject(cmd[1].replace("_", " "));
 			if (o != null)
