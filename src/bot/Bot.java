@@ -463,6 +463,10 @@ public class Bot {
 		return clientt.currentStats[HITPOINTS];
 	}
 	
+	public static double getHealthPercent() {
+		return (getHitpoints()/getLevelForXp(HITPOINTS))*100;
+	}
+	
 	public static int getPrayerPoints() {
 		return clientt.currentStats[PRAYER];
 	}

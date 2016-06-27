@@ -2,19 +2,30 @@ package bot.scripts;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 import bot.Bot;
 
 public class Combat extends Script {
 
 	Stage currentStage = Stage.STARTING;
+	
+	public static HashMap<String, String[]> LOOT = new HashMap<String, String[]>();
+	
+	int[] food = new int[] { 361, 373, 379, 385 };
+	
+	static {
+		LOOT.put("chaos_druid", new String[] {"law rune", "herb", "lantadyme", "air rune", "dragon"});
+		LOOT.put("hill_giant", new String[] {"law rune", "bones", "cosmic rune"});
+		LOOT.put("guard", new String[] {"rune", "arrow", "grapes", "bones"});
+		LOOT.put("chicken", new String[] {"feather", "bones"});
+	}
 
 	int startAtk;
 	int startStr;
 	int startDef;
 	int startPray;
 	long timeStarted;
-	int foodId = -1;
 
 	String stage = "Starting";
 
@@ -29,8 +40,6 @@ public class Combat extends Script {
 		startStr = Bot.clientt.currentExp[2];
 		startPray = Bot.clientt.currentExp[5];
 		timeStarted = System.currentTimeMillis();
-		if (args.length > 1)
-			foodId = Integer.valueOf(args[2]);
 		return true;
 	}
 
@@ -38,9 +47,9 @@ public class Combat extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (foodId != -1) {
-				if (Bot.getHitpoints() < 15) {
-					Bot.clickItem(foodId);
+			if (hasFood() != -1) {
+				if (Bot.getHealthPercent() < 25.0) {
+					Bot.clickItem(hasFood());
 					Thread.sleep(1000);
 				}
 			}
@@ -50,7 +59,9 @@ public class Combat extends Script {
 				Thread.sleep(1000);
 				Bot.bankAll();
 			} else {
-				Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
+				String[] loot = LOOT.get(args[1].replace("_", " ").toLowerCase());
+				if (loot != null)
+					Bot.findAndPickupItems(loot);
 				buryBones();
 
 				if (!Bot.myPlayerInCombat()) {
@@ -62,6 +73,14 @@ public class Combat extends Script {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int hasFood() {
+		for (int i = 0;i < food.length;i++) {
+			if (Bot.getInventory().contains(food[i], 1))
+				return food[i];
+		}
+		return -1;
 	}
 
 	public void buryBones() throws InterruptedException {
