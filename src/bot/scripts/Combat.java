@@ -6,9 +6,7 @@ import java.awt.image.BufferedImage;
 import bot.Bot;
 
 public class Combat extends Script {
-	
-	int[] drops = new int[] { 314, 995 };
-	
+		
 	Stage currentStage = Stage.STARTING;
 	
 	int startAtk;
@@ -16,6 +14,7 @@ public class Combat extends Script {
 	int startDef;
 	int startPray;
 	long timeStarted;
+	int foodId = -1;
 	
 	String stage = "Starting";
 	
@@ -32,6 +31,8 @@ public class Combat extends Script {
 		startStr = Bot.clientt.currentExp[2];
 		startPray = Bot.clientt.currentExp[5];
 		timeStarted = System.currentTimeMillis();
+		if (args.length > 1)
+			foodId = Integer.valueOf(args[2]);
 		return true;
 	}
 	
@@ -39,22 +40,17 @@ public class Combat extends Script {
 	public void run() {
 		super.run();
 		try {
-			
-			if (Bot.getInventory().freeSlots() == 0) {
-				Bot.clickClosestWorldObject("bank booth");
-				stage = "Banking";
-				Thread.sleep(3000);
-				for (int i = 0; i <= 27; i++) {
-					Bot.depositItem(Bot.getInventory().getItem(i));
-					Thread.sleep(400);
-					if (Bot.getInventory().freeSlots() == 28)
-						break;
+			if (foodId != -1) {
+				if (Bot.getHitpoints() < 15) {
+					Bot.clickItem(foodId);
+					Thread.sleep(1000);
 				}
 			}
-			
-			if (Bot.getInventory().contains(526, 1)) {
-				Bot.clickItem(526);
+			if (Bot.getInventory().freeSlots() == 0) {
+				stage = "Banking";
+				Bot.clickClosestWorldObject("bank booth");
 				Thread.sleep(1000);
+<<<<<<< HEAD
 			}
 			
 			Bot.findAndPickupItems("dragon", "rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
@@ -63,10 +59,33 @@ public class Combat extends Script {
 				stage = "Attacking shit";
 				Bot.attackNPC(args[1].replace("_", " "));
 				Thread.sleep(3000);
+=======
+				Bot.bankAll();
+			} else {
+				Bot.findAndPickupItems("rune", "coins", "seed", "potion", "bones", "arrow", "grapes", "herb");
+				buryBones();
+				
+				if (!Bot.myPlayerInCombat()) {
+					stage = "Attacking shit";
+					Bot.attackNPC(args[1].replace("_", " "));
+					Thread.sleep(3000);
+				}
+>>>>>>> 38ecda244c6a4ba72d9ebda2c25a0cc7c8ebf464
 			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void buryBones() throws InterruptedException {
+		if (Bot.getInventory().contains(526, 1)) {
+			Bot.clickItem(526);
+			Thread.sleep(1000);
+		}
+		if (Bot.getInventory().contains(532, 1)) {
+			Bot.clickItem(532);
+			Thread.sleep(1000);
 		}
 	}
 	

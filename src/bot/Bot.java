@@ -459,14 +459,20 @@ public class Bot {
 		return null;
 	}
 
-	public static int getMyHealth() {
-		return Client.myPlayer.currentHealth;
+	public static int getHitpoints() {
+		return clientt.currentStats[HITPOINTS];
 	}
-
-	public static double getMyHealthPercent() {
-		if (Client.myPlayer.maxHealth == 0)
-			return 100;
-		return (Client.myPlayer.currentHealth / Client.myPlayer.maxHealth) * 100;
+	
+	public static int getPrayerPoints() {
+		return clientt.currentStats[PRAYER];
+	}
+	
+	public static int getLevel(int skillId) {
+		return clientt.currentStats[skillId];
+	}
+	
+	public static int getLevelForXp(int skillId) {
+		return clientt.maxStats[skillId];
 	}
 
 	public static void clickClosestWorldObject(int name, String action) {
