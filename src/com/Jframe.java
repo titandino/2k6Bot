@@ -9,6 +9,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import com.sign.signlink;
 
+import bot.Bot;
+
 public class Jframe extends Client implements ActionListener {
 
 	private static JMenuItem menuItem;
