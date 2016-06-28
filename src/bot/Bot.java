@@ -22,6 +22,7 @@ import com.Jframe;
 import com.NPC;
 import com.NodeList;
 import com.ObjectDef;
+import com.Player;
 import com.RSInterface;
 import com.Client;
 import com.Console;
@@ -111,6 +112,16 @@ public class Bot {
 			}
 		}
 		return -1;
+	}
+	
+	public static Player getPlayerByName(String name) {
+		for (int i = 0;i < Client.playerArray.length;i++) {
+			if (Client.playerArray[i] != null) {
+				if (Client.playerArray[i].name.equalsIgnoreCase(name))
+					return Client.playerArray[i];
+			}
+		}
+		return null;
 	}
 	
 	public static void clickNPCNoClip(String name, int option) {
