@@ -24,6 +24,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener,
 		fullGameScreen = new RSImageProducer(myWidth, myHeight,
 				getGameComponent());
 		startRunnable(this, 1);
+		setFocusTraversalKeysEnabled(false);
 	}
 
 	final void initClientFrame(int i, int j) {
@@ -33,6 +34,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener,
 		fullGameScreen = new RSImageProducer(myWidth, myHeight,
 				getGameComponent());
 		startRunnable(this, 1);
+		setFocusTraversalKeysEnabled(false);
 	}
 
 	public void run() {

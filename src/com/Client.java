@@ -83,6 +83,51 @@ public class Client extends RSApplet {
 			k -= 2000;
 		return k == 337;
 	}
+	
+	public void tabToReplyPm() {
+        String name = null;
+        for (int k = 0; k < 100; k++) {
+            if (chatMessages[k] == null) {
+                continue;
+            }
+            int l = chatTypes[k];
+            if (l == 3 || l == 7) {
+                name = chatNames[k];
+                break;
+            }
+        }
+
+        if (name == null) {
+            pushMessage("You haven't received any messages to which you can reply.", 0, "");
+            return;
+        }
+
+        if (name.startsWith("@cr")) {
+            name = name.substring(5);
+        }
+
+        long nameAsLong = TextClass.longForName(name.trim());
+        int k3 = -1;
+        for (int i4 = 0; i4 < friendsCount; i4++) {
+            if (friendsListAsLongs[i4] != nameAsLong) continue;
+            k3 = i4;
+            break;
+        }
+
+        if (k3 != -1) {
+            if (friendsNodeIDs[k3] > 0) {
+                inputTaken = true;
+                inputDialogState = 0;
+                messagePromptRaised = true;
+                promptInput = "";
+                friendsListAction = 3;
+                aLong953 = friendsListAsLongs[k3];
+                aString1121 = "Enter message to send to " + friendsList[k3];
+            } else {
+                pushMessage("That player is currently offline.", 0, "");
+            }
+        }
+    }
 
 	public void drawChannelButtons() {
 		String text[] = { "On", "Friends", "Off", "Hide" };
@@ -4239,6 +4284,8 @@ public class Client extends RSApplet {
 			int j = readChar(-796);
 			if (j == -1)
 				break;
+			if (j == 9) 
+				tabToReplyPm();
 			if (Bot.console.isOpen) {
 				Bot.console.handleInput(j);
 			} else if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {

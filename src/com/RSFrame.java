@@ -16,6 +16,7 @@ final class RSFrame extends Frame {
 		toFront();
 		// resize(i + 8, j + 28); //deprecated
 		setSize(i + 8, j + 28);
+		setFocusTraversalKeysEnabled(false);
 	}
 
 	public Graphics getGraphics() {
