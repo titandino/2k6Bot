@@ -31,7 +31,7 @@ public class SpinFlax extends Script {
 				if (Bot.clientt.plane != 0) {
 					stage = "Firemanning it";
 					Bot.clickWorldObject(new WorldObject(1746, 2715, 3470));
-					Thread.sleep(1000);
+					Thread.sleep(4000);
 				} else {
 					stage = "Banking";
 					Bot.clickClosestWorldObject("bank booth", "use");
@@ -45,16 +45,16 @@ public class SpinFlax extends Script {
 				if (Bot.clientt.plane != 1) {
 					stage = "Climbin' it";
 					Bot.clickWorldObject(new WorldObject(1747, 2715, 3470));
-					Thread.sleep(1000);
+					Thread.sleep(4000);
 				} else {
 					stage = "Spinnin";
-					if (!Bot.hasAnimatedIn(3000)) {
-						Bot.clickClosestWorldObject(2644);
-						Thread.sleep(1000);
+					if (!Bot.hasAnimatedIn(5000)) {
+						Bot.clickClosestWorldObject(2644, 2);
+						Thread.sleep(1500);
 						Bot.clickButton(8890);
 						Thread.sleep(600);
 						Bot.sendIntegerInput(50);
-						Thread.sleep(5000);
+						Thread.sleep(10000);
 					}
 				}
 			}
@@ -74,7 +74,7 @@ public class SpinFlax extends Script {
 		g2d.setFont(new Font("System", 1, 20));
 		g2d.drawString("Trent's Spinner", 15, 20);
 		g2d.setFont(new Font("System", 1, 16));
-		g2d.drawString("Wc xp p/h: " + Bot.getFormattedXpPerHour(Bot.CRAFTING, startXp, startTime), 15, 60);
+		g2d.drawString("Craft xp p/h: " + Bot.getFormattedXpPerHour(Bot.CRAFTING, startXp, startTime), 15, 60);
 		g2d.drawString("Time: " + Bot.getScriptTime(System.currentTimeMillis(), startTime), 15, 80);
 		g2d.setFont(new Font("System", 1, 10));
 		g2d.drawString("Stage: " + stage, 15, 95);
