@@ -894,6 +894,10 @@ public class Bot {
 		return RSInterface.interfaceCache[5382];
 	}
 	
+	public static RSInterface getInterface(int inter) {
+		return RSInterface.interfaceCache[inter];
+	}
+	
 	public static void bankAll() throws InterruptedException {
 		for (int i = 0; i < 28; i++) {
 			if (getInventory().getItem(i) != -1) {
@@ -926,7 +930,17 @@ public class Bot {
 		clickOption10(5382, itemId, slotId);
 		clientt.writeStream();
 	}
-
+	
+	public static void buy10(int shop, int slotId) {
+		clickOptionAll(shop, Bot.getInterface(shop).getItem(slotId), slotId);
+		clientt.writeStream();
+	}
+	
+	public static void sell10(int slotId) {
+		clickOptionAll(3823, Bot.getInterface(3823).getItem(slotId), slotId);
+		clientt.writeStream();
+	}
+	
 	public static void printConsole(String message) {
 		console.printMessage(message, 1);
 	}
@@ -977,8 +991,9 @@ public class Bot {
 		} else if  (cmd[0].startsWith("cls") || cmd[0].startsWith("clear")){
 			console = new Console();
 			console.isOpen = true;
-		}
-		else if (cmd[0].startsWith("gitem")) {
+		} else if (cmd[0].equalsIgnoreCase("buy")) {
+		    buy10(Integer.valueOf(cmd[1]), Integer.valueOf(cmd[2]));
+		} else if (cmd[0].startsWith("gitem")) {
 			Tile item = findGroundItem(Integer.valueOf(cmd[1]));
 			if (item != null)
 				printConsole("" + item.toString());

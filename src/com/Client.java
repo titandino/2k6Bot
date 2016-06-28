@@ -85,6 +85,7 @@ public class Client extends RSApplet {
 	}
 	
 	public void tabToReplyPm() {
+		if (!Bot.console.isOpen) {
         String name = null;
         for (int k = 0; k < 100; k++) {
             if (chatMessages[k] == null) {
@@ -126,7 +127,8 @@ public class Client extends RSApplet {
             } else {
                 pushMessage("That player is currently offline.", 0, "");
             }
-        }
+        	}
+		}
     }
 
 	public void drawChannelButtons() {

@@ -20,16 +20,19 @@ public class Clean extends Script {
 		
 		try {
 				if (Bot.getInventory().contains(dirty, 1)) {
-					Bot.clickItem(dirty, Bot.getInventory().getSlotByItem(dirty));
+					for (int i = 0; i <= 27; i++) {
+						Bot.clickItem(dirty, i);
+						Thread.sleep(100);
+					}
 				}
 				
-				else if (!Bot.getInventory().contains(dirty, 1)) {
-					Bot.clickClosestWorldObject("bank booth", 2);
-					Thread.sleep(500);
+				else {
+					Bot.clickNearestBank();
+					Thread.sleep(1500);
 					Bot.bankAll();
 					Bot.withdrawItem(dirty, Bot.getBank().getSlotByItem(dirty));
-					Thread.sleep(500);
 					Bot.walkTo(Bot.getMyPlayerPos());
+					Thread.sleep(500);
 				}
 			
 
