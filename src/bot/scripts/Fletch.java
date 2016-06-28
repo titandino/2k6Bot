@@ -29,7 +29,7 @@ public class Fletch extends Script {
 			if (!Bot.isAnimating()) {
 				if (!Bot.getInventory().contains(args[1].replace("_", " "), 1)) {
 					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth", "use");
+					Bot.clickNearestBank();
 					Thread.sleep(1500);
 					Bot.depositAllBySlot(1);
 					Thread.sleep(1000);

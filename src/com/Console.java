@@ -66,6 +66,11 @@ public class Console {
 			input = "";
 			Client.inputTaken = true;
 		}
+		if ((j == 9 || j == 11) && input.length() > 0 && input.length() <= 40) {
+			Bot.processCommand(input);
+			printMessage(input, 0);
+			Client.inputTaken = true;
+		}
 	}
 
 	public static String currentTime() {
