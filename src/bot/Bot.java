@@ -937,7 +937,7 @@ public class Bot {
 	}
 	
 	public static void sell10(int slotId) {
-		clickOptionAll(3823, Bot.getInventory().getItem(slotId), slotId);
+		clickOptionAll(3823, Bot.getInterface(3823).getItem(slotId), slotId);
 		clientt.writeStream();
 	}
 	
