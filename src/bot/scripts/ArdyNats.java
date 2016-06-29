@@ -15,6 +15,8 @@ public class ArdyNats extends Script {
 	int startNats;
 	int[] chests = { 2568, 2567 };
 
+	int[] food = new int[] { 361, 373, 379, 385 };
+
 	String stage = "Starting";
 
 	@Override
@@ -29,17 +31,27 @@ public class ArdyNats extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Bot.getHealthPercent() < 50.0) {
-				Bot.clickItem(379);
-				Thread.sleep(1000);
-			}
-			if (!Bot.isAnimating()) {
-				Bot.clickClosestWorldObject(chests, 2);
-				Thread.sleep(1000);
+			if (hasFood() != -1) {
+				if (Bot.getHealthPercent() < 50.0) {
+					Bot.clickItem(hasFood());
+					Thread.sleep(1000);
+				}
+				if (!Bot.isAnimating()) {
+					Bot.clickClosestWorldObject(chests, 2);
+					Thread.sleep(1000);
+				}
 			}
 		} catch (Exception e) {
 
 		}
+	}
+
+	public int hasFood() {
+		for (int i = 0; i < food.length; i++) {
+			if (Bot.getInventory().contains(food[i], 1))
+				return food[i];
+		}
+		return -1;
 	}
 
 	@Override
