@@ -34,25 +34,35 @@ public class SpinFlax extends Script {
 					Thread.sleep(4000);
 				} else {
 					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth", "use");
-					Thread.sleep(2000);
-					Bot.depositAllBySlot(0);
-					Thread.sleep(1000);
-					Bot.withdrawItem(1779, Bot.getBank().getSlotByItem(1779));
-					Thread.sleep(1000);
+					if (Bot.getClosestWorldObject("bank booth", "use") != null) {
+						Bot.clickClosestWorldObject("bank booth", "use");
+						Thread.sleep(2000);
+						Bot.depositAllBySlot(0);
+						Thread.sleep(1000);
+						Bot.withdrawItem(1779, Bot.getBank().getSlotByItem(1779));
+						Thread.sleep(1000);
+					} else {
+						Bot.clickWorldObject(new WorldObject(1530, 2716, 3472));
+						Thread.sleep(1000);
+					}
 				}
 			} else {
 				if (Bot.clientt.plane != 1) {
 					stage = "Climbin' it";
-					Bot.clickWorldObject(new WorldObject(1747, 2715, 3470));
-					Thread.sleep(4000);
+					if (Bot.getClosestWorldObject(1747) != null) {
+						Bot.clickWorldObject(new WorldObject(1747, 2715, 3470));
+						Thread.sleep(4000);
+					} else {
+						Bot.clickWorldObject(new WorldObject(1530, 2716, 3472));
+						Thread.sleep(1000);
+					}
 				} else {
 					stage = "Spinnin";
 					if (!Bot.hasAnimatedIn(5000)) {
 						Bot.clickClosestWorldObject(2644, 2);
-						Thread.sleep(1500);
+						Thread.sleep(2000);
 						Bot.clickButton(8890);
-						Thread.sleep(600);
+						Thread.sleep(1000);
 						Bot.sendIntegerInput(50);
 						Thread.sleep(10000);
 					}
