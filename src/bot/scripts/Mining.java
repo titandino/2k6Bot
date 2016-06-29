@@ -5,13 +5,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import bot.utils.*;
 
-import com.Client;
-import com.ItemDef;
 import com.NPC;
 
 import bot.Bot;
+import bot.utils.Area;
+import bot.utils.Tile;
 
 public class Mining extends Script {
 

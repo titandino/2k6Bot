@@ -1,7 +1,6 @@
 package bot.scripts;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 
 import bot.Bot;
 
