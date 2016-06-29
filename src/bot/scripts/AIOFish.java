@@ -36,9 +36,9 @@ public class AIOFish extends Script {
 			if (!Bot.isAnimating()) {
 				if (Bot.getInventory().freeSlots() <= 0) {
 					stage = "Banking";
-					Bot.clickClosestWorldObject("bank booth", "use");
+					Bot.clickNearestBank();
 					Thread.sleep(3000);
-					Bot.depositAllBySlot(1);
+					Bot.bankAll(301, 303, 305, 307, 309, 311);
 					Thread.sleep(1000);
 				} else {
 					stage = "avid_angler.exe";

@@ -488,7 +488,7 @@ public final class RSInterface {
 		int amtOf = 0;
 		for (int i = 0;i < items.length;i++) {
 			ItemDef def = ItemDef.forID(getItem(i));
-			if (def != null && def.name.toLowerCase().contains(string.toLowerCase())) {
+			if (def != null && def.name != null && def.name.toLowerCase().contains(string.toLowerCase())) {
 				amtOf += amounts[i];
 			}
 		}

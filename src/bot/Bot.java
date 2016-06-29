@@ -993,6 +993,8 @@ public class Bot {
 			console.isOpen = true;
 		} else if (cmd[0].equalsIgnoreCase("buy")) {
 		    buy10(Integer.valueOf(cmd[1]), Integer.valueOf(cmd[2]));
+		} else if (cmd[0].equalsIgnoreCase("sell")) {
+		    sell10(Integer.valueOf(cmd[1]));
 		} else if (cmd[0].startsWith("gitem")) {
 			Tile item = findGroundItem(Integer.valueOf(cmd[1]));
 			if (item != null)
