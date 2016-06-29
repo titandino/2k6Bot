@@ -27,18 +27,16 @@ public class FastString extends Script {
 		try {
 				if (Bot.getInventory().contains(unstrung, 1) && Bot.getInventory().contains(1777, 1)) {
 					Bot.itemOnItem(1777, unstrung);
-					Thread.sleep(100);
-				} else {
-					Bot.clickNearestBank();
-					Thread.sleep(1500);
-					Bot.depositAllBySlot(0);
 					Thread.sleep(200);
-					Bot.depositAllBySlot(27);
+				} else {
+					//Bot.clickNearestBank();
+					//Thread.sleep(1500);
+					Bot.depositAllBySlot(0);
 					Thread.sleep(200);
 					Bot.withdraw10(1777, Bot.getBank().getSlotByItem(1777));
 					Thread.sleep(200);
 					Bot.withdraw10(unstrung, Bot.getBank().getSlotByItem(unstrung));
-					Thread.sleep(500);
+					Thread.sleep(1000);
 				}
 			
 
