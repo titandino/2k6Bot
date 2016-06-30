@@ -3736,6 +3736,7 @@ public class Client extends RSApplet {
 				atInventoryInterfaceType = 3;
 		}
 		if (l == 543) {
+			Bot.printConsole("Magic on item: "+j+", "+i1+", "+k+", "+anInt1137);
 			stream.createFrame(237);
 			stream.writeWord(j);
 			stream.method432(i1);

@@ -159,6 +159,22 @@ public class Bot {
 		}
 		clientt.writeStream();
 	}
+	
+	public static void alchItem(int itemId) {
+		alchItem(itemId, true);
+	}
+	
+	public static void alchItem(int itemId, boolean highAlch) {
+		magicOnItem(itemId, getInventory().getSlotByItem(itemId), 3214, highAlch ? 1178 : 1162);
+	}
+	
+	public static void magicOnItem(int itemId, int slotId, int toInterface, int fromButton) {
+		clientt.stream.createFrame(237);
+		clientt.stream.writeWord(slotId);
+		clientt.stream.method432(itemId);
+		clientt.stream.writeWord(toInterface);
+		clientt.stream.method432(fromButton);
+	}
 
 	public static void clickNPC(String name, int option) {
 		NPC i = getClosestNPC(name);
