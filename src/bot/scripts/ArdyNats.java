@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import bot.Bot;
+import bot.utils.WorldObject;
 
 public class ArdyNats extends Script {
 
@@ -15,7 +16,7 @@ public class ArdyNats extends Script {
 	int startNats;
 	int[] chests = { 2568, 2567 };
 
-	int[] food = new int[] { 361, 373, 379, 385 };
+	int[] food = new int[] { 379, 361, 373, 385 };
 
 	String stage = "Starting";
 
@@ -32,13 +33,37 @@ public class ArdyNats extends Script {
 		super.run();
 		try {
 			if (hasFood() != -1) {
-				if (Bot.getHealthPercent() < 50.0) {
-					Bot.clickItem(hasFood());
+				if (Bot.clientt.plane != 0) {
+					stage = "Wickeding those nats";
+					if (Bot.getHealthPercent() < 50.0) {
+						Bot.clickItem(hasFood());
+						Thread.sleep(1000);
+					}
+					if (!Bot.isAnimating()) {
+						Bot.clickClosestWorldObject(chests, 2);
+						Thread.sleep(1000);
+					}
+				} else {
+					stage = "Walking upstairs";
+					Bot.clickWorldObject(new WorldObject(1738, 2673, 3300));
 					Thread.sleep(1000);
 				}
-				if (!Bot.isAnimating()) {
-					Bot.clickClosestWorldObject(chests, 2);
+			} else {
+				if (Bot.clientt.plane != 0) {
+					stage = "Walking downstairs";
+					Bot.clickWorldObject(new WorldObject(1740, 2674, 3300));
 					Thread.sleep(1000);
+				} else {
+					stage = "Banking";
+					Bot.clickNearestBank();
+					Thread.sleep(1000);
+					int foodId = -1;
+					for (int i = 0;i < food.length;i++) {
+						if (Bot.getBank().contains(food[i], 1)) {
+							foodId = food[i];
+						}
+					}
+					Bot.withdrawItem(foodId, Bot.getBank().getSlotByItem(foodId));
 				}
 			}
 		} catch (Exception e) {
