@@ -24,7 +24,12 @@ public class Alch extends Script {
 	public void run() {
 		super.run();
 		try {
-			Bot.alchItem(Integer.valueOf(args[1]));
+			int itemId = -1;
+			for (int i = 0;i < 28;i++) {
+				if (Bot.getInventory().getItem(i) != -1 && Bot.getInventory().getItem(i) != 561 && Bot.getInventory().getItem(i) != 995)
+					itemId = Bot.getInventory().getItem(i);
+			}
+			Bot.alchItem(itemId);
 			Thread.sleep(1000);
 		} catch (Exception e) {
 
