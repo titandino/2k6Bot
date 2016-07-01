@@ -31,7 +31,6 @@ public class Clean extends Script {
 					Thread.sleep(1500);
 					Bot.bankAll();
 					Bot.withdrawItem(dirty, Bot.getBank().getSlotByItem(dirty));
-					Bot.walkTo(Bot.getMyPlayerPos());
 					Thread.sleep(500);
 				}
 			
