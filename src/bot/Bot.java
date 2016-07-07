@@ -771,17 +771,8 @@ public class Bot {
 		clientt.stream.writeWord(itemId);
 		clientt.writeStream();
 	}
-
-	public static void clickObject(int objectId, int x, int y) {
-		walkTo(x, y);
-		clientt.stream.createFrame(132);
-		clientt.stream.method433(x);
-		clientt.stream.writeWord(objectId);
-		clientt.stream.method432(y);
-		clientt.writeStream();
-	}
 	
-	private static void clickObject(WorldObject object, int option) {
+	public static void clickObject(WorldObject object, int option) {
 		walkTo(object);
 		if (option == -1 || option == 1) {
 			clientt.stream.createFrame(132);
@@ -994,7 +985,7 @@ public class Bot {
 		} else if (cmd[0].startsWith("inter")) {
 			printConsole("Open: "+Client.openInterfaceID);
 		} else if (cmd[0].startsWith("clicko")) {
-			clickObject(Integer.valueOf(cmd[1]), getMyPlayerPos().getX(), getMyPlayerPos().getY());
+			clickObject(new WorldObject(Integer.valueOf(cmd[1]), getMyPlayerPos().getX(), getMyPlayerPos().getY()));
 			return true;
 		} else if (cmd[0].startsWith("invinfo")) {
 			printConsole("" + Bot.getInventory().freeSlots());

@@ -30,7 +30,7 @@ public class Alch extends Script {
 					itemId = Bot.getInventory().getItem(i);
 			}
 			Bot.alchItem(itemId);
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 		} catch (Exception e) {
 
 		}
