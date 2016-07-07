@@ -33,20 +33,27 @@ public class AIOFish extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (!Bot.isAnimating()) {
-				if (Bot.getInventory().freeSlots() <= 0) {
-					stage = "Banking";
-					Bot.clickNearestBank();
-					Thread.sleep(3000);
-					Bot.bankAll(301, 303, 305, 307, 309, 311);
-					Thread.sleep(1000);
-				} else {
-					stage = "avid_angler.exe";
-					NPC spot = Bot.getClosestNPCNoClip(Integer.valueOf(args[1]));
-					if (spot == null)
-						Bot.walkTo(fishTile);
-					Bot.clickNPCNoClip(Integer.valueOf(args[1]), args[2] != null ? Integer.valueOf(args[2]) : 1);
-					Thread.sleep(3000);
+			NPC spirit = Bot.getClosestNPCNoClip("river troll");
+			if (spirit != null) {
+				Bot.clickClosestWorldObject("bank booth", "use");
+				Thread.sleep(400);
+			} 
+			else {
+				if (!Bot.isAnimating()) {
+					if (Bot.getInventory().freeSlots() <= 0) {
+						stage = "Banking";
+						Bot.clickNearestBank();
+						Thread.sleep(3000);
+						Bot.bankAll(301, 303, 305, 307, 309, 311);
+						Thread.sleep(1000);
+					} else {
+						stage = "avid_angler.exe";
+						NPC spot = Bot.getClosestNPCNoClip(Integer.valueOf(args[1]));
+						if (spot == null)
+							Bot.walkTo(fishTile);
+						Bot.clickNPCNoClip(Integer.valueOf(args[1]), args[2] != null ? Integer.valueOf(args[2]) : 1);
+						Thread.sleep(3000);
+					}
 				}
 			}
 		} catch (Exception e) {
