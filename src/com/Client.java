@@ -2794,46 +2794,46 @@ public class Client extends RSApplet {
 			super.idleTime -= 500;
 			// stream.createFrame(202);
 		}
-		anInt988++;
-		if (anInt988 > 500) {
-			anInt988 = 0;
-			int l1 = (int) (Math.random() * 8D);
-			if ((l1 & 1) == 1)
-				anInt1278 += anInt1279;
-			if ((l1 & 2) == 2)
-				anInt1131 += anInt1132;
-			if ((l1 & 4) == 4)
-				anInt896 += anInt897;
-		}
-		if (anInt1278 < -50)
-			anInt1279 = 2;
-		if (anInt1278 > 50)
-			anInt1279 = -2;
-		if (anInt1131 < -55)
-			anInt1132 = 2;
-		if (anInt1131 > 55)
-			anInt1132 = -2;
-		if (anInt896 < -40)
-			anInt897 = 1;
-		if (anInt896 > 40)
-			anInt897 = -1;
-		anInt1254++;
-		if (anInt1254 > 500) {
-			anInt1254 = 0;
-			int i2 = (int) (Math.random() * 8D);
-			if ((i2 & 1) == 1)
-				minimapInt2 += anInt1210;
-			if ((i2 & 2) == 2)
-				minimapInt3 += anInt1171;
-		}
-		if (minimapInt2 < -60)
-			anInt1210 = 2;
-		if (minimapInt2 > 60)
-			anInt1210 = -2;
-		if (minimapInt3 < -20)
-			anInt1171 = 1;
-		if (minimapInt3 > 10)
-			anInt1171 = -1;
+//		anInt988++;
+//		if (anInt988 > 500) {
+//			anInt988 = 0;
+//			int l1 = (int) (Math.random() * 8D);
+//			if ((l1 & 1) == 1)
+//				anInt1278 += anInt1279;
+//			if ((l1 & 2) == 2)
+//				anInt1131 += anInt1132;
+//			if ((l1 & 4) == 4)
+//				anInt896 += anInt897;
+//		}
+//		if (anInt1278 < -50)
+//			anInt1279 = 2;
+//		if (anInt1278 > 50)
+//			anInt1279 = -2;
+//		if (anInt1131 < -55)
+//			anInt1132 = 2;
+//		if (anInt1131 > 55)
+//			anInt1132 = -2;
+//		if (anInt896 < -40)
+//			anInt897 = 1;
+//		if (anInt896 > 40)
+//			anInt897 = -1;
+//		anInt1254++;
+//		if (anInt1254 > 500) {
+//			anInt1254 = 0;
+//			int i2 = (int) (Math.random() * 8D);
+//			if ((i2 & 1) == 1)
+//				minimapInt2 += anInt1210;
+//			if ((i2 & 2) == 2)
+//				minimapInt3 += anInt1171;
+//		}
+//		if (minimapInt2 < -60)
+//			anInt1210 = 2;
+//		if (minimapInt2 > 60)
+//			anInt1210 = -2;
+//		if (minimapInt3 < -20)
+//			anInt1171 = 1;
+//		if (minimapInt3 > 10)
+//			anInt1171 = -1;
 		anInt1010++;
 		if (anInt1010 > 50)
 			stream.createFrame(0);
@@ -5390,12 +5390,12 @@ public class Client extends RSApplet {
 				spellSelected = 0;
 				loadingStage = 0;
 				anInt1062 = 0;
-				// anInt1278 = (int) (Math.random() * 100D) - 50;
-				// anInt1131 = (int) (Math.random() * 110D) - 55;
-				// anInt896 = (int) (Math.random() * 80D) - 40;
-				// minimapInt2 = (int) (Math.random() * 120D) - 60;
-				// minimapInt3 = (int) (Math.random() * 30D) - 20;
-				// minimapInt1 = (int) (Math.random() * 20D) - 10 & 0x7ff;
+				anInt1278 = (int) (Math.random() * 100D) - 50;
+				anInt1131 = (int) (Math.random() * 110D) - 55;
+				anInt896 = (int) (Math.random() * 80D) - 40;
+				minimapInt2 = (int) (Math.random() * 120D) - 60;
+				minimapInt3 = (int) (Math.random() * 30D) - 20;
+				minimapInt1 = (int) (Math.random() * 20D) - 10 & 0x7ff;
 				anInt1021 = 0;
 				anInt985 = -1;
 				destX = 0;
