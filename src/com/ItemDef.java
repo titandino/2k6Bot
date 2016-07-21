@@ -427,9 +427,11 @@ public final class ItemDef {
 				return;
 			if (i == 1)
 				modelID = stream.readUnsignedWord();
-			else if (i == 2)
+			else if (i == 2) {
 				name = stream.readString();
-			else if (i == 3)
+				if (Client.getHerbNameById(id) != null)
+					name += "("+Client.getHerbNameById(id)+")";
+			} else if (i == 3)
 				description = stream.readBytes();
 			else if (i == 4)
 				modelZoom = stream.readUnsignedWord();

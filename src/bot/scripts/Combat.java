@@ -15,7 +15,7 @@ public class Combat extends Script {
 	
 	public static HashMap<String, String[]> LOOT = new HashMap<String, String[]>();
 	
-	int[] food = new int[] { 361, 373, 379, 385 };
+	int[] food = new int[] { 329, 333, 361, 373, 379, 385 };
 	
 	static {
 		LOOT.put("chaos druid", new String[] {"nature rune", "law rune", "herb", "lantadyme", "air rune", "dragon"});

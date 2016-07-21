@@ -1022,6 +1022,52 @@ public class Client extends RSApplet {
 
 	}
 
+	public static String getHerbNameById(int id) {
+		switch(id) {
+		case 199:
+		case 200:
+			return "Guam";
+		case 201:
+		case 202:
+			return "Marrentill";
+		case 203:
+		case 204:
+			return "Tarromin";
+		case 205:
+		case 206:
+			return "Harralander";
+		case 207:
+		case 208:
+			return "Ranarr";
+		case 209:
+		case 210:
+			return "Irit";
+		case 211:
+		case 212:
+			return "Avantoe";
+		case 213:
+		case 214:
+			return "Kwuarm";
+		case 215:
+		case 216:
+			return "Cadantine";
+		case 217:
+		case 218:
+			return "Dwarf weed";
+		case 219:
+		case 220:
+			return "Torstol";
+		case 3049:
+		case 3050:
+			return "Toadflax";
+		case 3051:
+		case 3052:
+			return "Snapdragon";
+		default:
+			return null;
+		}
+	}
+
 	private void drawScrollbar(int j, int k, int l, int i1, int j1) {
 		scrollBar1.method361(i1, l);
 		scrollBar2.method361(i1, (l + j) - 16);

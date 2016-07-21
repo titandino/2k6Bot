@@ -35,7 +35,7 @@ public class BrimhavenFish extends Script {
 		try {
 			NPC spirit = Bot.getClosestNPCNoClip("river troll");
 			if (spirit != null) {
-				Bot.clickNearestBank();
+				Bot.walkTo(Bot.getMyPlayerPos().translate(0, -10));
 				Thread.sleep(400);
 			} 
 			else {
@@ -47,7 +47,6 @@ public class BrimhavenFish extends Script {
 							Bot.bankAll(301, 303, 305, 307, 309, 311, 314);
 							Thread.sleep(1000);
 						} else {
-							Bot.walkTo(Bot.getMyPlayerPos().translate(0, -10));
 							Thread.sleep(1000);
 						}
 					} else {
