@@ -917,14 +917,17 @@ public class Bot {
 	public static void bankAll(int... safeItem) throws InterruptedException {
 		for (int i = 0; i < 28; i++) {
 			if (getInventory().getItem(i) != -1) {
+				boolean skip = false;
 				for (int j : safeItem) {
 					if (getInventory().getItem(i) == j) {
-						i++;
+						skip = true;
 						break;
 					}
 				}
-				depositItem(getInventory().getItem(i), i);
-				Thread.sleep(200);
+				if (!skip) {
+					depositItem(getInventory().getItem(i), i);
+					Thread.sleep(200);
+				}
 			}
 		}
 	}

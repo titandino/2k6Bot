@@ -48,6 +48,7 @@ public class BrimhavenFish extends Script {
 							Thread.sleep(1000);
 						} else {
 							Bot.walkTo(Bot.getMyPlayerPos().translate(0, -10));
+							Thread.sleep(1000);
 						}
 					} else {
 						stage = "avid_angler.exe";
