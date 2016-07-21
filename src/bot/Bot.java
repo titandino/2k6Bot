@@ -736,16 +736,16 @@ public class Bot {
 		clientt.writeStream();
 	}
 	
-	public static void clickNearestBank() {
+	public static boolean clickNearestBank() {
 		if (getClosestWorldObject("bank booth") != null) {
 			clickClosestWorldObject("bank booth", "use");
-		}
-		else if (getClosestNPCNoClip("banker") != null) {
+		} else if (getClosestNPCNoClip("banker") != null) {
 			clickNPCNoClip("banker", 2);
-		} 
-		else {
+		} else {
 			printConsole("No bank nearby.");
+			return false;
 		}
+		return true;
 	}
 
 	public static void itemOnObject(int itemId, WorldObject object) {

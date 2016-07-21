@@ -42,6 +42,12 @@ public class Tile {
 		this.z = z;
 	}
 	
+	public Tile translate(int x, int y) {
+		this.x += x;
+		this.y += y;
+		return this;
+	}
+	
 	public boolean equals(int x, int y) {
 		return this.getX() == x && this.getY() == y;
 	}
