@@ -1057,6 +1057,9 @@ public class Client extends RSApplet {
 		case 219:
 		case 220:
 			return "Torstol";
+		case 2485:
+		case 2486:
+			return "Lantadyme";
 		case 3049:
 		case 3050:
 			return "Toadflax";

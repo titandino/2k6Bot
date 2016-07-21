@@ -430,7 +430,7 @@ public final class ItemDef {
 			else if (i == 2) {
 				name = stream.readString();
 				if (Client.getHerbNameById(id) != null)
-					name += "("+Client.getHerbNameById(id)+")";
+					name += " ("+Client.getHerbNameById(id)+")";
 			} else if (i == 3)
 				description = stream.readBytes();
 			else if (i == 4)
