@@ -33,7 +33,7 @@ public class VarrockOaks extends Script {
 					stage = "Banking";
 					Bot.clickClosestWorldObject("bank booth");
 					Thread.sleep(3000);
-					Bot.depositAllBySlot(1);
+					Bot.bankAll();
 					Thread.sleep(1000);
 				} else {
 					if (Bot.getXp(Bot.WOODCUTTING) < 2600) {
