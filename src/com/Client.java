@@ -27,7 +27,7 @@ public class Client extends RSApplet {
 	private static final long serialVersionUID = -4346630109161488336L;
 
 	public static String getHost() {
-		return "darklights.no-ip.biz";
+		return "2006scape.hopto.org";
 	}
 
 	public static int getPort() {
@@ -10532,7 +10532,7 @@ public class Client extends RSApplet {
 		duelMode = 0;
 		clanChatMode = 0;
 		cButtonCPos = 0;
-		server = "darklights.no-ip.biz";
+		server = "2006scape.hopto.org";
 		distanceValues = new int[104][104];
 		friendsNodeIDs = new int[200];
 		groundArray = new NodeList[4][104][104];

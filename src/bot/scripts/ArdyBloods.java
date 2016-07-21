@@ -45,7 +45,7 @@ public class ArdyBloods extends Script {
 					}
 				} else {
 					stage = "Walking downstairs";
-					Bot.clickWorldObject(new WorldObject(1738, 2673, 3300));
+					Bot.clickWorldObject(new WorldObject(1754, 2562, 3356));
 					Thread.sleep(1000);
 				}
 			} else {
@@ -55,12 +55,14 @@ public class ArdyBloods extends Script {
 					Thread.sleep(1000);
 				} else {
 					stage = "Banking";
-					Bot.clickNearestBank();
+					//Bot.clickNearestBank();
+					Bot.clickWorldObject(new WorldObject(2213, 2615, 3331));
 					Thread.sleep(1000);
 					int foodId = -1;
 					for (int i = 0;i < food.length;i++) {
 						if (Bot.getBank().contains(food[i], 1)) {
 							foodId = food[i];
+							break;
 						}
 					}
 					Bot.withdrawItem(foodId, Bot.getBank().getSlotByItem(foodId));
