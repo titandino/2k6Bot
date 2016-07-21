@@ -228,6 +228,8 @@ public final class ItemDef {
 
 	public void toNote() {
 		ItemDef itemDef = forID(certTemplateID);
+		if (itemDef == null)
+			return;
 		modelID = itemDef.modelID;
 		modelZoom = itemDef.modelZoom;
 		modelRotation1 = itemDef.modelRotation1;
