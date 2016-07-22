@@ -36,6 +36,8 @@ public class Bot {
 	public static final int ATTACK = 0, DEFENCE = 1, STRENGTH = 2, HITPOINTS = 3, RANGE = 4, PRAYER = 5, MAGIC = 6, COOKING = 7, WOODCUTTING = 8, FLETCHING = 9, FISHING = 10, FIREMAKING = 11, CRAFTING = 12, SMITHING = 13, MINING = 14, HERBLORE = 15,
 			AGILITY = 16, THIEVING = 17, SLAYER = 18, FARMING = 19, RUNECRAFTING = 20;
 	
+	public static boolean FILTER_GAME = false;	
+	
 	public static boolean USE_PROXY = false;
 	public static String PROXY_IP = "174.140.160.29";
 	public static int PROXY_PORT = 60088;
@@ -1030,6 +1032,9 @@ public class Bot {
 		} else if (cmd[0].startsWith("togprox")) {
 			USE_PROXY = !USE_PROXY;
 			printConsole("Proxy: "+USE_PROXY);
+		} else if (cmd[0].startsWith("filter")) {
+			FILTER_GAME = !FILTER_GAME;
+			printConsole("Filtering game messages: "+FILTER_GAME);
 		} else if (cmd[0].startsWith("healthperc")) {
 			printConsole("Health perc: "+getHealthPercent());
 		} else if (cmd[0].startsWith("walktoo")) {
