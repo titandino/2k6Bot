@@ -40,9 +40,7 @@ public class AIOCook extends Script {
 					stage = "This is hot";
 					Bot.itemOnObject(Integer.valueOf(args[1]), Bot.getClosestWorldObject("range"));
 					Thread.sleep(1000);
-					Bot.clickButton(13718);
-					Thread.sleep(1000);
-					Bot.sendIntegerInput(50);
+					Bot.clickButton(13717);
 					Thread.sleep(5000);
 				}
 			}

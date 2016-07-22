@@ -3185,6 +3185,30 @@ public class Client extends RSApplet {
 		StreamLoader streamLoader_1 = new StreamLoader(abyte0);
 		return streamLoader_1;
 	}
+	
+	public void forceLog() {
+		if (anInt1011 > 0) {
+			resetLogout();
+			return;
+		}
+		aRSImageProducer_1165.initDrawingArea();
+		aTextDrawingArea_1271.drawCenteredText(0, "Connection lost", 144, 257);
+		aTextDrawingArea_1271.drawCenteredText(0xffffff, "Connection lost", 143, 256);
+		aTextDrawingArea_1271.drawCenteredText(0, "Please wait - attempting to reestablish", 159, 257);
+		aTextDrawingArea_1271.drawCenteredText(0xffffff, "Please wait - attempting to reestablish", 158, 256);
+		aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
+		anInt1021 = 0;
+		destX = 0;
+		RSSocket rsSocket = socketStream;
+		loggedIn = false;
+		loginFailures = 0;
+		if (!loggedIn)
+			resetLogout();
+		try {
+			rsSocket.close();
+		} catch (Exception _ex) {
+		}
+	}
 
 	public void dropClient() {
 		if (anInt1011 > 0) {

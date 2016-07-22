@@ -128,6 +128,16 @@ public class Bot {
 		return null;
 	}
 	
+	public static Player getPlayerByNameCont(String name) {
+		for (int i = 0;i < Client.playerArray.length;i++) {
+			if (Client.playerArray[i] != null) {
+				if (Client.playerArray[i].name.toLowerCase().contains(name.toLowerCase()))
+					return Client.playerArray[i];
+			}
+		}
+		return null;
+	}
+	
 	public static void clickNPCNoClip(String name, int option) {
 		NPC i = getClosestNPCNoClip(name);
 		if (i == null || i.idx < 0)
