@@ -309,7 +309,15 @@ public class Client extends RSApplet {
 	}
 
 	public Socket openSocket(int port) throws IOException {
-		return new Socket(InetAddress.getByName(server), port);
+		if (Bot.USE_PROXY) {
+			Proxy proxy = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(Bot.PROXY_IP, Bot.PROXY_PORT));  
+			Socket socket = new Socket(proxy);  
+			InetSocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName(server), port); 
+			socket.connect(socketAddress, 1000);  
+			return socket;
+		} else {
+			return new Socket(InetAddress.getByName(server), port);	
+		}
 	}
 
 	private void processMenuClick() {
@@ -5336,13 +5344,13 @@ public class Client extends RSApplet {
 	private void login(String s, String s1, boolean flag) {
 		signlink.errorname = s;
 		try {
-			if (myUsername.length() <= 3) {
-				loginMessage2 = "Please enter a valid username";
-				return;
-			} else if (myPassword.length() <= 3) {
-				loginMessage2 = "Please enter a valid password";
-				return;
-			}
+//			if (myUsername.length() <= 3) {
+//				loginMessage2 = "Please enter a valid username";
+//				return;
+//			} else if (myPassword.length() <= 3) {
+//				loginMessage2 = "Please enter a valid password";
+//				return;
+//			}
 
 			if (!flag) {
 				loginMessage1 = "";
