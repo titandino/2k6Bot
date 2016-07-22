@@ -179,6 +179,50 @@ public class Bot {
 		clientt.stream.writeWord(toInterface);
 		clientt.stream.method432(fromButton);
 	}
+	
+	public static void spellOnNpcNoClip(int name, int spell) {
+		NPC i = getClosestNPCNoClip(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		clientt.stream.createFrame(131);
+		clientt.stream.method433(i.idx);
+		clientt.stream.method432(spell);
+		clientt.writeStream();
+	}
+	
+	public static void spellOnNpcNoClip(String name, int spell) {
+		NPC i = getClosestNPCNoClip(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		clientt.stream.createFrame(131);
+		clientt.stream.method433(i.idx);
+		clientt.stream.method432(spell);
+		clientt.writeStream();
+	}
+	
+	public static void spellOnNpc(int name, int spell) {
+		NPC i = getClosestNPC(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		clientt.stream.createFrame(131);
+		clientt.stream.method433(i.idx);
+		clientt.stream.method432(spell);
+		clientt.writeStream();
+	}
+	
+	public static void spellOnNpc(String name, int spell) {
+		NPC i = getClosestNPC(name);
+		if (i == null || i.idx < 0)
+			return;
+		clientt.doWalkTo(2, 0, 1, 0, Client.myPlayer.smallY[0], 1, 0, i.smallY[0], Client.myPlayer.smallX[0], false, i.smallX[0]);
+		clientt.stream.createFrame(131);
+		clientt.stream.method433(i.idx);
+		clientt.stream.method432(spell);
+		clientt.writeStream();
+	}
 
 	public static void clickNPC(String name, int option) {
 		NPC i = getClosestNPC(name);
@@ -301,7 +345,7 @@ public class Bot {
 		ArrayList<NPC> objects = getFilteredNPCs(id);
 		for (NPC object : objects) {
 			if (object != null) {
-				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
+				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7) + clientt.baseY);
 				if (distance != -99)
 					distanceMap.put(distance, object);
 			}
@@ -318,7 +362,7 @@ public class Bot {
 		ArrayList<NPC> objects = getFilteredNPCs(id);
 		for (NPC object : objects) {
 			if (object != null) {
-				int distance = calculatePathDistance(object.x + clientt.baseX, object.y + clientt.baseY);
+				int distance = calculatePathDistance((object.x >> 7) + clientt.baseX, (object.y >> 7) + clientt.baseY);
 				if (distance != -99)
 					distanceMap.put(distance, object);
 			}

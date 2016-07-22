@@ -22,6 +22,7 @@ public class Combat extends Script {
 		LOOT.put("hill giant", new String[] {"law rune", "bones", "cosmic rune"});
 		LOOT.put("guard", new String[] {"rune", "arrow", "grapes", "bones"});
 		LOOT.put("chicken", new String[] {"feather", "bones"});
+		LOOT.put("man", new String[] {"bones", "herb", "arrow", "rune"});
 	}
 
 	int startAtk;
@@ -92,12 +93,16 @@ public class Combat extends Script {
 
 	public void buryBones() throws InterruptedException {
 		if (Bot.getInventory().contains(526, 1)) {
-			Bot.clickItem(526);
-			Thread.sleep(1000);
+			while(Bot.getInventory().contains(526, 1)) {
+				Bot.clickItem(526);
+				Thread.sleep(1000);
+			}
 		}
 		if (Bot.getInventory().contains(532, 1)) {
-			Bot.clickItem(532);
-			Thread.sleep(1000);
+			while(Bot.getInventory().contains(532, 1)) {
+				Bot.clickItem(532);
+				Thread.sleep(1000);
+			}
 		}
 	}
 

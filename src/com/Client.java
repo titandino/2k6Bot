@@ -3675,6 +3675,7 @@ public class Client extends RSApplet {
 				stream.createFrame(131);
 				stream.method433(i1);
 				stream.method432(anInt1137);
+				Bot.printConsole("Magic on NPC: "+i1+", "+anInt1137);
 			}
 		}
 		if (l == 200)
