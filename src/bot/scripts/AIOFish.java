@@ -33,9 +33,6 @@ public class AIOFish extends Script {
 	public void run() {
 		super.run();
 		try {
-			if (Bot.getPlayerByNameCont("mod") != null) {
-				Bot.clientt.forceLog();
-			}
 			NPC spirit = Bot.getClosestNPCNoClip("river troll");
 			if (spirit != null) {
 				Bot.clickClosestWorldObject("bank booth", "use");

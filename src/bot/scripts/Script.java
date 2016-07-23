@@ -16,11 +16,8 @@ public abstract class Script implements Runnable {
 				started = onStart();
 			}
 		}
-		try {
-			if (Bot.getPlayerByName("mod ali") != null)
-				Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (Bot.getPlayerByNameCont("mod") != null) {
+			Bot.clientt.forceLog();
 		}
 	}
 
