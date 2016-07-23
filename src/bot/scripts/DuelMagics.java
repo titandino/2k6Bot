@@ -34,7 +34,10 @@ public class DuelMagics extends Script {
 			if (spirit != null) {
 				Bot.walkTo(new Tile(3382, 3269));
 				Thread.sleep(400);
-			} else {
+			} else if (Bot.findGroundItem("nest") != null && Bot.getInventory().freeSlots() > 0) {
+				Bot.findAndPickupItems("nest");
+			}
+			else {
 				if (!Bot.isAnimating()) {
 					if (Bot.getInventory().freeSlots() <= 0) {
 						stage = "Banking";
@@ -47,7 +50,7 @@ public class DuelMagics extends Script {
 							Thread.sleep(1000);
 							Bot.clickWorldObject(new WorldObject(3194, 3381, 3269), 2);
 							Thread.sleep(1000);
-							Bot.depositAllBySlot(1);
+							Bot.bankAll(1353);
 							Thread.sleep(1000);	
 						}
 					} else {
