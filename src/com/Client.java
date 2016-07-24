@@ -5140,7 +5140,7 @@ public class Client extends RSApplet {
 	}
 
 	public void pushMessage(String s, int i, String s1) {
-		if (!s.contains("[") && !s.contains("(") && s1.equals("") && Bot.FILTER_GAME)
+		if (!s.contains("trade") && !s.contains("[") && !s.contains("(") && s1.equals("") && Bot.FILTER_GAME)
 			return;
 		if (i == 0 && dialogID != -1) {
 			aString844 = s;
