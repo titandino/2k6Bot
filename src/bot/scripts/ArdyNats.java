@@ -40,8 +40,14 @@ public class ArdyNats extends Script {
 						Thread.sleep(1000);
 					}
 					if (!Bot.isAnimating()) {
-						Bot.clickClosestWorldObject(chests, 2);
-						Thread.sleep(1000);
+						if (Bot.getClosestWorldObject(2567) != null) {
+							Bot.clickObject(new WorldObject(2567, 2671, 3301), 2);
+							Thread.sleep(1500);
+						}
+						if (Bot.getClosestWorldObject(2568) != null) {
+							Bot.clickObject(new WorldObject(2568, 2671, 3299), 2);
+							Thread.sleep(1500);
+						}
 					}
 				} else {
 					stage = "Walking upstairs";
