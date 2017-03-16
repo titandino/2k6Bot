@@ -27,11 +27,11 @@ public class Client extends RSApplet {
 	private static final long serialVersionUID = -4346630109161488336L;
 
 	public static String getHost() {
-		return "2006scape.hopto.org";
+		return "104.131.99.135";
 	}
 
 	public static int getPort() {
-		return 43594;
+		return 43595;
 	}
 
 	public int scrollbar_position;
@@ -10616,7 +10616,7 @@ public class Client extends RSApplet {
 		duelMode = 0;
 		clanChatMode = 0;
 		cButtonCPos = 0;
-		server = "2006scape.hopto.org";
+		server = "104.131.99.135";
 		distanceValues = new int[104][104];
 		friendsNodeIDs = new int[200];
 		groundArray = new NodeList[4][104][104];
